@@ -1,42 +1,90 @@
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Accom4U - Login</title>
+    <link rel="icon" type="image/png" href="images/A4U_logo.png">
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <header>
-        <h1 id="header1" >Login</h1>
+
+    <header class="header">
+        <div class="logo-header">
+            <img src="images/A4U_logo.png" class="logo">
+            <h1 class="title">Accom4U</h1>
+        </div>
+
+        <nav class="navibar">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <a class="login" href="login.html"><b>Log In</b></a>
+
     </header>
 
-    <form id= "form" action="verification.php" method="post">
-        <h3>Username</h3>
-        <input type="text" name="username" required>
-        <h3>Password</h3>
-        <input type="password" name="password" required>
-        <br>
-        <input type="submit" value="Login">
-        <br><br>
-        <a href="register.php" class="register-link">Don't have an account? Register here</a>
-  
+    <main>
+        <div class="login-form">
+            <form id="loginForm" onsubmit="event.preventDefault(); login();">
+                <h1>Login</h1>
 
-    <div>
-        <h3>Or</h3>
-        <a href="guest.php" class="guest-link">Browse as Guest</a>
-    </div>
-    </form>
+                <div class="login-details">
+                    Username or Email:
+                    <input type="text" id="loginUsernameOrEmail" name="usernameOrEmail" placeholder="Enter username or email" required>
+                </div>
+
+                <div class="login-details">
+                    Password:
+                    <input type="password" id="loginPassword" name="password" placeholder="Enter password" required>
+                </div>
+
+                <div class="login-details">
+                    <input type="submit" value="Login">
+                    <input type="reset" value="Clear">
+                    <br><br>
+                    Don’t have an account? <a href="register.html" class="register-link">Register Here</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2025 Accom4U. All rights reserved.</p>
+    </footer>
+
+    <script>
+        async function login() {
+            const usernameOrEmail = document.getElementById("loginUsernameOrEmail").value.trim();
+            const password = document.getElementById("loginPassword").value;
+
+            try {
+                const res = await fetch("database_setup.php?path=login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ usernameOrEmail, password }),
+                    credentials: "include"
+                });
+
+                const data = await res.json();
+                alert(data.message);
+
+                if (data.status === "success") {
+                    window.location.href = "index.html";
+                }
+
+            } catch (err) {
+                alert("Error connecting to server.");
+                console.error(err);
+            }
+        }
+    </script>
 
 </body>
 </html>
