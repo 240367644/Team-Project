@@ -1,6 +1,6 @@
 async function loadProducts() {
     try {
-        const res = await fetch("database_setup.php?path=getProducts");
+        const res = await fetch("database_products.php?path=getProducts");
         const data = await res.json();
 
         if (data.status !== "success") {
