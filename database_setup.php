@@ -6,9 +6,9 @@ error_reporting(E_ALL);
 header("Content-Type: application/json");
 session_start();
 
-// database settings, change if needed to check another database
+// database settings
 $db_host = "localhost";
-$db_name = "cs2team49_login_system";
+$db_name = "cs2team49_product";
 $db_user = "cs2team49";
 $db_pass = "TxxB1oKh6zkcPBjuycWZvO8oz";
 
@@ -29,7 +29,8 @@ try {
 
 $path = $_GET['path'] ?? '';
 
-// register section
+
+// ==================== REGISTER PATH ====================
 if ($path === "register") {
     $data = json_decode(file_get_contents("php://input"), true);
 
@@ -59,6 +60,7 @@ if ($path === "register") {
             exit;
         }
 
+        // hash password and insert user
         $hashed = password_hash($password, PASSWORD_DEFAULT);
         $stmt = $db->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
         $stmt->execute([$username, $email, $hashed]);
@@ -70,7 +72,8 @@ if ($path === "register") {
     exit;
 }
 
-// login section
+
+// ==================== LOGIN PATH ====================
 if ($path === "login") {
     $data = json_decode(file_get_contents("php://input"), true);
 
@@ -93,6 +96,7 @@ if ($path === "login") {
             exit;
         }
 
+        // verify password
         if (!password_verify($password, $user["password"])) {
             echo json_encode(["status" => "error", "message" => "Incorrect password"]);
             exit;
@@ -108,7 +112,8 @@ if ($path === "login") {
     exit;
 }
 
-// get the user info, utilised for the contact page
+
+// ==================== GET USER INFO PATH (Contact Page) ====================
 if ($path === "getUserInfo") {
     $userId = $_SESSION['user_id'] ?? null;
 
@@ -137,7 +142,8 @@ if ($path === "getUserInfo") {
     exit;
 }
 
-// validate contact form inputs
+
+// ==================== VALIDATE CONTACT FORM INPUTS ====================
 if ($path === "validateContactForm") {
     $data = json_decode(file_get_contents("php://input"), true);
 
@@ -165,11 +171,11 @@ if ($path === "validateContactForm") {
     exit;
 }
 
-// fetch products
+
+// ==================== GET PRODUCTS PATH (Products Page) ====================
 if ($path === "getProducts") {
     try {
-        $stmt = $db->prepare("SELECT id, category_id, product_name, product_price, product_quantity FROM products");
-        $stmt->execute();
+        $stmt = $db->query("SELECT * FROM products");
         $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         echo json_encode([
@@ -186,7 +192,6 @@ if ($path === "getProducts") {
 }
 
 
-// invalid endpoint error message
+// ==================== INVALID ENDPOINT FALLBACK ====================
 echo json_encode(["status" => "error", "message" => "Invalid endpoint"]);
 exit;
-?>
