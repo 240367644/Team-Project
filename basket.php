@@ -57,6 +57,7 @@ if ($path === "addItem") {
         $_SESSION['basket'][$product_id]['quantity'] += 1;
     } else {
         $_SESSION['basket'][$product_id] = [
+            "id"=> $product['id'],
             "name" => $product['product_name'],
             "price" => $product['product_price'],
             "quantity" => 1
