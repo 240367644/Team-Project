@@ -38,7 +38,13 @@ if (!isset($_SESSION['user_id'])) {
         </ul>
             </nav>
 
-            <a class="login" href="login.html"><b>Log In</b></a>
+        <div class="login">
+            <?php if (isset($_SESSION['user_id'])): ?>
+                Logged in
+            <?php else: ?>
+                <a href="login.html">Login</a> | 
+            <?php endif; ?>
+        </div>
 
         </header>
 
