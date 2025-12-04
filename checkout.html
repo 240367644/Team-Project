@@ -1,117 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<<<<<<< HEAD
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accom4U</title>
-    <link rel="icon" type="image/png" href="images/A4U_logo.png">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-
-<body>
-
-    <header class="header">
-        <div class="logo-header">
-            <img src="images/A4U_logo.png" class="logo">
-            <h1 class="title">Accom4U</h1>
-        </div>
-
-        <nav class="navibar">
-            <ul>
-                <li><a href="index.html" id="current-page">Home</a></li>
-                <li><a href="aboutus.html">About Us</a></li>
-                <li><a href="products.html">Products</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-
-        <a class="login" href="login.html"><b>Log In</b></a>
-    </header>
-
-    <main>
-        <div class="contact-container">
-            <div class="contact-left">
-                <img src="/Assets/Email_Image.jpg" width="30%" height="30%" alt="">
-            </div>
-
-            <form action="" class="contact-right">
-                <div class="contact-right-title">
-                    <h2>Get in Touch</h2>
-                    <hr>
-                    <p>If you have any enquiries, please use the contact form!</p>
-                    <hr>
-                </div>
-
-                <!-- Added IDs for JS targeting -->
-                <input type="text" id="contactName" name="name" placeholder="Your Name" class="contact-inputs" required>
-                <input type="email" id="contactEmail" name="email" placeholder="Your Email" class="contact-inputs" required>
-                <textarea name="message" placeholder="Your Message" class="contact-inputs" required></textarea>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-    </main>
-
-    <footer class="footer">
-        <p>© 2025 Accom4U. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // Pre-fill user info when the page loads
-        async function fetchUserInfo() {
-            try {
-                const res = await fetch("database_setup.php?path=getUserInfo", {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" }
-                });
-
-                const data = await res.json();
-
-                if (data.status === "success") {
-                    document.getElementById("contactName").value = data.username || '';
-                    document.getElementById("contactEmail").value = data.email || '';
-                } else {
-                    console.warn(data.message);
-                }
-            } catch (err) {
-                console.error("Error fetching user info:", err);
-            }
-        }
-
-        window.addEventListener("DOMContentLoaded", fetchUserInfo);
-
-        // Validate username and email before form submission
-        document.querySelector('.contact-right').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const username = document.getElementById('contactName').value.trim();
-            const email = document.getElementById('contactEmail').value.trim();
-
-            try {
-                const res = await fetch('database_setup.php?path=validateContactForm', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, email })
-                });
-
-                const data = await res.json();
-
-                if (data.status === 'success') {
-                    alert('Form submitted successfully!');
-                    this.submit(); // Submit the form after validation
-                } else {
-                    alert(data.message);
-                }
-            } catch (err) {
-                console.error(err);
-                alert('Error validating user info.');
-            }
-        });
-    </script>
-</body>
-</html>
-=======
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -143,53 +32,35 @@
 
         <main class="checkout-page">
 
-    <h2>Checkout</h2>
+        <main>
+        <div class="contact-container">
+            <div class="contact-left">
+            	<div class="contact-right-title">
+            		<h2>Order Summary</h2>
+					<hr>
+   		         	<b>Cart data goes here</b>
+   		         	<hr>
+       			    <b>Total: (data from total cart cost here)</b>
+                </div>
+            </div>
 
-    <div class="checkout-container">
-
-        <section class="checkout-form">
-            <h3>Delivery Details</h3>
-
-            <form>
-                <label>Full Name</label>
-                <input type="text" placeholder="Enter your name">
-
-                <label>Address</label>
-                <input type="text" placeholder="Street and house number">
-
-                <label>City</label>
-                <input type="text" placeholder="City">
-
-                <label>Postcode</label>
-                <input type="text" placeholder="Postcode">
-
-                <label>Phone Number</label>
-                <input type="text" placeholder="Phone number">
+            <form action="" class="contact-right">
+                <div class="contact-right-title">
+                    <h2>Checkout</h2>
+                    <hr>
+                    <p> Enter your payment and delivery details here</p>
+                    <hr>
+                </div>
+                <input type="text" name="name" placeholder="Your Full name" class="contact-inputs" required>
+                <input type="email" name="email" placeholder="Phone Number" class="contact-inputs" required>
+                <input type="email" name="email" placeholder="Address" class="contact-inputs" required>
+                <input type="email" name="email" placeholder="Post Code" class="contact-inputs" required>
+                <input type="email" name="email" placeholder="Card Number" class="contact-inputs" required>
+                <input type="email" name="email" placeholder="Expiry date" class="contact-inputs" required>
+                <input type="email" name="email" placeholder="CVV" class="contact-inputs" required>
+                <button type="submit">Place order</button>
             </form>
-        </section>
-
-        <section class="checkout-summary">
-            <h3>Order Summary</h3>
-
-            <div class="summary-line">
-                <span>Subtotal</span>
-                <span>£19.99</span>
-            </div>
-
-            <div class="summary-line">
-                <span>Delivery</span>
-                <span>£0.00</span>
-            </div>
-
-            <div class="summary-total">
-                <span>Total</span>
-                <span>£19.99</span>
-            </div>
-
-            <button class="pay-btn">Confirm & Pay</button>
-        </section>
-
-    </div>
+        </div>
 
 </main>
 
@@ -201,4 +72,3 @@
 
     </body>
 </html>
->>>>>>> 9a4ef3e0f817a8feb366ccfd525d31ab49851e94
