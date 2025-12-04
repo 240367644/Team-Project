@@ -23,7 +23,6 @@
             <li><a href="aboutus.html">About Us</a></li>
             <li><a href="products.html">Products</a></li>
             <li><a href="contact.html">Contact</a></li>
-            <li><a href="orders.html" id="current-page" >Orders</a>></a></li>
         </ul>
             </nav>
 
@@ -31,35 +30,58 @@
 
         </header>
 
-        <br><br><br>
+        <main class="orders">
 
-        <main>
+    <h2>Your Basket</h2>
 
-            <div class="about-us">
-                <div class="about-text">
-                <h2>About Us</h2>
-                <h3>Our Vision</h3>
-                <p>Our aim is to support university students who are moving into an accommodation
-                    for the first time (or returning) by providing high-quality, affordable essentials.
-                    We understand that in can be overwhelming trying to design your own space while also keeping
-                    it comfortable, so we're here to light the load! With fast delivery and reliable customer
-                    support, we will make your move in stress-free.
-                </p>
-                
-                 <div class="socials">
+    <div class="basket-container">
 
+        <div class="basket-items">
+
+            <!-- Example product  -->
+            <div class="basket-item">
+                <img src="images/sample-product.jpg" alt="Product Image">
+
+                <div class="item-details">
+                    <h3>Sample Product Name</h3>
+                    <p class="item-price">£19.99</p>
+
+                    <div class="quantity-control">
+                        <button class="qty-btn decrease">-</button>
+                        <span class="item-qty">1</span>
+                        <button class="qty-btn increase">+</button>
+                    </div>
+
+                    <button class="remove-item">Remove</button>
                 </div>
-                <a href="contact.html" class="contact-button">CONTACT US FOR MORE</a>
-                </div>
-
-                <img src="images/aboutus.jpg" Alt="About Us">
             </div>
 
+        </div>
 
+        <div class="basket-summary">
+            <h3>Order Summary</h3>
 
-        </main>
+            <div class="summary-line">
+                <span>Subtotal</span>
+                <span>£19.99</span>
+            </div>
 
-        <br><br><br>
+            <div class="summary-line">
+                <span>Delivery</span>
+                <span>£0.00</span>
+            </div>
+
+            <div class="summary-total">
+                <span>Total</span>
+                <span>£19.99</span>
+            </div>
+
+            <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+        </div>
+
+    </div>
+
+</main>
 
         <footer class="footer">
 
@@ -68,4 +90,4 @@
         </footer>
 
     </body>
-</html> 
+</html>
