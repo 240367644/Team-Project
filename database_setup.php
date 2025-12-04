@@ -165,6 +165,27 @@ if ($path === "validateContactForm") {
     exit;
 }
 
+// fetch products
+if ($path === "getProducts") {
+    try {
+        $stmt = $db->prepare("SELECT id, category_id, product_name, product_price, product_quantity FROM products");
+        $stmt->execute();
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode([
+            "status" => "success",
+            "data" => $products
+        ]);
+    } catch (PDOException $e) {
+        echo json_encode([
+            "status" => "error",
+            "message" => "Database error: " . $e->getMessage()
+        ]);
+    }
+    exit;
+}
+
+
 // invalid endpoint error message
 echo json_encode(["status" => "error", "message" => "Invalid endpoint"]);
 exit;
