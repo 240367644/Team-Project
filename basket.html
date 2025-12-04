@@ -1,93 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basket - Accom4U</title>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Accom4U</title>
-        <link rel="icon" type="image/png" href="images/A4U_logo.png">
-        <link rel="stylesheet" href="css/style.css">
-    </head>
+    <style>
+        body { font-family: Arial; margin: 0; background: #f8f8f8; }
+        header, footer { background: #222; color: #fff; padding: 15px; text-align: center; }
+        .basket-container { display: flex; margin: 20px; gap: 20px; }
+        .basket-items { flex: 2; background: white; padding: 15px; border-radius: 8px; }
+        .basket-item { display: flex; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #ccc; }
+        .basket-item img { width: 100px; height: 100px; object-fit: cover; }
+        .item-details { flex: 1; }
+        .quantity-control { display: flex; align-items: center; gap: 10px; }
+        .quantity-control button { padding: 5px 10px; cursor: pointer; }
+        .remove-item { margin-top: 10px; padding: 5px 10px; background: red; color: white; border: none; cursor: pointer; }
+        .basket-summary { flex: 1; background: white; padding: 15px; border-radius: 8px; height: fit-content; }
+        .summary-line, .summary-total { display: flex; justify-content: space-between; margin: 10px 0; }
+        .checkout-btn { display: block; background: green; color: white; padding: 10px; text-align: center; border-radius: 5px; margin-top: 10px; text-decoration: none; }
+    </style>
+</head>
 
-    <body>
+<body>
 
-        <header class="header">
-            <div class="logo-header">
-                <img src="images/A4U_logo.png" class="logo">
-                <h1 class="title">Accom4U</h1>
-            </div>
+<header>
+    <h1>Accom4U - Your Basket</h1>
+</header>
 
-            <nav class="navibar">
-        <ul>
-            <li><a href="index.html" id="current-page">Home</a></li>
-            <li><a href="aboutus.html">About Us</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-            </nav>
+<main class="basket-container">
 
-            <a class="login" href="login.html"><b>Log In</b></a>
+    <div class="basket-items"></div>
 
-        </header>
+    <div class="basket-summary">
+        <h3>Order Summary</h3>
 
-        <main class="basket-page">
-
-    <h2>Your Basket</h2>
-
-    <div class="basket-container">
-
-        <div class="basket-items">
-
-            <!-- Example product  -->
-            <div class="basket-item">
-                <img src="images/sample-product.jpg" alt="Product Image">
-
-                <div class="item-details">
-                    <h3>Sample Product Name</h3>
-                    <p class="item-price">£19.99</p>
-
-                    <div class="quantity-control">
-                        <button class="qty-btn decrease">-</button>
-                        <span class="item-qty">1</span>
-                        <button class="qty-btn increase">+</button>
-                    </div>
-
-                    <button class="remove-item">Remove</button>
-                </div>
-            </div>
-
+        <div class="summary-line">
+            <span>Subtotal</span>
+            <span id="subtotal">£0.00</span>
         </div>
 
-        <div class="basket-summary">
-            <h3>Order Summary</h3>
-
-            <div class="summary-line">
-                <span>Subtotal</span>
-                <span>£19.99</span>
-            </div>
-
-            <div class="summary-line">
-                <span>Delivery</span>
-                <span>£0.00</span>
-            </div>
-
-            <div class="summary-total">
-                <span>Total</span>
-                <span>£19.99</span>
-            </div>
-
-            <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+        <div class="summary-line">
+            <span>Delivery</span>
+            <span>£0.00</span>
         </div>
 
+        <div class="summary-total">
+            <span>Total</span>
+            <span id="total">£0.00</span>
+        </div>
+
+        <a href="#" class="checkout-btn">Proceed to Checkout</a>
     </div>
 
 </main>
 
-        <footer class="footer">
+<footer>
+    © 2025 Accom4U
+</footer>
 
-            <p>© 2025 Accom4U. All rights reserved.</p>
-            
-        </footer>
+<script>
+let basket = []; // will be loaded from backend
 
-    </body>
+/* -------------------------
+   Load basket from PHP backend
+---------------------------*/
+function loadBasket() {
+    fetch('basket.php?path=getBasket')
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === "success") {
+                basket = Object.values(data.basket); // convert cart object to array
+                displayBasket(data.summary);
+            } else {
+                console.log("Error loading basket:", data.message);
+            }
+        })
+        .catch(err => console.log("Fetch error:", err));
+}
+
+/* -------------------------
+   Display Basket Contents
+---------------------------*/
+function displayBasket(summary = null) {
+    const container = document.querySelector(".basket-items");
+    container.innerHTML = "";
+
+    let subtotal = 0;
+
+    basket.forEach((item, index) => {
+        subtotal += item.price * item.quantity;
+
+        container.innerHTML += `
+            <div class="basket-item">
+                <img src="${item.image || 'images/sample-product.jpg'}" alt="product">
+
+                <div class="item-details">
+                    <h3>${item.name}</h3>
+                    <p>£${item.price.toFixed(2)}</p>
+
+                    <div class="quantity-control">
+                        <button onclick="changeQty(${index}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="changeQty(${index}, 1)">+</button>
+                    </div>
+
+                    <button class="remove-item" onclick="removeItem(${index})">Remove</button>
+                </div>
+            </div>
+        `;
+    });
+
+    if (summary) {
+        document.getElementById("subtotal").textContent = "£" + summary.subtotal.toFixed(2);
+        document.getElementById("total").textContent = "£" + summary.total.toFixed(2);
+    } else {
+        document.getElementById("subtotal").textContent = "£" + subtotal.toFixed(2);
+        document.getElementById("total").textContent = "£" + subtotal.toFixed(2);
+    }
+}
+
+/* -------------------------
+   Change Quantity
+---------------------------*/
+function changeQty(index, amount) {
+    const item = basket[index];
+    const newQty = item.quantity + amount;
+
+    if (newQty <= 0) {
+        removeItem(index);
+        return;
+    }
+
+    fetch('basket.php?path=updateQuantity', {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        body: `product_id=${item.id}&quantity=${newQty}`
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") loadBasket();
+    });
+}
+
+/* -------------------------
+   Remove Item
+---------------------------*/
+function removeItem(index) {
+    const item = basket[index];
+    fetch('basket.php?path=removeFromCart', {
+        method: 'POST',
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+        body: `product_id=${item.id}`
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") loadBasket();
+    });
+}
+
+/* -------------------------
+   Initial load
+---------------------------*/
+document.addEventListener('DOMContentLoaded', loadBasket);
+</script>
+
+</body>
 </html>
