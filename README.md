@@ -1,6 +1,6 @@
 # Accom4U (Team 49)
 Accom4U is an e-commerce website designed to provide an easy way for students to search for and purchase essentials for their accommodations.
-*
+<br>
 ## Features
 - Landing Page
 - About Us
@@ -8,10 +8,10 @@ Accom4U is an e-commerce website designed to provide an easy way for students to
 - Contact Form
 - Functional Log In/Register
 - Basket and Dummy Checkout
-*
+<br>
 ## Deployed Website
 Link: https://cs2team49.cs2410-web01pvm.aston.ac.uk/index.html
-*
+<br>
 ## Team Members
 - Ateeq Ali - 240118253
 - Lamin Bayo Bah - 240377012
