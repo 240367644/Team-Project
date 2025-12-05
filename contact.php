@@ -1,3 +1,8 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,15 +24,20 @@
 
             <nav class="navibar">
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="aboutus.html">About Us</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="aboutus.php">About Us</a></li>
+            <li><a href="products.php">Products</a></li>
+            <li><a href="contact.php">Contact</a></li>
         </ul>
             </nav>
 
-            <a class="login" href="login.html"><b>Log In</b></a>
-            <a class="basket-icon" href="basket.html">
+            <?php if(isset($_SESSION['user_id'])): ?>
+                <a class="login" href="logout.php"><b>Logout</b></a>
+            <?php else: ?>
+                <a class="login" href="login.html"><b>Log In</b></a>
+            <?php endif; ?>
+
+            <a class="basket-icon" href="basketpage.php">
                 <img src="images/basket.png" class="basket-icon" alt="Basket">
             </a>
 

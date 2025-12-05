@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.html");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,7 +58,7 @@
             <span id="total">£0.00</span>
         </div>
 
-        <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+        <a href="checkout.php" class="checkout-btn">Proceed to Checkout</a>
     </div>
 
 </main>
