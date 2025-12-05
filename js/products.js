@@ -34,8 +34,8 @@ for (let i of products.data) {
 
     card.dataset.name = i.productName;
     card.dataset.price = i.price;
-    card.dataset.description = "A great product for students.";
     card.dataset.img = i.image;
+    card.dataset.description = "A great product for students!";
 
     let imgContainer = document.createElement("div");
     imgContainer.classList.add("image-container");
@@ -169,16 +169,37 @@ searchInput.addEventListener("keypress", (e) => {
   addToCartBtn.addEventListener('click', function () {
     if (!currentProduct) return;
 
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+addToCartBtn.addEventListener('click', () => {
+    if (!currentProduct) return;
+
+    let formData = new URLSearchParams();
+    formData.append("name", currentProduct.name);
+    formData.append("price", currentProduct.price);
+    formData.append("image", currentProduct.img);
+    formData.append("quantity", 1);
+
+    fetch("basket.php?path=addToCart", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formData.toString()
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            console.log("Added to cart (PHP):", currentProduct);
+            popupBg.classList.remove('show');
+        } else {
+            console.error("Cart error:", data.message);
+        }
+    })
+    .catch(err => console.error("Fetch error:", err));
+});
 
     const item = {
       name: currentProduct.name,
       price: Number(currentProduct.price),
       qty: 1
     };
-
-    cart.push(item);
-    localStorage.setItem('cart', JSON.stringify(cart));
 
     closePopup();
   });
