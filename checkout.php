@@ -54,13 +54,43 @@
                     <p> Enter your payment and delivery details here</p>
                     <hr>
                 </div>
-                <input type="text" name="name" placeholder="Your Full name" class="contact-inputs" required>
-                <input type="email" name="email" placeholder="Phone Number" class="contact-inputs" required>
-                <input type="email" name="email" placeholder="Address" class="contact-inputs" required>
-                <input type="email" name="email" placeholder="Post Code" class="contact-inputs" required>
-                <input type="email" name="email" placeholder="Card Number" class="contact-inputs" required>
-                <input type="email" name="email" placeholder="Expiry date" class="contact-inputs" required>
-                <input type="email" name="email" placeholder="CVV" class="contact-inputs" required>
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" class="checkout-inputs" placeholder="Your Full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="Phone">Phone Number</label>
+                    <input type="text" id="phone" class="checkout-inputs"  placeholder="Phone Number"  required>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" class="checkout-inputs" placeholder="Address"  required>
+                </div>
+                 
+                <div class="form-group">
+                    <label for="postcode">Post Code</label>
+                    <input type="text" id="postcode" class="checkout-inputs" placeholder="Post Code"  required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" class="checkout-inputs" placeholder="Card Number"  required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="expiryDate">Expiry Date</label>
+                    <input type="text" id="expiryDate" class="checkout-inputs" placeholder="Expiry date"  required>
+                </div>
+
+                
+                <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" class="checkout-inputs" placeholder="CVV"  required>
+               </div>
+                
+
                 <button type="submit">Place order</button>
             </form>
         </div>
