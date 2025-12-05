@@ -100,7 +100,7 @@ if ($path === "login") {
 
         // Stores the userid in session
         $_SESSION['user_id'] = $user['user_id'];
-        $_SESSION['username'] = $user['username'];
+        $_session['username'] = $user['username'];
         echo json_encode(["status" => "success", "message" => "Login successful!"]);
     } catch (PDOException $e) {
         echo json_encode(["status" => "error", "message" => "Database error: " . $e->getMessage()]);

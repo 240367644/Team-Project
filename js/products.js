@@ -1,30 +1,3 @@
-let products = {
-    data:[
-        {
-        productName: "House Plant",
-        category: "decor-lighting",
-        price: "5",
-        image: "../images/houseplant.jpg"
-
-    },
-    {
-        productName: "Table Lamp",
-        category: "decor-lighting",
-        price: "6",
-        image: "../images/tablelamp.png"
-
-    },
-    {
-        productName: "Table Lamp",
-        category: "decor-lighting",
-        price: "6",
-        image: "../images/tablelamp.png"
-
-    },
-
-],
-};
-
 const urlParams = new URLSearchParams(window.location.search);
 const initialCategory = urlParams.get("category");
 
@@ -34,9 +7,10 @@ for (let i of products.data) {
 
     card.dataset.name = i.productName;
     card.dataset.price = i.price;
-    card.dataset.description = "A great product for students.";
     card.dataset.img = i.image;
+    card.dataset.description = "A great product for students!";
 
+    card.classList.add("card", i.category);
     let imgContainer = document.createElement("div");
     imgContainer.classList.add("image-container");
     let image = document.createElement("img");
@@ -61,7 +35,7 @@ for (let i of products.data) {
 
 let buttons = document.querySelectorAll(".button-val");
 
-let cards = document.querySelectorAll(".product-card");
+let cards = document.querySelectorAll(".card");
 
 buttons.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -101,7 +75,7 @@ searchButton.addEventListener("click", () => {
 if (initialCategory) {
     buttons.forEach(btn => {
         if (btn.dataset.category === initialCategory) {
-            btn.click();   // simulate clicking the button
+            btn.click();
         }
     });
 }
@@ -169,16 +143,37 @@ searchInput.addEventListener("keypress", (e) => {
   addToCartBtn.addEventListener('click', function () {
     if (!currentProduct) return;
 
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+addToCartBtn.addEventListener('click', () => {
+    if (!currentProduct) return;
+
+    let formData = new URLSearchParams();
+    formData.append("name", currentProduct.name);
+    formData.append("price", currentProduct.price);
+    formData.append("image", currentProduct.img);
+    formData.append("quantity", 1);
+
+    fetch("basket.php?path=addToCart", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formData.toString()
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            console.log("Added to cart (PHP):", currentProduct);
+            popupBg.classList.remove('show');
+        } else {
+            console.error("Cart error:", data.message);
+        }
+    })
+    .catch(err => console.error("Fetch error:", err));
+});
 
     const item = {
       name: currentProduct.name,
       price: Number(currentProduct.price),
       qty: 1
     };
-
-    cart.push(item);
-    localStorage.setItem('cart', JSON.stringify(cart));
 
     closePopup();
   });

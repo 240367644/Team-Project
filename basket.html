@@ -1,11 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.html");
-    exit;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +26,7 @@ if (!isset($_SESSION['user_id'])) {
 
 <header>
     <h1>Accom4U - Your Basket</h1>
+    <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
 </header>
 
 <main class="basket-container">
@@ -58,7 +51,7 @@ if (!isset($_SESSION['user_id'])) {
             <span id="total">£0.00</span>
         </div>
 
-        <a href="checkout.php" class="checkout-btn">Proceed to Checkout</a>
+        <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
     </div>
 
 </main>
@@ -170,7 +163,21 @@ function removeItem(index) {
 /* -------------------------
    Initial load
 ---------------------------*/
-document.addEventListener('DOMContentLoaded', loadBasket);
+document.addEventListener('DOMContentLoaded', () => {
+    loadBasket();
+
+    // Dynamic login/logout link based on session
+    fetch('session.php', { credentials: 'include' })
+        .then(res => res.json())
+        .then(data => {
+            const loginLink = document.getElementById('loginLink');
+            if (data.loggedIn) {
+                loginLink.href = 'logout.php';
+                loginLink.innerHTML = '<b>Logout</b>';
+            }
+        })
+        .catch(err => console.error('Error checking session:', err));
+});
 </script>
 
 </body>
