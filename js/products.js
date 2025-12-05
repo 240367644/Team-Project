@@ -1,35 +1,15 @@
-let products = {
-    data:[
-        {
-        productName: "House Plant",
-        category: "decor-lighting",
-        price: "5",
-        image: "../images/houseplant.jpg"
-
-    },
-    {
-        productName: "Table Lamp",
-        category: "decor-lighting",
-        price: "6",
-        image: "../images/tablelamp.png"
-
-    },
-    {
-        productName: "Table Lamp",
-        category: "decor-lighting",
-        price: "6",
-        image: "../images/tablelamp.png"
-
-    },
-
-],
-};
-
 const urlParams = new URLSearchParams(window.location.search);
 const initialCategory = urlParams.get("category");
 
 for (let i of products.data) {
     let card = document.createElement("div");
+    card.classList.add("product-card", i.category);
+
+    card.dataset.name = i.productName;
+    card.dataset.price = i.price;
+    card.dataset.img = i.image;
+    card.dataset.description = "A great product for students!";
+
     card.classList.add("card", i.category);
     let imgContainer = document.createElement("div");
     imgContainer.classList.add("image-container");
@@ -95,27 +75,107 @@ searchButton.addEventListener("click", () => {
 if (initialCategory) {
     buttons.forEach(btn => {
         if (btn.dataset.category === initialCategory) {
-            btn.click();   // simulate clicking the button
+            btn.click();
         }
     });
 }
-
-/* searchInput.addEventListener("keyup", () => {
-    let searchText = searchInput.value.toLowerCase();
-
-    cards.forEach(card => {
-        let name = card.querySelector(".product-name").innerText.toLowerCase();
-
-        if (name.includes(searchText)) {
-            card.style.display = "block";
-        } else {
-            card.style.display = "none";
-        }
-    });
-}); */
 
 searchInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
         searchButton.click();
     }
 });
+
+(function () {
+  const productsDisplay = document.getElementById('products-display');
+  const popupBg = document.getElementById('popupBg');
+  const popupName = document.getElementById('popupName');
+  const popupDescription = document.getElementById('popupDescription');
+  const popupPrice = document.getElementById('popupPrice');
+  const addToCartBtn = document.getElementById('addToCart');
+  const closePopupBtn = document.getElementById('closePopupBtn');
+
+  let currentProduct = null;
+
+  if (!productsDisplay) {
+    console.error('No #products-display element found.');
+    return;
+  }
+  if (!popupBg) {
+    console.error('No popup HTML found.');
+    return;
+  }
+
+  function openPopup(product) {
+    currentProduct = product;
+    popupName.textContent = product.name || '';
+    popupDescription.textContent = product.description || '';
+    popupPrice.textContent = Number(product.price).toFixed(2);
+    popupBg.classList.add('show');
+    popupBg.setAttribute('aria-hidden', 'false');
+  }
+
+  function closePopup() {
+    popupBg.classList.remove('show');
+    popupBg.setAttribute('aria-hidden', 'true');
+    currentProduct = null;
+  }
+
+  productsDisplay.addEventListener('click', function (e) {
+    const card = e.target.closest('.product-card');
+    if (!card) return;
+
+    const product = {
+      name: card.dataset.name,
+      price: card.dataset.price,
+      description: card.dataset.description
+    };
+
+    openPopup(product);
+  });
+
+  popupBg.addEventListener('click', function (e) {
+    if (e.target === popupBg) closePopup();
+  });
+
+  closePopupBtn.addEventListener('click', closePopup);
+
+  addToCartBtn.addEventListener('click', function () {
+    if (!currentProduct) return;
+
+addToCartBtn.addEventListener('click', () => {
+    if (!currentProduct) return;
+
+    let formData = new URLSearchParams();
+    formData.append("name", currentProduct.name);
+    formData.append("price", currentProduct.price);
+    formData.append("image", currentProduct.img);
+    formData.append("quantity", 1);
+
+    fetch("basket.php?path=addToCart", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formData.toString()
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            console.log("Added to cart (PHP):", currentProduct);
+            popupBg.classList.remove('show');
+        } else {
+            console.error("Cart error:", data.message);
+        }
+    })
+    .catch(err => console.error("Fetch error:", err));
+});
+
+    const item = {
+      name: currentProduct.name,
+      price: Number(currentProduct.price),
+      qty: 1
+    };
+
+    closePopup();
+  });
+
+})();

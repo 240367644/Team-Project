@@ -1,5 +1,5 @@
 <?php
-// basket.php
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -107,7 +107,7 @@ if ($path === "getBasket") {
         $subtotal += $item['total'];
     }
 
-    $delivery = 0; // Optional delivery logic
+    $delivery = 0; 
     $total = $subtotal + $delivery;
 
     echo json_encode([
@@ -122,7 +122,6 @@ if ($path === "getBasket") {
     exit;
 }
 
-// fallback for invalid path
 echo json_encode(["status" => "error", "message" => "Invalid endpoint"]);
 exit;
 ?>
