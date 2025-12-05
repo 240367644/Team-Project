@@ -37,6 +37,7 @@ for (let i of products.data) {
     card.dataset.img = i.image;
     card.dataset.description = "A great product for students!";
 
+    card.classList.add("card", i.category);
     let imgContainer = document.createElement("div");
     imgContainer.classList.add("image-container");
     let image = document.createElement("img");
@@ -61,7 +62,7 @@ for (let i of products.data) {
 
 let buttons = document.querySelectorAll(".button-val");
 
-let cards = document.querySelectorAll(".product-card");
+let cards = document.querySelectorAll(".card");
 
 buttons.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -105,6 +106,20 @@ if (initialCategory) {
         }
     });
 }
+
+/* searchInput.addEventListener("keyup", () => {
+    let searchText = searchInput.value.toLowerCase();
+
+    cards.forEach(card => {
+        let name = card.querySelector(".product-name").innerText.toLowerCase();
+
+        if (name.includes(searchText)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}); */
 
 searchInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
@@ -205,3 +220,4 @@ addToCartBtn.addEventListener('click', () => {
   });
 
 })();
+});
