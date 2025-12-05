@@ -50,7 +50,8 @@ if (isset($_SESSION['user_id'])) {
 
     <main>
 
-        <div class="login-form">
+        <br><br>
+        <div class="register-form">
             <form id="form" method="post" action="">
                 <h1>Register</h1>
 
@@ -71,11 +72,13 @@ if (isset($_SESSION['user_id'])) {
                 </div>
 
                 <div class="login-details">
-                    <input type="submit" value="Register">
-                    <input type="reset" value="Clear">
+                    <input class="log-button" type="submit" value="Register">
                     <input type="hidden" name="submitted" value="TRUE">
                     <br><br>
-                    Already a user? <a href="login.html" class="register-link">Log In</a>
+                    <div class="register-now">
+                        Already a user? 
+                        <a href="login.html" class="register-link">Log In</a>
+                    </div>
                 </div>
             </form>
         </div>

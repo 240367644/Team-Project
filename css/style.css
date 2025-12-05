@@ -642,6 +642,13 @@ body{
     text-decoration: underline;
 }
 
+.register-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 16px;
+}
+
 .register-link {
     color: #2a8bc7;
     text-decoration: none;
