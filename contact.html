@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title>Accom4U</title>
     <link rel="icon" type="image/png" href="images/A4U_logo.png">
     <link rel="stylesheet" href="css/style.css">
@@ -13,26 +13,32 @@
 
     <header class="header">
         <div class="logo-header">
-            <img src="images/A4U_logo.png" class="logo">
+            <img src="images/A4U_logo.png" class="logo" alt="logo">
             <h1 class="title">Accom4U</h1>
         </div>
 
         <nav class="navibar">
             <ul>
-                <li><a href="index.html" id="current-page">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
                 <li><a href="products.html">Products</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
 
-        <a class="login" href="login.html"><b>Log In</b></a>
+        <!-- Dynamic login/logout link -->
+        <a id="loginlink" class="login" href="login.html"><b>Log In</b></a>
+
+        <a class="basket-icon" href="basket.html">
+            <img src="images/basket.png" class="basket-icon" alt="Basket">
+        </a>
+
     </header>
 
     <main>
         <div class="contact-container">
             <div class="contact-left">
-                <img src="/Assets/Email_Image.jpg" width="30%" height="30%" alt="">
+                <img src="images/contact_image.jpg" width="30%" height="30%" alt="">
             </div>
 
             <form action="" class="contact-right">
@@ -44,9 +50,9 @@
                 </div>
 
                 <!-- Added IDs for JS targeting -->
-                <input type="text" id="contactName" name="name" placeholder="Your Name" class="contact-inputs" required>
-                <input type="email" id="contactEmail" name="email" placeholder="Your Email" class="contact-inputs" required>
-                <textarea name="message" placeholder="Your Message" class="contact-inputs" required></textarea>
+                <input type="text" id="contactName" name="name" placeholder="Enter Name" class="contact-inputs" required>
+                <input type="email" id="contactEmail" name="email" placeholder="Enter Email" class="contact-inputs" required>
+                <textarea name="message" placeholder="Enter Message" class="contact-inputs" required></textarea>
                 <button type="submit">Submit</button>
             </form>
         </div>
@@ -57,12 +63,30 @@
     </footer>
 
     <script>
+        // Dynamic login/logout link based on session
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await fetch('session.php', { credentials: 'include' });
+                const data = await res.json();
+
+                const loginLink = document.getElementById('loginlink'); // match ID
+
+                if (data.loggedIn) {
+                    loginLink.href = 'logout.php';
+                    loginLink.innerHTML = '<b>Logout</b>';
+                }
+            } catch (err) {
+                console.error('Error checking session:', err);
+            }
+        });
+
         // Pre-fill user info when the page loads
         async function fetchUserInfo() {
             try {
                 const res = await fetch("database_setup.php?path=getUserInfo", {
                     method: "GET",
-                    headers: { "Content-Type": "application/json" }
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include"
                 });
 
                 const data = await res.json();
@@ -91,7 +115,8 @@
                 const res = await fetch('database_setup.php?path=validateContactForm', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, email })
+                    body: JSON.stringify({ username, email }),
+                    credentials: "include"
                 });
 
                 const data = await res.json();

@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         <title>Accom4U</title>
         <link rel="icon" type="image/png" href="images/A4U_logo.png">
         <link rel="stylesheet" href="css/style.css">
@@ -13,20 +13,23 @@
 
         <header class="header">
             <div class="logo-header">
-                <img src="images/A4U_logo.png" class="logo">
+                <img src="images/A4U_logo.png" class="logo" alt="logo">
                 <h1 class="title">Accom4U</h1>
             </div>
 
             <nav class="navibar">
         <ul>
-            <li><a href="index.html" id="current-page">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="aboutus.html">About Us</a></li>
             <li><a href="products.html">Products</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
             </nav>
 
-            <a class="login" href="login.html"><b>Log In</b></a>
+            <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
+            <a class="basket-icon" href="basket.html">
+                <img src="images/basket.png" class="basket-icon" alt="Basket">
+            </a>
 
         </header>
 
@@ -36,8 +39,8 @@
 
             <div class="about-us">
                 <div class="about-text">
-                <h2>About Us</h2>
-                <h3>Our Vision</h3>
+                <h2>OUR VISION</h2>
+                <br>
                 <p>Our aim is to support university students who are moving into an accommodation
                     for the first time (or returning) by providing high-quality, affordable essentials.
                     We understand that in can be overwhelming trying to design your own space while also keeping
@@ -66,5 +69,23 @@
             
         </footer>
 
+
+         <script>
+        // Dynamic login/logout link based on session
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await fetch('session.php', { credentials: 'include' });
+                const data = await res.json();
+
+                const loginLink = document.getElementById('loginLink');
+                if (data.loggedIn) {
+                    loginLink.href = 'logout.php';
+                    loginLink.innerHTML = '<b>Logout</b>';
+                }
+            } catch (err) {
+                console.error('Error checking session:', err);
+            }
+        });
+    </script>
     </body>
 </html>

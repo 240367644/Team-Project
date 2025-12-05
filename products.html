@@ -3,35 +3,39 @@
 
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         <title>Accom4U</title>
         <link rel="icon" type="image/png" href="images/A4U_logo.png">
         <link rel="stylesheet" href="css/style.css">
     </head>
 
-    <body class="product-body">
+    <body>
 
         <header class="header">
             <div class="logo-header">
-                <img src="images/A4U_logo.png" class="logo">
+                <img src="images/A4U_logo.png" class="logo" alt="logo">
                 <h1 class="title">Accom4U</h1>
             </div>
 
             <nav class="navibar">
         <ul>
-            <li><a href="index.html" id="current-page">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="aboutus.html">About Us</a></li>
             <li><a href="products.html">Products</a></li>
             <li><a href="contact.html">Contact</a></li>
         </ul>
             </nav>
 
-            <a class="login" href="login.html"><b>Log In</b></a>
+            <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
+            <a class="basket-icon" href="basket.html">
+                <img src="images/basket.png" class="basket-icon" alt="Basket">
+            </a>
 
         </header>
 
 
         <main class="product-main">
+
 
             <div class="product-container">
                 <div class="search">
@@ -47,6 +51,16 @@
                     <button class="button-val" data-category="decor-lighting">Decor & Lighting</button>
                 </div>
                 <div id="products-display"></div>
+
+                <div class="popup-bg" id="popupBg" aria-hidden="true">
+                    <div class="popup" role="dialog" aria-modal="true" aria-labelledby="popupName">
+                        <h2 id="popupName"></h2>
+                        <p id="popupDescription"></p>
+                        <p><strong>Price: £<span id="popupPrice"></span></strong></p>
+                        <button id="addToCart">Add to Cart</button>
+                        <button id="closePopupBtn">Close</button>
+                    </div>
+                </div>
             </div>
 
 
@@ -59,5 +73,22 @@
         </footer>
 
         <script src="js/products.js"></script>
+        <script>
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await fetch('session.php', { credentials: 'include' });
+                const data = await res.json();
+
+                const loginLink = document.getElementById('loginLink');
+                if (data.loggedIn) {
+                    loginLink.href = 'logout.php';
+                    loginLink.innerHTML = '<b>Logout</b>';
+                }
+            } catch (err) {
+                console.error('Error checking session:', err);
+            }
+        });
+    </script>
     </body>
 </html>
