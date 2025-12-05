@@ -30,7 +30,13 @@ const initialCategory = urlParams.get("category");
 
 for (let i of products.data) {
     let card = document.createElement("div");
-    card.classList.add("card", i.category);
+    card.classList.add("product-card", i.category);
+
+    card.dataset.name = i.productName;
+    card.dataset.price = i.price;
+    card.dataset.description = "A great product for students.";
+    card.dataset.img = i.image;
+
     let imgContainer = document.createElement("div");
     imgContainer.classList.add("image-container");
     let image = document.createElement("img");
@@ -55,7 +61,7 @@ for (let i of products.data) {
 
 let buttons = document.querySelectorAll(".button-val");
 
-let cards = document.querySelectorAll(".card");
+let cards = document.querySelectorAll(".product-card");
 
 buttons.forEach(btn => {
     btn.addEventListener("click", () => {
@@ -100,22 +106,81 @@ if (initialCategory) {
     });
 }
 
-/* searchInput.addEventListener("keyup", () => {
-    let searchText = searchInput.value.toLowerCase();
-
-    cards.forEach(card => {
-        let name = card.querySelector(".product-name").innerText.toLowerCase();
-
-        if (name.includes(searchText)) {
-            card.style.display = "block";
-        } else {
-            card.style.display = "none";
-        }
-    });
-}); */
-
 searchInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
         searchButton.click();
     }
 });
+
+(function () {
+  const productsDisplay = document.getElementById('products-display');
+  const popupBg = document.getElementById('popupBg');
+  const popupName = document.getElementById('popupName');
+  const popupDescription = document.getElementById('popupDescription');
+  const popupPrice = document.getElementById('popupPrice');
+  const addToCartBtn = document.getElementById('addToCart');
+  const closePopupBtn = document.getElementById('closePopupBtn');
+
+  let currentProduct = null;
+
+  if (!productsDisplay) {
+    console.error('No #products-display element found.');
+    return;
+  }
+  if (!popupBg) {
+    console.error('No popup HTML found.');
+    return;
+  }
+
+  function openPopup(product) {
+    currentProduct = product;
+    popupName.textContent = product.name || '';
+    popupDescription.textContent = product.description || '';
+    popupPrice.textContent = Number(product.price).toFixed(2);
+    popupBg.classList.add('show');
+    popupBg.setAttribute('aria-hidden', 'false');
+  }
+
+  function closePopup() {
+    popupBg.classList.remove('show');
+    popupBg.setAttribute('aria-hidden', 'true');
+    currentProduct = null;
+  }
+
+  productsDisplay.addEventListener('click', function (e) {
+    const card = e.target.closest('.product-card');
+    if (!card) return;
+
+    const product = {
+      name: card.dataset.name,
+      price: card.dataset.price,
+      description: card.dataset.description
+    };
+
+    openPopup(product);
+  });
+
+  popupBg.addEventListener('click', function (e) {
+    if (e.target === popupBg) closePopup();
+  });
+
+  closePopupBtn.addEventListener('click', closePopup);
+
+  addToCartBtn.addEventListener('click', function () {
+    if (!currentProduct) return;
+
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    const item = {
+      name: currentProduct.name,
+      price: Number(currentProduct.price),
+      qty: 1
+    };
+
+    cart.push(item);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    closePopup();
+  });
+
+})();
