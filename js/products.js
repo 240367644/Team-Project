@@ -1,30 +1,3 @@
-let products = {
-    data:[
-        {
-        productName: "House Plant",
-        category: "decor-lighting",
-        price: "5",
-        image: "../images/houseplant.jpg"
-
-    },
-    {
-        productName: "Table Lamp",
-        category: "decor-lighting",
-        price: "6",
-        image: "../images/tablelamp.png"
-
-    },
-    {
-        productName: "Table Lamp",
-        category: "decor-lighting",
-        price: "6",
-        image: "../images/tablelamp.png"
-
-    },
-
-],
-};
-
 const urlParams = new URLSearchParams(window.location.search);
 const initialCategory = urlParams.get("category");
 
@@ -102,24 +75,10 @@ searchButton.addEventListener("click", () => {
 if (initialCategory) {
     buttons.forEach(btn => {
         if (btn.dataset.category === initialCategory) {
-            btn.click();   // simulate clicking the button
+            btn.click();
         }
     });
 }
-
-/* searchInput.addEventListener("keyup", () => {
-    let searchText = searchInput.value.toLowerCase();
-
-    cards.forEach(card => {
-        let name = card.querySelector(".product-name").innerText.toLowerCase();
-
-        if (name.includes(searchText)) {
-            card.style.display = "block";
-        } else {
-            card.style.display = "none";
-        }
-    });
-}); */
 
 searchInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
@@ -220,4 +179,3 @@ addToCartBtn.addEventListener('click', () => {
   });
 
 })();
-});
