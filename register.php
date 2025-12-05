@@ -1,0 +1,135 @@
+<?php
+session_start();
+if (isset($_SESSION['user_id'])) {
+    header("Location: index.php"); // redirect logged-in users away
+    exit;
+}
+?>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>Accom4U</title>
+        <link rel="icon" type="image/png" href="images/A4U_logo.png">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+
+        <header class="header">
+            <div class="logo-header">
+                <img src="images/A4U_logo.png" class="logo" alt="logo">
+                <h1 class="title">Accom4U</h1>
+            </div>
+
+            <nav class="navibar">
+        <ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="aboutus.php">About Us</a></li>
+            <li><a href="products.php">Products</a></li>
+            <li><a href="contact.php">Contact</a></li>
+        </ul>
+            </nav>
+
+            <?php if(isset($_SESSION['user_id'])): ?>
+                <a class="login" href="logout.php"><b>Logout</b></a>
+            <?php else: ?>
+                <a class="login" href="login.html"><b>Log In</b></a>
+            <?php endif; ?>
+
+            <a class="basket-icon" href="basketpage.php">
+                <img src="images/basket.png" class="basket-icon" alt="Basket">
+            </a>
+
+        </header>
+
+    <main>
+
+        <div class="login-form">
+            <form id="form" method="post" action="">
+                <h1>Register</h1>
+
+                <div class="login-details">
+                    Username: <input type="text" id="regUsername" name="username" placeholder="Enter username" required>
+                </div>
+
+                <div class="login-details">
+                    Email: <input type="email" id="regEmail" name="email" placeholder="Enter email" required>
+                </div>
+
+                <div class="login-details">
+                    Password: <input type="password" id="regPassword" name="password" placeholder="Enter password" required>
+                </div>
+
+                <div class="login-details">
+                    Confirm Password: <input type="password" id="regPasswordConfirm" name="password_confirmation" placeholder="Confirm password" required>
+                </div>
+
+                <div class="login-details">
+                    <input type="submit" value="Register">
+                    <input type="reset" value="Clear">
+                    <input type="hidden" name="submitted" value="TRUE">
+                    <br><br>
+                    Already a user? <a href="login.html" class="register-link">Log In</a>
+                </div>
+            </form>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>© 2025 Accom4U. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById("form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            // Get form values
+            const username = document.getElementById("regUsername").value.trim();
+            const email = document.getElementById("regEmail").value.trim();
+            const password = document.getElementById("regPassword").value;
+            const passwordConfirmation = document.getElementById("regPasswordConfirm").value;
+
+            // Checks if both password inputs match eachother
+            if (password !== passwordConfirmation) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            // validates and ensures each field is used
+            if (!username || !email || !password) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            try {
+                // Sends the data to the server
+                const res = await fetch("database_setup.php?path=register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, email, password })
+                });
+
+                const data = await res.json();
+                alert(data.message);
+
+                if (data.success) {
+                    // redirect user if successful
+                    window.location.href = "login.html";
+                }
+
+            } catch (err) {
+                alert("Error connecting to server.");
+                console.error(err);
+            }
+        });
+    </script>
+
+</body>
+</html>

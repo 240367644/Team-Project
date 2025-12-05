@@ -1,0 +1,87 @@
+<?php
+session_start();
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>Accom4U</title>
+        <link rel="icon" type="image/png" href="images/A4U_logo.png">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+
+        <header class="header">
+            <div class="logo-header">
+                <img src="images/A4U_logo.png" class="logo" alt="logo">
+                <h1 class="title">Accom4U</h1>
+            </div>
+
+            <nav class="navibar">
+        <ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="aboutus.php">About Us</a></li>
+            <li><a href="products.php">Products</a></li>
+            <li><a href="contact.php">Contact</a></li>
+        </ul>
+            </nav>
+
+            <?php if(isset($_SESSION['user_id'])): ?>
+                <a class="login" href="logout.php"><b>Logout</b></a>
+            <?php else: ?>
+                <a class="login" href="login.html"><b>Log In</b></a>
+            <?php endif; ?>
+
+            <a class="basket-icon" href="basketpage.php">
+                <img src="images/basket.png" class="basket-icon" alt="Basket">
+            </a>
+
+        </header>
+
+
+        <main class="product-main">
+
+
+            <div class="product-container">
+                <div class="search">
+                    <input type="search" id="search-input" placeholder="Search...">
+                    <button id="search-button">Search</button>
+                </div>
+                <div class="filter-buttons">
+                    <button class="button-val" data-category="all">All</button>
+                    <button class="button-val" data-category="bedroom">Bedroom</button>
+                    <button class="button-val" data-category="kitchen">Kitchen</button>
+                    <button class="button-val" data-category="bathroom">Bathroom</button>
+                    <button class="button-val" data-category="desk-study">Desk & Study</button>
+                    <button class="button-val" data-category="decor-lighting">Decor & Lighting</button>
+                </div>
+                <div id="products-display"></div>
+
+                <div class="popup-bg" id="popupBg" aria-hidden="true">
+                    <div class="popup" role="dialog" aria-modal="true" aria-labelledby="popupName">
+                        <h2 id="popupName"></h2>
+                        <p id="popupDescription"></p>
+                        <p><strong>Price: £<span id="popupPrice"></span></strong></p>
+                        <button id="addToCart">Add to Cart</button>
+                        <button id="closePopupBtn">Close</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </main>
+
+        <footer class="footer">
+
+            <p>© 2025 Accom4U. All rights reserved.</p>
+            
+        </footer>
+
+        <script src="js/products.js"></script>
+    </body>
+</html>
