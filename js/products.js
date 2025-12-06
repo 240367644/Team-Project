@@ -1,16 +1,39 @@
+let products = {
+    data:[
+        {
+        productName: "House Plant",
+        category: "decor-lighting",
+        price: "5",
+        image: "../images/houseplant.jpg"
+
+    },
+    {
+        productName: "Table Lamp",
+        category: "decor-lighting",
+        price: "6",
+        image: "../images/tablelamp.png"
+
+    },
+    {
+        productName: "Table Lamp",
+        category: "decor-lighting",
+        price: "6",
+        image: "../images/tablelamp.png"
+
+    },
+
+],
+};
+
 const urlParams = new URLSearchParams(window.location.search);
 const initialCategory = urlParams.get("category");
 
 for (let i of products.data) {
     let card = document.createElement("div");
-    card.classList.add("product-card", i.category);
-
+    card.classList.add("card", i.category);
     card.dataset.name = i.productName;
     card.dataset.price = i.price;
-    card.dataset.img = i.image;
-    card.dataset.description = "A great product for students!";
-
-    card.classList.add("card", i.category);
+    card.dataset.description = "A useful product for students."; 
     let imgContainer = document.createElement("div");
     imgContainer.classList.add("image-container");
     let image = document.createElement("img");
@@ -75,7 +98,7 @@ searchButton.addEventListener("click", () => {
 if (initialCategory) {
     buttons.forEach(btn => {
         if (btn.dataset.category === initialCategory) {
-            btn.click();
+            btn.click();   // simulate clicking the button
         }
     });
 }
@@ -86,96 +109,42 @@ searchInput.addEventListener("keypress", (e) => {
     }
 });
 
-(function () {
-  const productsDisplay = document.getElementById('products-display');
-  const popupBg = document.getElementById('popupBg');
-  const popupName = document.getElementById('popupName');
-  const popupDescription = document.getElementById('popupDescription');
-  const popupPrice = document.getElementById('popupPrice');
-  const addToCartBtn = document.getElementById('addToCart');
-  const closePopupBtn = document.getElementById('closePopupBtn');
+const popupBg = document.getElementById('popupBg');
+const popupName = document.getElementById('popupName');
+const popupDesc = document.getElementById('popupDesc');
+const popupPrice = document.getElementById('popupPrice');
+const addToCartBtn = document.getElementById('addToCart');
 
-  let currentProduct = null;
+let currentProduct = null;
 
-  if (!productsDisplay) {
-    console.error('No #products-display element found.');
-    return;
-  }
-  if (!popupBg) {
-    console.error('No popup HTML found.');
-    return;
-  }
-
-  function openPopup(product) {
-    currentProduct = product;
-    popupName.textContent = product.name || '';
-    popupDescription.textContent = product.description || '';
-    popupPrice.textContent = Number(product.price).toFixed(2);
-    popupBg.classList.add('show');
-    popupBg.setAttribute('aria-hidden', 'false');
-  }
-
-  function closePopup() {
-    popupBg.classList.remove('show');
-    popupBg.setAttribute('aria-hidden', 'true');
-    currentProduct = null;
-  }
-
-  productsDisplay.addEventListener('click', function (e) {
-    const card = e.target.closest('.product-card');
+document.addEventListener("click", e => {
+    const card = e.target.closest(".card");
     if (!card) return;
 
-    const product = {
-      name: card.dataset.name,
-      price: card.dataset.price,
-      description: card.dataset.description
+    currentProduct = {
+        name: card.dataset.name,
+        price: card.dataset.price,
+        description: card.dataset.description
     };
 
-    openPopup(product);
-  });
+    popupName.textContent = currentProduct.name;
+    popupDesc.textContent = currentProduct.description;
+    popupPrice.textContent = currentProduct.price;
 
-  popupBg.addEventListener('click', function (e) {
-    if (e.target === popupBg) closePopup();
-  });
-
-  closePopupBtn.addEventListener('click', closePopup);
-
-  addToCartBtn.addEventListener('click', function () {
-    if (!currentProduct) return;
-
-addToCartBtn.addEventListener('click', () => {
-    if (!currentProduct) return;
-
-    let formData = new URLSearchParams();
-    formData.append("name", currentProduct.name);
-    formData.append("price", currentProduct.price);
-    formData.append("image", currentProduct.img);
-    formData.append("quantity", 1);
-
-    fetch("basket.php?path=addToCart", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: formData.toString()
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.status === "success") {
-            console.log("Added to cart (PHP):", currentProduct);
-            popupBg.classList.remove('show');
-        } else {
-            console.error("Cart error:", data.message);
-        }
-    })
-    .catch(err => console.error("Fetch error:", err));
+    popupBg.style.display = "flex";
 });
 
-    const item = {
-      name: currentProduct.name,
-      price: Number(currentProduct.price),
-      qty: 1
-    };
+function closePopup() {
+    popupBg.style.display = "none";
+}
+
+addToCartBtn.addEventListener("click", () => {
+    if (!currentProduct) return;
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push(currentProduct);
+    localStorage.setItem("cart", JSON.stringify(cart));
 
     closePopup();
-  });
+});
 
-})();
