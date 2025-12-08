@@ -355,7 +355,63 @@ body {
     height: 13em;
 }
 
-/*---Contact Form---*/
+/* Popup */
+
+.popup-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;      /* hidden at start */
+    justify-content: center;
+    align-items: center;
+    z-index: 9998;
+}
+
+.popup-box {
+    background: white;
+    width: 320px;
+    max-width: 90%;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+    z-index: 9999;
+}
+
+.popup-box img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+#addToCart {
+    display: inline-flex;     
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;         
+    border-radius: 20px;       
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    background: #badcf0;
+    color: #2a8bc7;
+    white-space: nowrap;       
+    box-sizing: border-box;
+    transition: transform 0.18s ease, background-color 0.18s ease;
+}
+#addToCart:hover {
+    background: #a5cbe4;
+    transform: translateY(-2px);
+}
+
+#close-btn {
+    cursor: pointer;
+}
+
+/* Contact Form */
 
 *{
     padding: 0;
