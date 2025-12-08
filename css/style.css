@@ -251,6 +251,14 @@ body {
     margin-top: 20px;
 }
 
+.about-text h2 {
+    color:#626262;
+}
+
+.about-text p {
+    color:#626262;
+}
+
 .contact-button {
     background: #96CCE7;
     color: #ffffff;
@@ -443,6 +451,7 @@ body{
     display: flex;
     flex-direction: column;
     gap: 20px;
+    text-align: center;
 }
 
 .contact-right{
