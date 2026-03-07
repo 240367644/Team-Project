@@ -682,6 +682,9 @@ body{
     flex-wrap: wrap;
     padding: 0 20px;              
 }
+.basket-container h1{
+    color: #626262;
+}
 
 .basket-items {
     flex: 2;
