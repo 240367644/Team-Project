@@ -12,6 +12,19 @@
 <body>
 
     <header class="header">
+
+        <div class="menu-icon" onclick="toggleMenu()">
+            ☰
+        </div>
+
+        <div class="side-menu" id="sideMenu">
+            <a href="profile.html">Profile</a>
+            <a href="orders.html">My Orders</a>
+            <a href="settings.html">Settings</a>
+            <a href="wishlist.html">Wishlist</a>
+            <a href="logout.html">Logout</a>
+       </div>
+
         <div class="logo-header">
             <img src="images/A4U_logo.png" class="logo" alt="logo">
             <h1 class="title">Accom4U</h1>
@@ -26,28 +39,25 @@
             </ul>
         </nav>
 
-        <!-- Login/Logout link -->
-        <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
-
         <a class="basket-icon" href="basket.html">
             <img src="images/basket.png" class="basket-icon" alt="Basket">
         </a>
+        <!-- Login/Logout link -->
+        <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
     </header>
 
     <main>
 
         <div class="main-image">
-            <img src="images/homepage.jpg" alt="image">
             <div class="text">
-                <p><b>Make your room shine from day one</b></p>
-                <br>
-                <p class="text1">Accommodation essentials for an affordable price</p>
-                <br>
+                <p><b>MAKE YOUR ROOM<br>SHINE FROM DAY<br>ONE.</b></p>
                 <a class="login" href="register.html">Register Now</a>
             </div>
+
+            <img src="images/homepage.jpg" class="main-img" alt="image">
         </div>
 
-        <br><br><br><br>
+        <br><br><br><br><br>
 
         <div class="categories-header">
             <p class="text3">Discover by Category</p>
@@ -55,9 +65,9 @@
             <p>Find everything you need for your student accommodation</p>
         </div>
 
-        <br><br><br><br>
+        <br><br>
 
-        <section class="categories">
+        <!-- <section class="categories">
 
             <div class="category-container">
                 <div class="cards">
@@ -112,12 +122,61 @@
                 </div>
             </div>
 
+        </section> -->
+
+        <section class="categories">
+
+            <div class="scroll">
+                <div class="card"><img src="images/bedroom.jpg"></div>
+                <div class="card"><img src="images/kitchen.jpg"></div>
+                <div class="card"><img src="images/bathroom.jpg"></div>
+                <div class="card"><img src="images/desk.jpg"></div>
+                <div class="card"><img src="images/decor.jpg"></div>
+            </div>
+
         </section>
+
+        <br><br><br><br><br><br><br><br>
 
     </main>
 
     <footer class="footer">
-        <p>© 2025 Accom4U. All rights reserved.</p>
+        <div class="footer-container">
+
+        <div class="footer-column">
+            <h3>Accom4U</h3>
+        </div>
+
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <a href="#">About Us</a>
+                <a href="#">Products</a>
+                <a href="#">FAQ</a>
+                <a href="#">Shipping Info</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>Customer Service</h4>
+                <a href="#">Contact Us</a>
+                <a href="#">Returns</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>Contact Us</h4>
+                <p>123 Commerce Street, Birmingham</p>
+                <p>+44 123 123 12312</p>
+                <p>accom4u@gmail.com</p>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer-bottom">
+        Copyright © 2025 - 2026 Accom4U. All Rights Reserved.
+        </div>
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
@@ -137,5 +196,10 @@
         });
     </script>
 
+    <script>
+        function toggleMenu() {
+        document.getElementById("sideMenu").classList.toggle("active");
+        }
+    </script>
 </body>
 </html>
