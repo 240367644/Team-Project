@@ -1306,4 +1306,87 @@ body{
     opacity: 0.85;
 }
 
+/* Customer Management */
+
+.customer-controls{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.search-bar{
+padding:8px 12px;
+width:250px;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+.add-btn{
+background:#52ace4;
+color:white;
+border:none;
+padding:8px 16px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.add-btn:hover{
+background:#3d96cc;
+}
+
+.table-container{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.customer-table{
+width:100%;
+border-collapse:collapse;
+}
+
+.customer-table th{
+background:#f4f6f8;
+padding:14px;
+text-align:left;
+font-size:15px;
+}
+
+.customer-table td{
+padding:14px;
+border-top:1px solid #e5e5e5;
+}
+
+.customer-table tr:hover{
+background:#f9fbfc;
+}
+
+.customer-table button{
+border:none;
+padding:6px 12px;
+border-radius:6px;
+cursor:pointer;
+margin-right:5px;
+}
+
+.view-btn{
+background:#777;
+color:white;
+}
+
+.edit-btn{
+background:#2196f3;
+color:white;
+}
+
+.delete-btn{
+background:#f44336;
+color:white;
+}
+
+.customer-table button:hover{
+opacity:0.85;
+}
 
