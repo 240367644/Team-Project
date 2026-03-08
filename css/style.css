@@ -1220,4 +1220,94 @@ body{
     color: #111827;
 }
 
+/* Process Orders */
+
+.admin-main {
+    padding: 40px;
+}
+
+.page-title {
+    font-size: 32px;
+    margin-bottom: 25px;
+}
+
+.orders-container {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.orders-table th {
+    text-align: left;
+    padding: 14px;
+    background: #f4f6f8;
+    font-size: 15px;
+}
+
+.orders-table td {
+    padding: 14px;
+    border-top: 1px solid #e4e4e4;
+}
+
+.orders-table tr:hover {
+    background: #f9fbfc;
+}
+
+/* Status colours */
+
+.pending {
+    color: #ff9800;
+    font-weight: bold;
+}
+
+.processing {
+    color: #2196f3;
+    font-weight: bold;
+}
+
+.shipped {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+/* Buttons */
+
+.orders-table button {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.approve {
+    background: #4caf50;
+    color: white;
+}
+
+.cancel {
+    background: #f44336;
+    color: white;
+}
+
+.ship {
+    background: #2196f3;
+    color: white;
+}
+
+.view {
+    background: #777;
+    color: white;
+}
+
+.orders-table button:hover {
+    opacity: 0.85;
+}
+
 
