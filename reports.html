@@ -62,67 +62,114 @@
 
     <main class="admin-main">
 
-<h2 class="page-title">Customer Management</h2>
+        <h2 class="page-title">Reports & Monitoring</h2>
 
-<div class="customer-controls">
-    <input type="text" placeholder="Search customers..." class="search-bar">
-    <button class="add-btn">+ Add Customer</button>
+<div class="report-cards">
+
+<div class="report-card">
+<h3>Total Products</h3>
+<p class="report-number">128</p>
 </div>
+
+<div class="report-card">
+<h3>Low Stock Items</h3>
+<p class="report-number warning">7</p>
+</div>
+
+<div class="report-card">
+<h3>Orders Today</h3>
+<p class="report-number">24</p>
+</div>
+
+<div class="report-card">
+<h3>Orders This Week</h3>
+<p class="report-number">156</p>
+</div>
+
+</div>
+
+
+<h3 class="section-title">Stock Level Report</h3>
 
 <div class="table-container">
 
-<table class="customer-table">
+<table class="report-table">
 
 <thead>
 <tr>
-<th>Customer ID</th>
-<th>Name</th>
-<th>Email</th>
-<th>Phone</th>
-<th>Orders</th>
-<th>Actions</th>
+<th>Product</th>
+<th>Stock Level</th>
+<th>Status</th>
 </tr>
 </thead>
 
 <tbody>
 
 <tr>
-<td>001</td>
-<td>Kayla Johnson</td>
-<td>kayla53@email.com</td>
-<td>+44 7123 456789</td>
-<td>4</td>
-<td>
-<button class="view-btn">View</button>
-<button class="edit-btn">Edit</button>
-<button class="delete-btn">Delete</button>
-</td>
+<td>Desk Lamp</td>
+<td>53</td>
+<td class="in-stock">In Stock</td>
 </tr>
 
 <tr>
-<td>002</td>
-<td>Maia Lee</td>
-<td>maia87@email.com</td>
-<td>+44 7345 987654</td>
-<td>2</td>
-<td>
-<button class="view-btn">View</button>
-<button class="edit-btn">Edit</button>
-<button class="delete-btn">Delete</button>
-</td>
+<td>Office Chair</td>
+<td>8</td>
+<td class="low-stock">Low Stock</td>
 </tr>
 
 <tr>
-<td>003</td>
-<td>Gavin Davis</td>
-<td>gavin77@email.com</td>
-<td>+44 7011 223344</td>
-<td>7</td>
-<td>
-<button class="view-btn">View</button>
-<button class="edit-btn">Edit</button>
-<button class="delete-btn">Delete</button>
-</td>
+<td>Notebook Set</td>
+<td>0</td>
+<td class="out-stock">Out of Stock</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<h3 class="section-title">Recent Orders</h3>
+
+<div class="table-container">
+
+<table class="report-table">
+
+<thead>
+<tr>
+<th>Order ID</th>
+<th>Customer</th>
+<th>Date</th>
+<th>Status</th>
+<th>Total</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>#1024</td>
+<td>Sarah Johnson</td>
+<td>12 Mar 2026</td>
+<td>Shipped</td>
+<td>£64.99</td>
+</tr>
+
+<tr>
+<td>#1023</td>
+<td>Michael Lee</td>
+<td>11 Mar 2026</td>
+<td>Processing</td>
+<td>£38.50</td>
+</tr>
+
+<tr>
+<td>#1022</td>
+<td>Emma Davis</td>
+<td>10 Mar 2026</td>
+<td>Pending</td>
+<td>£92.10</td>
 </tr>
 
 </tbody>
