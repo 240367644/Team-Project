@@ -11,27 +11,54 @@
 
     <body>
 
-        <header class="header">
-            <div class="logo-header">
-                <img src="images/A4U_logo.png" class="logo" alt="logo">
-                <h1 class="title">Accom4U</h1>
-            </div>
+        <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
-            <nav class="navibar">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="aboutus.html">About Us</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-            </nav>
+    <header class="header">
 
-            <a class="login" href="login.html"><b>Log In</b></a>
-            <a class="basket-icon" href="basket.html">
-                <img src="images/basket.png" class="basket-icon" alt="Basket">
-            </a>
+        <div class="menu-icon" onclick="toggleMenu()">
+            ☰
+        </div>
 
-        </header>
+        <div class="side-menu" id="sideMenu">
+    <a href="profile.html">Profile</a>
+            <a href="viewOrders.html">My Orders</a>
+            <a href="wishlist.html">Wishlist</a>
+            <a href="settings.html">Settings</a>
+            <br>
+            <div class="admin-menu">
+                <a href="#" onclick="toggleAdmin()">Admin Panel ▾</a>
+
+                <div class="submenu" id="subMenu">
+                    <a href="processOrders.html">Process Orders</a>
+                    <a href="customers.html">Customer Management</a>
+                    <a href="inventory.html">Inventory Management</a>
+                    <a href="reports.html">Reports</a>
+                </div>
+                </div>
+    <br>
+    <a href="logout.html">Logout</a>
+</div>
+
+        <div class="logo-header">
+            <img src="images/A4U_logo.png" class="logo" alt="logo">
+            <h1 class="title">Accom4U</h1>
+        </div>
+
+        <nav class="navibar">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <a class="basket-icon" href="basket.html">
+            <img src="images/basket.png" class="basket-icon" alt="Basket">
+        </a>
+        <!-- Login/Logout link -->
+        <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
+    </header>
 
     <main>
         <div class="login-form">
@@ -63,7 +90,42 @@
     </main>
 
     <footer class="footer">
-        <p>© 2025 Accom4U. All rights reserved.</p>
+        <div class="footer-container">
+
+        <div class="footer-column">
+            <h3>Accom4U</h3>
+        </div>
+
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <a href="aboutus.html">About Us</a>
+                <a href="products.html">Products</a>
+                <a href="#">FAQ</a>
+                <a href="#">Shipping Info</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>Customer Service</h4>
+                <a href="contact.html">Contact Us</a>
+                <a href="#">Returns</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>Contact Us</h4>
+                <p>123 Commerce Street, Birmingham</p>
+                <p>+44 123 123 12312</p>
+                <p>accom4u@gmail.com</p>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer-bottom">
+            Copyright © 2025 - 2026 Accom4U. All Rights Reserved.
+        </div>
     </footer>
 
     <script>
@@ -93,5 +155,6 @@
         }
     </script>
 
+    <script src="js/sidemenu.js"></script>
 </body>
 </html>
