@@ -60,35 +60,124 @@
         <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
     </header>
 
-    <main class="checkout-page">
-        <div class="contact-container">
-            <div class="contact-left">
-                <div class="contact-right-title">
-                    <h2>Order Summary</h2>
-                    <hr>
-                    <b>Cart data goes here</b>
-                    <hr>
-                    <b>Total: (data from total cart cost here)</b>
-                </div>
-            </div>
+    <main class="admin-main">
 
-            <form action="" class="contact-right">
-                <div class="contact-right-title">
-                    <h2>Checkout</h2>
-                    <hr>
-                    <p>Enter your payment and delivery details here</p>
-                    <hr>
-                </div>
-                <input type="text" name="fullname" placeholder="Your Full Name" class="contact-inputs" required>
-                <input type="tel" name="phone" placeholder="Phone Number" class="contact-inputs" required>
-                <input type="text" name="address" placeholder="Address" class="contact-inputs" required>
-                <input type="text" name="postcode" placeholder="Post Code" class="contact-inputs" required>
-                <input type="text" name="cardnumber" placeholder="Card Number" class="contact-inputs" required>
-                <input type="text" name="expirydate" placeholder="Expiry Date" class="contact-inputs" required>
-                <input type="text" name="cvv" placeholder="CVV" class="contact-inputs" required>
-                <a class="login" href="orderDone.html">Place Order</a>
-            </form>
-        </div>
+        <h2 class="page-title">Reports & Monitoring</h2>
+
+<div class="report-cards">
+
+<div class="report-card">
+<h3>Total Products</h3>
+<p class="report-number">128</p>
+</div>
+
+<div class="report-card">
+<h3>Low Stock Items</h3>
+<p class="report-number warning">7</p>
+</div>
+
+<div class="report-card">
+<h3>Orders Today</h3>
+<p class="report-number">24</p>
+</div>
+
+<div class="report-card">
+<h3>Orders This Week</h3>
+<p class="report-number">156</p>
+</div>
+
+</div>
+
+
+<h3 class="section-title">Stock Level Report</h3>
+
+<div class="table-container">
+
+<table class="report-table">
+
+<thead>
+<tr>
+<th>Product</th>
+<th>Stock Level</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>Desk Lamp</td>
+<td>53</td>
+<td class="in-stock">In Stock</td>
+</tr>
+
+<tr>
+<td>Office Chair</td>
+<td>8</td>
+<td class="low-stock">Low Stock</td>
+</tr>
+
+<tr>
+<td>Notebook Set</td>
+<td>0</td>
+<td class="out-stock">Out of Stock</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<h3 class="section-title">Recent Orders</h3>
+
+<div class="table-container">
+
+<table class="report-table">
+
+<thead>
+<tr>
+<th>Order ID</th>
+<th>Customer</th>
+<th>Date</th>
+<th>Status</th>
+<th>Total</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td>#1024</td>
+<td>Sarah Johnson</td>
+<td>12 Mar 2026</td>
+<td>Shipped</td>
+<td>£64.99</td>
+</tr>
+
+<tr>
+<td>#1023</td>
+<td>Michael Lee</td>
+<td>11 Mar 2026</td>
+<td>Processing</td>
+<td>£38.50</td>
+</tr>
+
+<tr>
+<td>#1022</td>
+<td>Emma Davis</td>
+<td>10 Mar 2026</td>
+<td>Pending</td>
+<td>£92.10</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
     </main>
 
     <footer class="footer">
@@ -100,15 +189,15 @@
 
             <div class="footer-column">
                 <h4>Quick Links</h4>
-                <a href="aboutus.html">About Us</a>
-                <a href="products.html">Products</a>
+                <a href="#">About Us</a>
+                <a href="#">Products</a>
                 <a href="#">FAQ</a>
                 <a href="#">Shipping Info</a>
             </div>
 
             <div class="footer-column">
                 <h4>Customer Service</h4>
-                <a href="contact.html">Contact Us</a>
+                <a href="#">Contact Us</a>
                 <a href="#">Returns</a>
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms & Conditions</a>
@@ -129,21 +218,19 @@
             Copyright © 2025 - 2026 Accom4U. All Rights Reserved.
         </div>
     </footer>
-
     <script>
-        // Dynamic login/logout link based on session
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                const res = await fetch('session.php', { credentials: 'include' });
+                const res = await fetch('session.php');
                 const data = await res.json();
 
-                const loginLink = document.getElementById('loginlink'); // match ID
+                const loginLink = document.getElementById('loginLink');
 
-                if (data.loggedIn) {
+                if(data.loggedIn) {
                     loginLink.href = 'logout.php';
                     loginLink.innerHTML = '<b>Logout</b>';
                 }
-            } catch (err) {
+            } catch(err) {
                 console.error('Error checking session:', err);
             }
         });
