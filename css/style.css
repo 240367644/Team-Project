@@ -1575,3 +1575,19 @@ font-weight:bold;
 color:#f44336;
 font-weight:bold;
 }
+.card{
+    position: relative;
+}
+
+.wishlist-heart{
+    position:absolute;
+    top:10px;
+    right:10px;
+    font-size:22px;
+    cursor:pointer;
+    color:#999;
+}
+
+.wishlist-heart:hover{
+    color:red;
+}
