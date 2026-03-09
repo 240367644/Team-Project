@@ -214,12 +214,17 @@ for (let i of products.data) {
     card.dataset.description = i.description;
     card.dataset.image = i.image;
     card.dataset.id = i.id;
-    let imgContainer = document.createElement("div");
-    imgContainer.classList.add("image-container");
-    let image = document.createElement("img");
-    image.setAttribute("src", i.image);
-    imgContainer.appendChild(image);
-    card.appendChild(imgContainer);
+   // Generate wishlist heart
+let heart = document.createElement("span");
+heart.classList.add("wishlist-heart");
+heart.innerHTML = "♡";
+card.appendChild(heart);
+let imgContainer = document.createElement("div");
+imgContainer.classList.add("image-container");
+let image = document.createElement("img");
+image.setAttribute("src", i.image);
+imgContainer.appendChild(image);
+card.appendChild(imgContainer);
     let container = document.createElement("div");
     container.classList.add("container");
     let name = document.createElement("h5");
@@ -344,5 +349,18 @@ addToCartBtn.addEventListener("click", () => {
             console.error(data.message);
         }
     });
+});
+document.addEventListener("click", function(e){
+
+    if(e.target.classList.contains("wishlist-heart")){
+
+        if(e.target.innerHTML === "♡"){
+            e.target.innerHTML = "❤️";
+        } else {
+            e.target.innerHTML = "♡";
+        }
+
+    }
+
 });
 
