@@ -62,11 +62,23 @@
 
     <main class="admin-main">
 
-        <h2 class="page-title">Product & Inventory Management</h2>
+<h2 class="page-title">Product & Inventory Management</h2>
+
+<div class="inventory-alerts">
+
+<div class="alert low">
+⚠ <span id="low-count">0</span> products are low in stock
+</div>
+
+<div class="alert out">
+❗ <span id="out-count">0</span> products are out of stock
+</div>
+
+</div>
 
 <div class="product-controls">
-    <input type="text" placeholder="Search products..." class="search-bar">
-    <button class="add-product">+ Add Product</button>
+<input type="text" placeholder="Search products..." class="search-bar">
+<button class="add-product">+ Add Product</button>
 </div>
 
 <div class="table-container">
@@ -95,8 +107,10 @@
 <td>53</td>
 <td class="in-stock">In Stock</td>
 <td>
+<button class="view-btn">View</button>
 <button class="edit-btn">Edit</button>
 <button class="stock-btn">Update Stock</button>
+<button class="restock-btn">Restock</button>
 <button class="delete-btn">Delete</button>
 </td>
 </tr>
@@ -109,8 +123,10 @@
 <td>9</td>
 <td class="low-stock">Low Stock</td>
 <td>
+<button class="view-btn">View</button>
 <button class="edit-btn">Edit</button>
 <button class="stock-btn">Update Stock</button>
+<button class="restock-btn">Restock</button>
 <button class="delete-btn">Delete</button>
 </td>
 </tr>
@@ -123,19 +139,49 @@
 <td>0</td>
 <td class="out-stock">Out of Stock</td>
 <td>
+<button class="view-btn">View</button>
 <button class="edit-btn">Edit</button>
 <button class="stock-btn">Update Stock</button>
+<button class="restock-btn">Restock</button>
 <button class="delete-btn">Delete</button>
 </td>
 </tr>
 
 </tbody>
-
 </table>
+</div>
+
+<!-- PRODUCT VIEW MODAL -->
+<div class="product-view-modal">
+<h3>Product Details</h3>
+
+<p><strong>Product ID:</strong> P001</p>
+<p><strong>Name:</strong> Desk Lamp</p>
+<p><strong>Category:</strong> Lighting</p>
+<p><strong>Price:</strong> £24.99</p>
+<p><strong>Stock Level:</strong> 53</p>
+<p><strong>Status:</strong> In Stock</p>
+
+<button class="close-view">Close</button>
+</div>
+
+<!-- RESTOCK MODAL -->
+<div class="restock-modal">
+
+<h3>Restock Product</h3>
+
+<label>Product ID</label>
+<input type="text" placeholder="Enter product ID">
+
+<label>Quantity Received</label>
+<input type="number" placeholder="Enter quantity">
+
+<button class="confirm-restock">Confirm Restock</button>
+<button class="cancel-restock">Cancel</button>
 
 </div>
 
-    </main>
+</main>
 
     <footer class="footer">
         <div class="footer-container">
@@ -194,6 +240,7 @@
     </script>
 
     <script src="js/sidemenu.js"></script>
+    <script src="js/admin.js"></script>
 
 </body>
 </html>
