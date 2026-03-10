@@ -62,66 +62,80 @@
 
     <main class="admin-main">
 
-        <h2 class="page-title">Order Processing</h2>
+<h2 class="page-title">Order Processing</h2>
 
-    <div class="orders-container">
+<div class="order-controls">
 
-        <table class="orders-table">
+<input type="text" placeholder="Search orders..." class="search-orders">
 
-            <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Total</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+<select class="order-filter">
+<option>All Orders</option>
+<option>Pending</option>
+<option>Processing</option>
+<option>Shipped</option>
+<option>Cancelled</option>
+</select>
 
-            <tbody>
+</div>
 
-                <tr>
-                    <td>#333</td>
-                    <td>Kayla Johnson</td>
-                    <td>12 Jan 2026</td>
-                    <td class="pending">Pending</td>
-                    <td>£50.99</td>
-                    <td>
-                        <button class="approve">Approve</button>
-                        <button class="cancel">Cancel</button>
-                    </td>
-                </tr>
+<div class="orders-container">
 
-                <tr>
-                    <td>#444</td>
-                    <td>Maia Lee</td>
-                    <td>14 Feb 2026</td>
-                    <td class="processing">Processing</td>
-                    <td>£22.79</td>
-                    <td>
-                        <button class="ship">Ship</button>
-                    </td>
-                </tr>
+<table class="orders-table">
 
-                <tr>
-                    <td>#555</td>
-                    <td>Gavin Davis</td>
-                    <td>5 March 2026</td>
-                    <td class="shipped">Shipped</td>
-                    <td>£84.32</td>
-                    <td>
-                        <button class="view">View</button>
-                    </td>
-                </tr>
+<thead>
+<tr>
+<th>Order ID</th>
+<th>Customer</th>
+<th>Date</th>
+<th>Status</th>
+<th>Total</th>
+<th>Actions</th>
+</tr>
+</thead>
 
-            </tbody>
+<tbody>
 
-        </table>
+<tr>
+<td>#333</td>
+<td>Kayla Johnson</td>
+<td>12 Jan 2026</td>
+<td class="pending">Pending</td>
+<td>£50.99</td>
+<td>
+<button class="approve">Approve</button>
+<button class="cancel">Cancel</button>
+</td>
+</tr>
 
-    </div>
+<tr>
+<td>#444</td>
+<td>Maia Lee</td>
+<td>14 Feb 2026</td>
+<td class="processing">Processing</td>
+<td>£22.79</td>
+<td>
+<button class="ship">Ship</button>
+</td>
+</tr>
 
-    </main>
+<tr>
+<td>#555</td>
+<td>Gavin Davis</td>
+<td>5 March 2026</td>
+<td class="shipped">Shipped</td>
+<td>£84.32</td>
+<td>
+<button class="view">View</button>
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</main>
 
     <footer class="footer">
         <div class="footer-container">
