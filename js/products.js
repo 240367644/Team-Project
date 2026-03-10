@@ -215,10 +215,10 @@ for (let i of products.data) {
     card.dataset.image = i.image;
     card.dataset.id = i.id;
    // Generate wishlist heart
-let heart = document.createElement("span");
-heart.classList.add("wishlist-heart");
-heart.innerHTML = "♡";
-card.appendChild(heart);
+let star = document.createElement("span");
+star.classList.add("wishlist-star");
+star.innerHTML = "☆";
+card.appendChild(star);
 let imgContainer = document.createElement("div");
 imgContainer.classList.add("image-container");
 let image = document.createElement("img");
@@ -352,15 +352,14 @@ addToCartBtn.addEventListener("click", () => {
 });
 document.addEventListener("click", function(e){
 
-    if(e.target.classList.contains("wishlist-heart")){
+    if(e.target.classList.contains("wishlist-star")){
 
-        if(e.target.innerHTML === "♡"){
-            e.target.innerHTML = "❤️";
+        if(e.target.innerHTML === "☆"){
+            e.target.innerHTML = "⭐";
         } else {
-            e.target.innerHTML = "♡";
+            e.target.innerHTML = "☆";
         }
 
     }
 
 });
-

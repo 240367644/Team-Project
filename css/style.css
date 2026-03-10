@@ -1732,3 +1732,22 @@ font-weight:bold;
     object-fit: cover;
     border-radius: 8px;
 }
+/* Wishlist star */
+
+.card{
+    position: relative;
+}
+
+.wishlist-star{
+    position:absolute;
+    top:10px;
+    right:10px;
+    font-size:22px;
+    cursor:pointer;
+    color:#999;
+    transition:0.2s;
+}
+
+.wishlist-star:hover{
+    color:gold;
+}

@@ -19,7 +19,7 @@ document.addEventListener("click", function(e){
             e.target.innerHTML = "❤️";
         } else {
             e.target.innerHTML = "♡";
-        }
+        } 
 
     }
 
