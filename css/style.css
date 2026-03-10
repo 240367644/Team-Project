@@ -1591,3 +1591,9 @@ font-weight:bold;
 .wishlist-heart:hover{
     color:red;
 }
+.wishlist-item img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
