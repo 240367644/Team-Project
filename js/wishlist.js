@@ -13,13 +13,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.addEventListener("click", function(e){
 
-    if(e.target.classList.contains("wishlist-heart")){
+    if(e.target.classList.contains("wishlist-star")){
 
-        if(e.target.innerHTML === "♡"){
-            e.target.innerHTML = "❤️";
+        if(e.target.innerHTML === "☆"){
+            e.target.innerHTML = "⭐";
         } else {
-            e.target.innerHTML = "♡";
-        } 
+            e.target.innerHTML = "☆";
+        }
 
     }
 
