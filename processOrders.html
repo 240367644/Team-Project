@@ -62,80 +62,82 @@
 
     <main class="admin-main">
 
-<h2 class="page-title">Order Processing</h2>
+        <div class="admin-top-menu">
+            <a href="processOrders.html">Process Orders</a>
+            <a href="customers.html">Customer Management</a>
+            <a href="inventory.html">Inventory Management</a>
+            <a href="reports.html">Reports</a>
+        </div>
+        
+        <br><br>
+        <h2 class="page-title">Order Processing</h2>
+        
+        <div class="order-controls">
+            
+            <input type="text" placeholder="Search orders..." class="search-orders">
+            <select class="order-filter">
+                <option>All Orders</option>
+                <option>Pending</option>
+                <option>Processing</option>
+                <option>Shipped</option>
+                <option>Cancelled</option>
+            </select>
+        </div>
+        
+        <div class="orders-container">
+            
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
 
-<div class="order-controls">
+                <tbody>
+                    <tr>
+                        <td>#333</td>
+                        <td>Kayla Johnson</td>
+                        <td>12 Jan 2026</td>
+                        <td class="pending">Pending</td>
+                        <td>£50.99</td>
+                        <td>
+                            <button class="approve">Approve</button>
+                            <button class="cancel">Cancel</button>
+                        </td>
+                    </tr>
 
-<input type="text" placeholder="Search orders..." class="search-orders">
+                    <tr>
+                        <td>#444</td>
+                        <td>Maia Lee</td>
+                        <td>14 Feb 2026</td>
+                        <td class="processing">Processing</td>
+                        <td>£22.79</td>
+                        <td>
+                            <button class="ship">Ship</button>
+                        </td>
+                    </tr>
 
-<select class="order-filter">
-<option>All Orders</option>
-<option>Pending</option>
-<option>Processing</option>
-<option>Shipped</option>
-<option>Cancelled</option>
-</select>
-
-</div>
-
-<div class="orders-container">
-
-<table class="orders-table">
-
-<thead>
-<tr>
-<th>Order ID</th>
-<th>Customer</th>
-<th>Date</th>
-<th>Status</th>
-<th>Total</th>
-<th>Actions</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-<td>#333</td>
-<td>Kayla Johnson</td>
-<td>12 Jan 2026</td>
-<td class="pending">Pending</td>
-<td>£50.99</td>
-<td>
-<button class="approve">Approve</button>
-<button class="cancel">Cancel</button>
-</td>
-</tr>
-
-<tr>
-<td>#444</td>
-<td>Maia Lee</td>
-<td>14 Feb 2026</td>
-<td class="processing">Processing</td>
-<td>£22.79</td>
-<td>
-<button class="ship">Ship</button>
-</td>
-</tr>
-
-<tr>
-<td>#555</td>
-<td>Gavin Davis</td>
-<td>5 March 2026</td>
-<td class="shipped">Shipped</td>
-<td>£84.32</td>
-<td>
-<button class="view">View</button>
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</main>
+                    <tr>
+                        <td>#555</td>
+                        <td>Gavin Davis</td>
+                        <td>5 March 2026</td>
+                        <td class="shipped">Shipped</td>
+                        <td>£84.32</td>
+                        <td>
+                            <button class="view">View</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        
+        </div>
+    
+    </main>
 
     <footer class="footer">
         <div class="footer-container">
