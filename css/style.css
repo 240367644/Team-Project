@@ -373,51 +373,74 @@ body {
 
 /* About Us */
 
-.about-us {
-    display: flex;
-    margin: 30px;
+.about-body {
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#f5f5f5;
+    text-align:center;
 }
 
-.about-us img {
-    height: 400px;
-    box-shadow: 16px 20px 40px rgba(1, 2, 68, 0.2);
-    opacity: 0.85;
+.about-image img {
+    width:100%;
+    height:400px;
+    object-fit:cover;
+    opacity: 0.8;
 }
 
-.about-text {
-    background: rgb(245, 245, 245);
-    padding: 50px;
-    box-shadow: 16px 20px 40px rgba(1, 2, 68, 0.2);
+.about {
+    margin:50px;
+    padding:40px 20px;
 }
 
-.about-text a {
-    display: inline-block;
-    margin-top: 20px;
+.about p { 
+    color:#414141;
+    line-height:1.6;
 }
 
-.about-text h2 {
-    color:#626262;
+.team {
+    background:#f0f0f0;
+    padding:40px;
+    margin:20px auto;
+    max-width:900px;
+    border-radius:10px;
 }
 
-.about-text p {
-    color:#626262;
+.teams {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+    margin-top:30px;
 }
 
-.contact-button {
-    background: #96CCE7;
-    color: #ffffff;
-    padding: 8px 18px;
-    border-radius: 10px;
-    font-size: 18px;
-    text-decoration: none;
-    transition: transform 0.2s ease;
-    margin-left: 0px;
+.circle {
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#66c4ff, #52ace4);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    margin:auto;
 }
 
-.contact-button:hover {
-    color: #eaeaea;
-    background: #92c5df;
-    transform: translateY(-3px);
+.member h4 {
+    margin:10px 0 5px;
+}
+
+.member p {
+    font-size:14px;
+    color:#666;
+}
+
+.goal {
+    background:linear-gradient(135deg,#66c4ff, #52ace4);
+    color:white;
+    padding:40px;
+    max-width:900px;
+    margin:30px auto;
+    border-radius:10px;
 }
 
 /* Products Page */
@@ -1220,6 +1243,29 @@ body{
     color: #111827;
 }
 
+/* Admin */
+
+.admin-top-menu {
+    width:100%;
+    background:#f5f5f5;
+    display:flex;
+    justify-content:center;
+    gap:60px;
+    padding:20px 0;
+    border-radius: 15px;
+}
+
+.admin-top-menu a {
+    text-decoration:none;
+    font-size:18px;
+    color:#555;
+    font-family:Arial, sans-serif;
+}
+
+.admin-top-menu a:hover {
+    color:#2c7db8;
+}
+
 /* Process Orders */
 
 .admin-main {
@@ -1304,6 +1350,26 @@ body{
 
 .orders-table button:hover {
     opacity: 0.85;
+}
+
+.order-controls{
+display:flex;
+gap:15px;
+margin-bottom:20px;
+}
+
+.search-orders{
+padding:8px 12px;
+border:1px solid #ccc;
+border-radius:6px;
+width:220px;
+}
+
+.order-filter{
+padding:8px 10px;
+border:1px solid #ccc;
+border-radius:6px;
+background:white;
 }
 
 /* Customer Management */
@@ -1391,6 +1457,29 @@ opacity:0.85;
 }
 .card{
     position: relative;
+}
+
+.role-select{
+padding:6px 10px;
+border:1px solid #ccc;
+border-radius:6px;
+background:#fff;
+font-size:14px;
+cursor:pointer;
+outline:none;
+}
+
+.role-select:hover{
+border-color:#2196f3;
+}
+
+.role-select:focus{
+border-color:#2196f3;
+box-shadow:0 0 4px rgba(33,150,243,0.4);
+}
+
+.role-select option{
+padding:5px;
 }
 
 .wishlist-heart{
@@ -1499,8 +1588,123 @@ background:#f44336;
 color:white;
 }
 
+.restock-btn{
+background:#52ace4;
+color:white;
+border:none;
+padding:6px 12px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.restock-btn:hover{
+opacity:0.85;
+}
+
 .product-table button:hover {
 opacity:0.85;
+}
+
+.product-view-modal{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);
+background:white;
+padding:25px;
+border-radius:10px;
+width:350px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+z-index:10000;
+}
+
+.product-view-modal h3{
+margin-bottom:15px;
+}
+
+.product-view-modal p{
+margin:6px 0;
+}
+
+.restock-modal{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);
+background:white;
+padding:25px;
+border-radius:10px;
+width:350px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+z-index:10000;
+}
+
+.restock-modal label{
+display:block;
+margin-top:10px;
+font-weight:bold;
+}
+
+.restock-modal input{
+width:100%;
+padding:8px;
+margin-top:5px;
+border:1px solid #ccc;
+border-radius:6px;
+}
+
+.confirm-restock{
+background:#4caf50;
+color:white;
+border:none;
+padding:8px 14px;
+border-radius:6px;
+cursor:pointer;
+margin-top:15px;
+}
+
+.cancel-restock,
+.close-view{
+background:#f44336;
+color:white;
+border:none;
+padding:8px 14px;
+border-radius:6px;
+cursor:pointer;
+margin-left:5px;
+margin-top:10px;
+}
+
+.inventory-alerts{
+display:flex;
+gap:15px;
+margin-bottom:20px;
+}
+
+.alert{
+padding:10px 16px;
+border-radius:6px;
+font-weight:bold;
+}
+
+.alert.low{
+background:#fff3cd;
+color:#856404;
+}
+
+.alert.out{
+background:#f8d7da;
+color:#721c24;
+}
+
+.product-table tr.low-stock-row{
+background:#fff8e1;
+}
+
+.product-table tr.out-stock-row{
+background:#fdecea;
 }
 
 /* Reports */
