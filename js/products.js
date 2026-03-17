@@ -206,16 +206,30 @@ let products = {
 const urlParams = new URLSearchParams(window.location.search);
 const initialCategory = urlParams.get("category");
 
+function isInWishlist(id){
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    return wishlist.some(item => item.id == id);
+}
 for (let i of products.data) {
     let card = document.createElement("div");
     card.classList.add("card", i.category);
-    let star = document.createElement("span");
-star.innerHTML = "⭐";
+   let star = document.createElement("span");
 star.classList.add("wishlist-star");
 
+if(isInWishlist(i.id)){
+    star.innerHTML = "⭐";
+} else {
+    star.innerHTML = "☆";
+}
+
 star.addEventListener("click", (e) => {
+
     e.stopPropagation();
+
     addToWishlist(i);
+
+    star.innerHTML = "⭐";
+
 });
 
 
@@ -360,18 +374,15 @@ addToCartBtn.addEventListener("click", () => {
 });
 
 
-function addToWishlist(product) {
+function addToWishlist(product){
 
     let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
-    let exists = wishlist.find(item => item.id === product.id);
+    let exists = wishlist.find(item => item.id == product.id);
 
-    if (!exists) {
+    if(!exists){
         wishlist.push(product);
         localStorage.setItem("wishlist", JSON.stringify(wishlist));
-        alert(product.productName + " has been added to your wishlist ⭐");
-    } else {
-        alert("This item is already in your wishlist");
     }
 
 }
