@@ -1819,3 +1819,52 @@ font-weight:bold;
 .card{
     position:relative;
 }
+/* Reviews Page */
+
+.reviews-page{
+    max-width:900px;
+    margin:auto;
+    padding:40px;
+}
+
+.review-form{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:40px;
+}
+
+.review-form input,
+.review-form textarea,
+.review-form select{
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.review-form button{
+    background:#2a8bc7;
+    color:white;
+    border:none;
+    padding:10px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+#reviews-display{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.review-card{
+    background:white;
+    padding:20px;
+    border-radius:8px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.review-stars{
+    color:gold;
+    margin:5px 0;
+}
