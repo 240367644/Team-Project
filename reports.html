@@ -62,121 +62,120 @@
 
     <main class="admin-main">
 
+        <div class="admin-top-menu">
+            <a href="processOrders.html">Process Orders</a>
+            <a href="customers.html">Customer Management</a>
+            <a href="inventory.html">Inventory Management</a>
+            <a href="reports.html">Reports</a>
+        </div>
+
+        <br><br>
+
         <h2 class="page-title">Reports & Monitoring</h2>
 
-<div class="report-cards">
+        <div class="report-cards">
 
-<div class="report-card">
-<h3>Total Products</h3>
-<p class="report-number">128</p>
-</div>
+            <div class="report-card">
+                <h3>Total Products</h3>
+                <p class="report-number">128</p>
+            </div>
 
-<div class="report-card">
-<h3>Low Stock Items</h3>
-<p class="report-number warning">7</p>
-</div>
+            <div class="report-card">
+                <h3>Low Stock Items</h3>
+                <p class="report-number warning">7</p>
+            </div>
 
-<div class="report-card">
-<h3>Orders Today</h3>
-<p class="report-number">24</p>
-</div>
+            <div class="report-card">
+                <h3>Orders Today</h3>
+                <p class="report-number">24</p>
+            </div>
 
-<div class="report-card">
-<h3>Orders This Week</h3>
-<p class="report-number">156</p>
-</div>
+            <div class="report-card">
+                <h3>Orders This Week</h3>
+                <p class="report-number">156</p>
+            </div>
 
-</div>
+        </div>
 
+        <h3 class="section-title">Stock Level Report</h3>
 
-<h3 class="section-title">Stock Level Report</h3>
+        <div class="table-container">
 
-<div class="table-container">
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Stock Level</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
 
-<table class="report-table">
+                <tbody>
+                    <tr>
+                        <td>Desk Lamp</td>
+                        <td>53</td>
+                        <td class="in-stock">In Stock</td>
+                    </tr>
 
-<thead>
-<tr>
-<th>Product</th>
-<th>Stock Level</th>
-<th>Status</th>
-</tr>
-</thead>
+                    <tr>
+                        <td>Office Chair</td>
+                        <td>8</td>
+                        <td class="low-stock">Low Stock</td>
+                    </tr>
 
-<tbody>
+                    <tr>
+                        <td>Notebook Set</td>
+                        <td>0</td>
+                        <td class="out-stock">Out of Stock</td>
+                    </tr>
+                </tbody>
+            </table>
 
-<tr>
-<td>Desk Lamp</td>
-<td>53</td>
-<td class="in-stock">In Stock</td>
-</tr>
-
-<tr>
-<td>Office Chair</td>
-<td>8</td>
-<td class="low-stock">Low Stock</td>
-</tr>
-
-<tr>
-<td>Notebook Set</td>
-<td>0</td>
-<td class="out-stock">Out of Stock</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
+        </div>
 
 
-<h3 class="section-title">Recent Orders</h3>
+        <h3 class="section-title">Recent Orders</h3>
 
-<div class="table-container">
+        <div class="table-container">
 
-<table class="report-table">
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
 
-<thead>
-<tr>
-<th>Order ID</th>
-<th>Customer</th>
-<th>Date</th>
-<th>Status</th>
-<th>Total</th>
-</tr>
-</thead>
+                <tbody>
+                    <tr>
+                        <td>#1024</td>
+                        <td>Sarah Johnson</td>
+                        <td>12 Mar 2026</td>
+                        <td>Shipped</td>
+                        <td>£64.99</td>
+                    </tr>
 
-<tbody>
+                    <tr>
+                        <td>#1023</td>
+                        <td>Michael Lee</td>
+                        <td>11 Mar 2026</td>
+                        <td>Processing</td>
+                        <td>£38.50</td>
+                    </tr>
 
-<tr>
-<td>#1024</td>
-<td>Sarah Johnson</td>
-<td>12 Mar 2026</td>
-<td>Shipped</td>
-<td>£64.99</td>
-</tr>
-
-<tr>
-<td>#1023</td>
-<td>Michael Lee</td>
-<td>11 Mar 2026</td>
-<td>Processing</td>
-<td>£38.50</td>
-</tr>
-
-<tr>
-<td>#1022</td>
-<td>Emma Davis</td>
-<td>10 Mar 2026</td>
-<td>Pending</td>
-<td>£92.10</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
+                    <tr>
+                        <td>#1022</td>
+                        <td>Emma Davis</td>
+                        <td>10 Mar 2026</td>
+                        <td>Pending</td>
+                        <td>£92.10</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
     </main>
 

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
@@ -20,7 +19,7 @@
         </div>
 
         <div class="side-menu" id="sideMenu">
-    <a href="profile.html">Profile</a>
+            <a href="profile.html">Profile</a>
             <a href="viewOrders.html">My Orders</a>
             <a href="wishlist.html">Wishlist</a>
             <a href="settings.html">Settings</a>
@@ -34,10 +33,10 @@
                     <a href="inventory.html">Inventory Management</a>
                     <a href="reports.html">Reports</a>
                 </div>
-                </div>
-    <br>
-    <a href="logout.html">Logout</a>
-</div>
+        </div>
+        <br>
+        <a href="logout.html">Logout</a>
+    </div>
 
         <div class="logo-header">
             <img src="images/A4U_logo.png" class="logo" alt="logo">
@@ -46,7 +45,6 @@
 
         <nav class="navibar">
             <ul>
-                <li><a href="reviews.html">Reviews</a></li>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
                 <li><a href="products.html">Products</a></li>
@@ -60,101 +58,88 @@
         <!-- Login/Logout link -->
         <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
     </header>
+    
+    <main class="profile-page">
+        <ul class="breadcrumb">
+           <li><a href="index.html">Home</a></li>
+           <li>My Account</li>
+        </ul>
 
-    <main class="admin-main">
-
-        <div class="admin-top-menu">
-            <a href="processOrders.html">Process Orders</a>
-            <a href="customers.html">Customer Management</a>
-            <a href="inventory.html">Inventory Management</a>
-            <a href="reports.html">Reports</a>
+        <div class="profile-topbar">
+            <p>Welcome! <span class="user-name">Md Rimel</span></p>
         </div>
 
-        <br><br>
-        <h2 class="page-title">Customer Management</h2>
+        <div class="profile-layout">
+            
+            <aside class="account-sidebar"> <!--this is the left side bar-->
+                <div class="sidebar-section">
+                    <h3>Manage Account</h3>
+                    <a href="profile.html" class="active">My Profile</a>
+                    <a href="address-book.html">Address Book</a>
+                    <a href="payment-options.html">My Payment Options</a>
+                </div>
 
-        <div class="customer-controls">
-            <input type="text" placeholder="Search customers..." class="search-bar">
-            <button class="add-btn">+ Add Customer</button>
-        </div>
+                <div class="sidebar-section">
+                    <h3>My Orders</h3>
+                    <a  href="returns.html">My Returns</a>
+                    <a href="cancellations.html">My cancellations</a>
+                </div>
 
-        <div class="table-container">
+                <div class="sidebar-section">
+                    <h3><a href="wishlist.html">My Wishlist</a></h3>
+                </div>
+            </aside>
 
-        <table class="customer-table">
-            <thead>
-                <tr>
-                    <th>Customer ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Orders</th>
-                    <th>Role</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+            <section class="profile-card">
+                <h2>Edit Profile</h2>
 
-            <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>Kayla Johnson</td>
-                    <td>kayla53@email.com</td>
-                    <td>+44 7123 456789</td>
-                    <td>4</td>
-                    <td>
-                        <select class="role-select">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button class="view-btn">View</button>
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    </td>
-                </tr>
+                <form class="profile-form" action="#" method="post">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="Md">
+                        </div>
 
-                <tr>
-                    <td>002</td>
-                    <td>Maia Lee</td>
-                    <td>maia87@email.com</td>
-                    <td>+44 7345 987654</td>
-                    <td>2</td>
-                    <td>
-                        <select class="role-select">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button class="view-btn">View</button>
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    </td>
-                </tr>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Rimel">
+                        </div>
+                    </div>
 
-                <tr>
-                    <td>003</td>
-                    <td>Gavin Davis</td>
-                    <td>gavin77@email.com</td>
-                    <td>+44 7011 223344</td>
-                    <td>7</td>
-                    <td>
-                        <select class="role-select">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button class="view-btn">View</button>
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="rimel1111@gmail.com">
+                        </div>
 
-        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address" placeholder="kingston,5467, United State">
+                        </div>
+                    </div>
 
+                    <div class="password-section">
+                        <h3>Password Changes</h3>
+
+                        <div class="form-group full-width">
+                            <input type="password" id="currentPassword" name="currentPassword" placeholder="Current Password">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <input type="password" id="newPassword" name="newPassword" placeholder="New Password">
+                        </div>
+                        <div class="form-group full-width">
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="cancel-btn">Cancel</button>
+                        <button type="submit" class="save-btn">Save Changes</button>
+                    </div>
+                </form>
+            </section>
+         </div>
     </main>
 
     <footer class="footer">
@@ -195,6 +180,7 @@
             Copyright © 2025 - 2026 Accom4U. All Rights Reserved.
         </div>
     </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             try {

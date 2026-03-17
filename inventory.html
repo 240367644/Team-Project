@@ -62,126 +62,125 @@
 
     <main class="admin-main">
 
-<h2 class="page-title">Product & Inventory Management</h2>
+        <div class="admin-top-menu">
+            <a href="processOrders.html">Process Orders</a>
+            <a href="customers.html">Customer Management</a>
+            <a href="inventory.html">Inventory Management</a>
+            <a href="reports.html">Reports</a>
+        </div>
 
-<div class="inventory-alerts">
+        <br><br>
+        <h2 class="page-title">Product & Inventory Management</h2>
 
-<div class="alert low">
-⚠ <span id="low-count">0</span> products are low in stock
-</div>
+        <div class="inventory-alerts">
 
-<div class="alert out">
-❗ <span id="out-count">0</span> products are out of stock
-</div>
+            <div class="alert low">
+                ⚠<span id="low-count">0</span> products are low in stock
+            </div>
 
-</div>
+            <div class="alert out">
+                ❗ <span id="out-count">0</span> products are out of stock
+            </div>
+        </div>
 
-<div class="product-controls">
-<input type="text" placeholder="Search products..." class="search-bar">
-<button class="add-product">+ Add Product</button>
-</div>
+        <div class="product-controls">
+            <input type="text" placeholder="Search products..." class="search-bar">
+            <button class="add-product">+ Add Product</button>
+        </div>
 
-<div class="table-container">
+        <div class="table-container">
 
-<table class="product-table">
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
 
-<thead>
-<tr>
-<th>Product ID</th>
-<th>Product</th>
-<th>Category</th>
-<th>Price</th>
-<th>Stock</th>
-<th>Status</th>
-<th>Actions</th>
-</tr>
-</thead>
+                <tbody>
+                    <tr>
+                        <td>P001</td>
+                        <td>Desk Lamp</td>
+                        <td>Lighting</td>
+                        <td>£24.99</td>
+                        <td>53</td>
+                        <td class="in-stock">In Stock</td>
+                        <td>
+                            <button class="view-btn">View</button>
+                            <button class="edit-btn">Edit</button>
+                            <button class="stock-btn">Update Stock</button>
+                            <button class="restock-btn">Restock</button>
+                            <button class="delete-btn">Delete</button>
+                        </td>
+                    </tr>
 
-<tbody>
+                    <tr>
+                        <td>P002</td>
+                        <td>Office Chair</td>
+                        <td>Furniture</td>
+                        <td>£89.99</td>
+                        <td>9</td>
+                        <td class="low-stock">Low Stock</td>
+                        <td>
+                            <button class="view-btn">View</button>
+                            <button class="edit-btn">Edit</button>
+                            <button class="stock-btn">Update Stock</button>
+                            <button class="restock-btn">Restock</button>
+                            <button class="delete-btn">Delete</button>
+                        </td>
+                    </tr>
 
-<tr>
-<td>P001</td>
-<td>Desk Lamp</td>
-<td>Lighting</td>
-<td>£24.99</td>
-<td>53</td>
-<td class="in-stock">In Stock</td>
-<td>
-<button class="view-btn">View</button>
-<button class="edit-btn">Edit</button>
-<button class="stock-btn">Update Stock</button>
-<button class="restock-btn">Restock</button>
-<button class="delete-btn">Delete</button>
-</td>
-</tr>
+                    <tr>
+                        <td>P003</td>
+                        <td>Notebook Set</td>
+                        <td>Stationery</td>
+                        <td>£12.50</td>
+                        <td>0</td>
+                        <td class="out-stock">Out of Stock</td>
+                        <td>
+                            <button class="view-btn">View</button>
+                            <button class="edit-btn">Edit</button>
+                            <button class="stock-btn">Update Stock</button>
+                            <button class="restock-btn">Restock</button>
+                            <button class="delete-btn">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-<tr>
-<td>P002</td>
-<td>Office Chair</td>
-<td>Furniture</td>
-<td>£89.99</td>
-<td>9</td>
-<td class="low-stock">Low Stock</td>
-<td>
-<button class="view-btn">View</button>
-<button class="edit-btn">Edit</button>
-<button class="stock-btn">Update Stock</button>
-<button class="restock-btn">Restock</button>
-<button class="delete-btn">Delete</button>
-</td>
-</tr>
+        <div class="product-view-modal">
+            
+            <h3>Product Details</h3>
+            <p><strong>Product ID:</strong> P001</p>
+            <p><strong>Name:</strong> Desk Lamp</p>
+            <p><strong>Category:</strong> Lighting</p>
+            <p><strong>Price:</strong> £24.99</p>
+            <p><strong>Stock Level:</strong> 53</p>
+            <p><strong>Status:</strong> In Stock</p>
 
-<tr>
-<td>P003</td>
-<td>Notebook Set</td>
-<td>Stationery</td>
-<td>£12.50</td>
-<td>0</td>
-<td class="out-stock">Out of Stock</td>
-<td>
-<button class="view-btn">View</button>
-<button class="edit-btn">Edit</button>
-<button class="stock-btn">Update Stock</button>
-<button class="restock-btn">Restock</button>
-<button class="delete-btn">Delete</button>
-</td>
-</tr>
+            <button class="close-view">Close</button>
+     
+        </div>
 
-</tbody>
-</table>
-</div>
+        <div class="restock-modal">
 
-<!-- PRODUCT VIEW MODAL -->
-<div class="product-view-modal">
-<h3>Product Details</h3>
+            <h3>Restock Product</h3>
+            <label>Product ID</label>
+            <input type="text" placeholder="Enter product ID">
+            <label>Quantity Received</label>
+            <input type="number" placeholder="Enter quantity">
+            <button class="confirm-restock">Confirm Restock</button>
+            <button class="cancel-restock">Cancel</button>
+        </div>
 
-<p><strong>Product ID:</strong> P001</p>
-<p><strong>Name:</strong> Desk Lamp</p>
-<p><strong>Category:</strong> Lighting</p>
-<p><strong>Price:</strong> £24.99</p>
-<p><strong>Stock Level:</strong> 53</p>
-<p><strong>Status:</strong> In Stock</p>
-
-<button class="close-view">Close</button>
-</div>
-
-<!-- RESTOCK MODAL -->
-<div class="restock-modal">
-
-<h3>Restock Product</h3>
-
-<label>Product ID</label>
-<input type="text" placeholder="Enter product ID">
-
-<label>Quantity Received</label>
-<input type="number" placeholder="Enter quantity">
-
-<button class="confirm-restock">Confirm Restock</button>
-<button class="cancel-restock">Cancel</button>
-
-</div>
-
-</main>
+    </main>
 
     <footer class="footer">
         <div class="footer-container">
