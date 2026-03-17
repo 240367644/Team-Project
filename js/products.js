@@ -209,6 +209,17 @@ const initialCategory = urlParams.get("category");
 for (let i of products.data) {
     let card = document.createElement("div");
     card.classList.add("card", i.category);
+    let star = document.createElement("span");
+star.innerHTML = "⭐";
+star.classList.add("wishlist-star");
+
+star.addEventListener("click", (e) => {
+    e.stopPropagation();
+    addToWishlist(i);
+});
+
+
+card.appendChild(star);
     card.dataset.name = i.productName;
     card.dataset.price = i.price;
     card.dataset.description = i.description;
@@ -363,3 +374,19 @@ document.addEventListener("click", function(e){
     }
 
 });
+
+function addToWishlist(product) {
+
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+    let exists = wishlist.find(item => item.id === product.id);
+
+    if (!exists) {
+        wishlist.push(product);
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+        alert(product.productName + " has been added to your wishlist ⭐");
+    } else {
+        alert("This item is already in your wishlist");
+    }
+
+}
