@@ -225,17 +225,14 @@ card.appendChild(star);
     card.dataset.description = i.description;
     card.dataset.image = i.image;
     card.dataset.id = i.id;
-   // Generate wishlist heart
-let star = document.createElement("span");
-star.classList.add("wishlist-star");
-star.innerHTML = "☆";
-card.appendChild(star);
+ 
 let imgContainer = document.createElement("div");
 imgContainer.classList.add("image-container");
 let image = document.createElement("img");
 image.setAttribute("src", i.image);
 imgContainer.appendChild(image);
 card.appendChild(imgContainer);
+
     let container = document.createElement("div");
     container.classList.add("container");
     let name = document.createElement("h5");
@@ -361,19 +358,7 @@ addToCartBtn.addEventListener("click", () => {
         }
     });
 });
-document.addEventListener("click", function(e){
 
-    if(e.target.classList.contains("wishlist-star")){
-
-        if(e.target.innerHTML === "☆"){
-            e.target.innerHTML = "⭐";
-        } else {
-            e.target.innerHTML = "☆";
-        }
-
-    }
-
-});
 
 function addToWishlist(product) {
 
