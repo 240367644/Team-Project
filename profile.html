@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Accom4U</title>
+    <link rel="icon" type="image/png" href="images/A4U_logo.png">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+    <header class="header">
+
+        <div class="menu-icon" onclick="toggleMenu()">
+            ☰
+        </div>
+
+        <div class="side-menu" id="sideMenu">
+            <a href="profile.html">Profile</a>
+            <a href="viewOrders.html">My Orders</a>
+            <a href="wishlist.html">Wishlist</a>
+            <a href="settings.html">Settings</a>
+            <br>
+            <div class="admin-menu">
+                <a href="#" onclick="toggleAdmin()">Admin Panel ▾</a>
+
+                <div class="submenu" id="subMenu">
+                    <a href="processOrders.html">Process Orders</a>
+                    <a href="customers.html">Customer Management</a>
+                    <a href="inventory.html">Inventory Management</a>
+                    <a href="reports.html">Reports</a>
+                </div>
+        </div>
+        <br>
+        <a href="logout.html">Logout</a>
+    </div>
+
+        <div class="logo-header">
+            <img src="images/A4U_logo.png" class="logo" alt="logo">
+            <h1 class="title">Accom4U</h1>
+        </div>
+
+        <nav class="navibar">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+
+        <a class="basket-icon" href="basket.html">
+            <img src="images/basket.png" class="basket-icon" alt="Basket">
+        </a>
+        <!-- Login/Logout link -->
+        <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
+    </header>
+    
+    <main class="profile-page">
+        <ul class="breadcrumb">
+           <li><a href="index.html">Home</a></li>
+           <li>My Account</li>
+        </ul>
+
+        <div class="profile-topbar">
+            <p>Welcome! <span class="user-name">Md Rimel</span></p>
+        </div>
+
+        <div class="profile-layout">
+            
+            <aside class="account-sidebar"> <!--this is the left side bar-->
+                <div class="sidebar-section">
+                    <h3>Manage Account</h3>
+                    <a href="profile.html" class="active">My Profile</a>
+                    <a href="address-book.html">Address Book</a>
+                    <a href="payment-options.html">My Payment Options</a>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>My Orders</h3>
+                    <a  href="returns.html">My Returns</a>
+                    <a href="cancellations.html">My cancellations</a>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3><a href="wishlist.html">My Wishlist</a></h3>
+                </div>
+            </aside>
+
+            <section class="profile-card">
+                <h2>Edit Profile</h2>
+
+                <form class="profile-form" action="#" method="post">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="Md">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Rimel">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="rimel1111@gmail.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address" placeholder="kingston,5467, United State">
+                        </div>
+                    </div>
+
+                    <div class="password-section">
+                        <h3>Password Changes</h3>
+
+                        <div class="form-group full-width">
+                            <input type="password" id="currentPassword" name="currentPassword" placeholder="Current Password">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <input type="password" id="newPassword" name="newPassword" placeholder="New Password">
+                        </div>
+                        <div class="form-group full-width">
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="cancel-btn">Cancel</button>
+                        <button type="submit" class="save-btn">Save Changes</button>
+                    </div>
+                </form>
+            </section>
+         </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+
+        <div class="footer-column">
+            <h3>Accom4U</h3>
+        </div>
+
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <a href="#">About Us</a>
+                <a href="#">Products</a>
+                <a href="#">FAQ</a>
+                <a href="#">Shipping Info</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>Customer Service</h4>
+                <a href="#">Contact Us</a>
+                <a href="#">Returns</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+
+            <div class="footer-column">
+                <h4>Contact Us</h4>
+                <p>123 Commerce Street, Birmingham</p>
+                <p>+44 123 123 12312</p>
+                <p>accom4u@gmail.com</p>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="footer-bottom">
+            Copyright © 2025 - 2026 Accom4U. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await fetch('session.php');
+                const data = await res.json();
+
+                const loginLink = document.getElementById('loginLink');
+
+                if(data.loggedIn) {
+                    loginLink.href = 'logout.php';
+                    loginLink.innerHTML = '<b>Logout</b>';
+                }
+            } catch(err) {
+                console.error('Error checking session:', err);
+            }
+        });
+    </script>
+
+    <script src="js/sidemenu.js"></script>
+
+</body>
+</html>
