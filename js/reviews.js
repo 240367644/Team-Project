@@ -54,3 +54,17 @@ function displayReviews(){
     });
 
 }
+
+// on homepage
+
+function scrollReviews(direction) {
+    const container = document.getElementById("reviewsContainer");
+    const scrollAmount = 300;
+    container.scrollLeft += direction * scrollAmount;
+}
+
+function scrollCategories(direction) {
+    const container = document.getElementById("categoryScroll");
+    const scrollAmount = 400;
+    container.scrollLeft += direction * scrollAmount;
+}
