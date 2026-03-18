@@ -1,0 +1,754 @@
+[33mcommit 43bcaf985758e3f46511f564ae96090414cad8ed[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 1188632 68712d1
+Author: LaminBayoBah <240377012@aston.ac.uk>
+Date:   Tue Mar 17 23:26:04 2026 +0000
+
+    changes about us
+
+[33mcommit 11886325238be020b3afda25a9c64acec936bcb9[m
+Author: LaminBayoBah <240377012@aston.ac.uk>
+Date:   Tue Mar 17 17:24:06 2026 +0000
+
+    reviews
+
+[33mcommit 919736d3b1d4b4c9eedd732ac2478868566b1718[m
+Author: LaminBayoBah <240377012@aston.ac.uk>
+Date:   Tue Mar 17 16:58:19 2026 +0000
+
+    changes
+
+[33mcommit 100fd09bcfc36ea80af261e04c4c23d3f6e43e65[m
+Author: LaminBayoBah <240377012@aston.ac.uk>
+Date:   Tue Mar 17 16:46:07 2026 +0000
+
+    changes
+
+[33mcommit 7761bac8a58b822e29079a2a70fa498f5979a2b8[m
+Author: LaminBayoBah <240377012@aston.ac.uk>
+Date:   Tue Mar 17 16:20:46 2026 +0000
+
+    changes
+
+[33mcommit 2e1064dbc7c7b34225ffe42340fe157db3487311[m
+Author: LaminBayoBah <240377012@aston.ac.uk>
+Date:   Tue Mar 17 16:03:55 2026 +0000
+
+    changes
+
+[33mcommit 68712d1750cf6068a41283d511fc959a259b00d9[m
+Merge: 6d2f912 9f3b9f1
+Author: nabiha0806 <nabiha3284@gmail.com>
+Date:   Tue Mar 17 02:03:23 2026 +0000
+
+    Merge pull request #3 from 240367644/contact
+    
+    Contact
+
+[33mcommit 9f3b9f191f6be0bae0a26141568b70db92a749b1[m[33m ([m[1;31morigin/contact[m[33m)[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Tue Mar 17 02:02:48 2026 +0000
+
+    Updated contact page
+
+[33mcommit 6d2f91280a0167998921c6d5826deebcbcb98888[m
+Merge: 01fef8b bd8b168
+Author: nabiha0806 <nabiha3284@gmail.com>
+Date:   Tue Mar 17 01:54:07 2026 +0000
+
+    Merge pull request #2 from 240367644/register/login
+    
+    Updated register and login
+
+[33mcommit 19cb890528748e2b902ac00565b86a8c6bab20bf[m
+Merge: bd8b168 01fef8b
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Tue Mar 17 01:52:08 2026 +0000
+
+    Merge branch 'main' of https://github.com/240367644/Team-Project into register/login
+
+[33mcommit bd8b168af09b51eb85db4a9d071521e3db12be8e[m[33m ([m[1;31morigin/register/login[m[33m)[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Tue Mar 17 01:51:34 2026 +0000
+
+    Updated register and login
+
+[33mcommit 01fef8bee24abe33301fe254f07d5fe010e8c629[m
+Merge: ca262ed e4cf906
+Author: nabiha0806 <nabiha3284@gmail.com>
+Date:   Tue Mar 17 00:07:25 2026 +0000
+
+    Merge pull request #1 from 240367644/feature/profile-section-creation
+    
+    Feature/profile section creation
+
+[33mcommit e4cf9068a69c68da68309e96bc6a4b468f1e6b5b[m[33m ([m[1;31morigin/feature/profile-section-creation[m[33m)[m
+Author: Rahima Osman <rahimaosman3174@gmail.com>
+Date:   Mon Mar 16 23:44:54 2026 +0000
+
+    created the profile layout and styled it
+
+[33mcommit ca262edf34a870884261bd3e9bf667d9dcf56a71[m[33m ([m[1;31morigin/about-us[m[33m)[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Mon Mar 16 23:12:00 2026 +0000
+
+    Updated about us page
+
+[33mcommit d2fa1783da9b720cae15bd7f1c77e0c20ff8ac88[m
+Author: LaminBayoBah <240377012@aston.ac.uk>
+Date:   Thu Mar 12 15:42:24 2026 +0000
+
+    changes
+
+[33mcommit 4ae9adb848c61df4e3ecf50e202d65b76084bc58[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Thu Mar 12 13:42:59 2026 +0000
+
+    Updated admin panel
+
+[33mcommit 3895efa8c88aa965a895769c5203ee9c70ef309f[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Wed Mar 11 01:03:27 2026 +0000
+
+    Added forgot password page
+
+[33mcommit 63633067794f4a3bbebce04ba1b1d842545bdcb9[m
+Author: LaminBayoBah <240377012@aston.ac.uk>
+Date:   Tue Mar 10 15:16:47 2026 +0000
+
+    add to wishlist button
+
+[33mcommit 8e48bcc3fdc13c979b9c310d73ef2a413f94e233[m
+Merge: 8bba726 cd0a8cf
+Author: LaminBayoBah <240377012@aston.ac.uk>
+Date:   Tue Mar 10 14:53:40 2026 +0000
+
+    Merge branch 'main' of https://github.com/240367644/Team-Project
+
+[33mcommit 8bba726f9ce7533ee5d288a7314723634747237a[m
+Author: LaminBayoBah <240377012@aston.ac.uk>
+Date:   Tue Mar 10 14:48:53 2026 +0000
+
+    style
+
+[33mcommit ef88c7616ade3853da971c487f3f8b329fb51492[m
+Author: LaminBayoBah <240377012@aston.ac.uk>
+Date:   Tue Mar 10 14:46:29 2026 +0000
+
+    wishlist edits
+
+[33mcommit cd0a8cf0197d878abd7fc4be65352f50b774a42b[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Tue Mar 10 14:25:54 2026 +0000
+
+    Updated admin panel
+
+[33mcommit d398a667bb668a96ccc0c632e088767de99b04da[m
+Author: Rahima Osman <rahimaosman3174@gmail.com>
+Date:   Mon Mar 9 09:45:21 2026 +0000
+
+    profile page with header & footer only
+
+[33mcommit dc5de2de52a48fb764a96af36247f1ad5a00b298[m
+Author: LaminBayoBah <240377012@aston.ac.uk>
+Date:   Mon Mar 9 00:29:02 2026 +0000
+
+    wishlist css heart
+
+[33mcommit b5b04f0d9602c36a9737b9800a4596324527644f[m
+Merge: 456098c 40b19b5
+Author: LaminBayoBah <240377012@aston.ac.uk>
+Date:   Mon Mar 9 00:15:17 2026 +0000
+
+    Merge branch 'main' of https://github.com/240367644/Team-Project
+
+[33mcommit 456098c720c099bef426693c93ffc040b3510a78[m
+Author: LaminBayoBah <240377012@aston.ac.uk>
+Date:   Mon Mar 9 00:15:05 2026 +0000
+
+    commit wishlist changes and updates
+
+[33mcommit 40b19b5a24a35735f8163451b5434a8473009ec3[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Sun Mar 8 23:55:36 2026 +0000
+
+    Updated header and footer
+
+[33mcommit 772c42b903b2bf372cb6360714cf4f9be76b2224[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Sun Mar 8 23:38:17 2026 +0000
+
+    Inventory management and reports base
+
+[33mcommit 65cc743464630f9df9a2046a2a94945d5d804917[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Sun Mar 8 21:08:55 2026 +0000
+
+    Customer management frontend
+
+[33mcommit 90fdb8dee38912be10d34cb3d6c27c66400808bd[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Sun Mar 8 18:51:43 2026 +0000
+
+    Added wishlist section
+
+[33mcommit d665c3e1b3ac92f4304aef873d90db2eb89a940f[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Sun Mar 8 15:14:15 2026 +0000
+
+    Order processing frontend
+
+[33mcommit a0bb0ad4f720758c98af63c626c2e0b0103ed70f[m
+Merge: 87c3bca 710e235
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Sun Mar 8 00:43:07 2026 +0000
+
+    Merge branch 'main' of https://github.com/240367644/Team-Project
+
+[33mcommit 87c3bcaa6aaefe4742810820b618b1f7280867a1[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Sun Mar 8 00:42:28 2026 +0000
+
+    Side menu and admin panel base
+
+[33mcommit 710e235ecf5f763c2546016dd436108bcd4d8b6d[m
+Merge: f3cc8ff ddb4f03
+Author: Rahima Osman <rahimaosman3174@gmail.com>
+Date:   Sat Mar 7 22:39:26 2026 +0000
+
+    Merge branch 'main' of https://github.com/240367644/Team-Project
+
+[33mcommit f3cc8ff90e10e23d5aaef63be10a88523bf62ec4[m
+Author: Rahima Osman <rahimaosman3174@gmail.com>
+Date:   Sat Mar 7 22:24:10 2026 +0000
+
+    updated basket page
+
+[33mcommit ddb4f03b08172ca0e5b59e2e2172a7e4c2e64e44[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Sat Mar 7 16:24:56 2026 +0000
+
+    Updated homepage, started adding menu bar
+
+[33mcommit 0d4bbd278a2b13ed03303e813196a247d0503b23[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Mon Dec 8 22:46:10 2025 +0000
+
+    Fixed
+
+[33mcommit 93ad326f1a5c1e379f9e1da5f5a571c52ab5cf70[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Mon Dec 8 22:31:04 2025 +0000
+
+    Fixed
+
+[33mcommit 9bba69099129e7a5cddb4470020ff8151eab8cd6[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Mon Dec 8 21:18:53 2025 +0000
+
+    Fixed
+
+[33mcommit bc77b2aeca321866491b87eeb22ce4d127be59a1[m
+Author: Rahima Osman <rahimaosman3174@gmail.com>
+Date:   Sun Dec 7 17:27:44 2025 +0000
+
+    linked css file to baskte.html and fixed the footer
+
+[33mcommit aa66228ba6797beb150c34fe2dc3aff59ff15fc6[m
+Author: Rahima Osman <rahimaosman3174@gmail.com>
+Date:   Sun Dec 7 16:52:37 2025 +0000
+
+    Adding navigation bar to basket page
+
+[33mcommit 5b7efcd15dcc25651509f4173a7fada3678266bc[m
+Merge: 0440ea9 484beb8
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Sat Dec 6 17:21:25 2025 +0000
+
+    Merge branch 'main' of https://github.com/240367644/Team-Project
+
+[33mcommit 0440ea9765e727d875ce00a96a5e870d01a5b7b4[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Sat Dec 6 17:21:14 2025 +0000
+
+    Fix products page
+
+[33mcommit 484beb8057f57af27a967f0c323c8ab2a0749848[m
+Author: Rahima Osman <rahimaosman3174@gmail.com>
+Date:   Fri Dec 5 13:45:09 2025 +0000
+
+    Removed css from basket.html
+
+[33mcommit bafc4f274ec2b725938fb66f23816ad6b2805637[m
+Merge: b61765e c4035ce
+Author: Rahima Osman <rahimaosman3174@gmail.com>
+Date:   Fri Dec 5 13:41:03 2025 +0000
+
+    Updated class names for checkout.html. Also uploaded the css code for checkout and basket
+
+[33mcommit c4035cedac395fea1d3c3e41e892d283c5a9d65b[m
+Merge: 36d7eb1 7f18799
+Author: MingHayWu <minghaywu@gmail.com>
+Date:   Fri Dec 5 13:24:37 2025 +0000
+
+    Merge branch 'main' of https://github.com/240367644/Team-Project
+
+[33mcommit 36d7eb17944a4cb6beffbdf577d4df87a8333edc[m
+Author: MingHayWu <minghaywu@gmail.com>
+Date:   Fri Dec 5 13:24:31 2025 +0000
+
+    The page to display to the customer that their order has been recieved
+
+[33mcommit b61765ef995303c6068ac51dcea5bbbab6eef262[m
+Author: Rahima Osman <rahimaosman3174@gmail.com>
+Date:   Fri Dec 5 13:24:22 2025 +0000
+
+    Added css for checkout and basket pages
+
+[33mcommit f6307926b01f9b6dd933c9b69809ea9800a80252[m
+Author: MingHayWu <minghaywu@gmail.com>
+Date:   Fri Dec 5 13:24:17 2025 +0000
+
+    Made the checkout page link to a page confirming for the customer that their order has been recived.
+
+[33mcommit 78d071b1ce3cc10fa9d5e772e32d4faedcebd537[m
+Merge: 6196648 7f18799
+Author: Rahima Osman <rahimaosman3174@gmail.com>
+Date:   Fri Dec 5 13:15:48 2025 +0000
+
+    Resolved merge conflicts
+
+[33mcommit 619664820c8beeed6e576ed716c52f2558ca8377[m
+Author: Rahima Osman <rahimaosman3174@gmail.com>
+Date:   Fri Dec 5 12:44:39 2025 +0000
+
+    Corrected input types for check-out form
+
+[33mcommit 7f187993b26fd7c45ef126166cf8f13b7c74dd44[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Fri Dec 5 12:32:27 2025 +0000
+
+    Updated products.js
+
+[33mcommit 8f1c22897c5d980b120676c4e54db0eb0f0071c1[m
+Merge: 33b645f d11e3fe
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Fri Dec 5 12:25:30 2025 +0000
+
+    Resolved merge conflict
+
+[33mcommit 33b645f06c29abb3348e2f8fc9344d9734e64c71[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Fri Dec 5 12:21:20 2025 +0000
+
+    Added images and other fixes
+
+[33mcommit d11e3fed045148fbaace59bed3d143b2f01f7add[m
+Merge: 2b0667a 3e94531
+Author: 240367644 <2403677444@aston.ac.uk>
+Date:   Fri Dec 5 11:32:09 2025 +0000
+
+    replacing missing files
+
+[33mcommit 2b0667ab69085e2763d87c717fdedd0d99b2921a[m
+Author: 240367644 <2403677444@aston.ac.uk>
+Date:   Fri Dec 5 11:31:10 2025 +0000
+
+    fixed missing files
+
+[33mcommit 5e41668f03185fafd2eeecbf1997974acdb71cb6[m
+Author: 240367644 <2403677444@aston.ac.uk>
+Date:   Fri Dec 5 11:29:29 2025 +0000
+
+    fixed database_setup.php
+
+[33mcommit 3e94531d3155f499d93322ee44471b31cdb7ef3d[m
+Author: 240367644 <kylelieucolab@gmail.com>
+Date:   Fri Dec 5 11:28:43 2025 +0000
+
+    fixing database_setup.php
+
+[33mcommit 03058c7f6e2e683a1ba3c978e9521a0a6aa7b3e6[m
+Merge: a7e6c80 a98f022
+Author: muhammadfaid0 <240170996@aston.ac.uk>
+Date:   Fri Dec 5 10:51:15 2025 +0000
+
+    Merge branch 'main' of https://github.com/240367644/Team-Project
+
+[33mcommit a98f0225b7375d6ef5987b8237ab0a49930d3105[m
+Author: 240367644 <2403677444@aston.ac.uk>
+Date:   Fri Dec 5 10:06:34 2025 +0000
+
+    Updated login from old php save
+
+[33mcommit 84a2fe13ce51f04c9af3f9403b5a71e7ed558b5b[m
+Author: 240367644 <kylelieucolab@gmail.com>
+Date:   Fri Dec 5 09:58:16 2025 +0000
+
+    Delete aboutus.php
+
+[33mcommit b3def5a46cc3abb5e7c02a87919942a232866941[m
+Author: 240367644 <kylelieucolab@gmail.com>
+Date:   Fri Dec 5 09:58:11 2025 +0000
+
+    Delete basketpage.php
+
+[33mcommit 524746292c7dc41d2bc96f9ff4115bf7c000b0f9[m
+Author: 240367644 <kylelieucolab@gmail.com>
+Date:   Fri Dec 5 09:58:03 2025 +0000
+
+    Delete checkout.php
+
+[33mcommit 495c6e40db72798d1cf9dc4173c819881188159f[m
+Author: 240367644 <kylelieucolab@gmail.com>
+Date:   Fri Dec 5 09:57:55 2025 +0000
+
+    Delete viewOrders.php
+
+[33mcommit 1696e57ec1b102ed7d10f234fff1fed12e4a5a5f[m
+Author: 240367644 <kylelieucolab@gmail.com>
+Date:   Fri Dec 5 09:57:49 2025 +0000
+
+    Delete register.php
+
+[33mcommit 14e281cc3ff33b1fa036de5d0a29158731edb06b[m
+Author: 240367644 <kylelieucolab@gmail.com>
+Date:   Fri Dec 5 09:57:43 2025 +0000
+
+    Delete products.php
+
+[33mcommit 8bd2f94427f32963e3201725f7b858f935a47fb9[m
+Author: 240367644 <kylelieucolab@gmail.com>
+Date:   Fri Dec 5 09:57:33 2025 +0000
+
+    Delete index.php
+
+[33mcommit a44c6c628f38cb211eccc0cae8aeba7c26a42113[m
+Author: 240367644 <kylelieucolab@gmail.com>
+Date:   Fri Dec 5 09:57:24 2025 +0000
+
+    Delete contact.php
+
+[33mcommit 96d2c0d4af2638ad19577e354b8764e04a828a36[m
+Merge: a6d9f2d 7316225
+Author: 240367644 <2403677444@aston.ac.uk>
+Date:   Fri Dec 5 09:52:57 2025 +0000
+
+    Merge branch 'main' of https://github.com/240367644/Team-Project
+    
+    Reverting the old changes
+
+[33mcommit a6d9f2d8377c5e081ea7893d2835d334c44d15fa[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Fri Dec 5 08:05:18 2025 +0000
+
+    reverted the change to php, changed the login session functions
+
+[33mcommit 73162254471c617c3aab20ac5e1880aa5ea81f43[m
+Author: nabiha0806 <nabiha3284@gmail.com>
+Date:   Fri Dec 5 09:21:06 2025 +0000
+
+    Update README.md
+
+[33mcommit c335dbaf47689223dfe9414f5a8b7c82b6389913[m
+Author: nabiha0806 <nabiha3284@gmail.com>
+Date:   Fri Dec 5 09:20:52 2025 +0000
+
+    Update README.md
+
+[33mcommit f691959a3ae935f149f1465464d3e16f745b1e90[m
+Author: nabiha0806 <nabiha3284@gmail.com>
+Date:   Fri Dec 5 09:19:53 2025 +0000
+
+    Update README.md
+
+[33mcommit aa07611d1f6e3a10dfef3f3fb8b549379d784c3e[m
+Author: nabiha0806 <nabiha3284@gmail.com>
+Date:   Fri Dec 5 08:42:32 2025 +0000
+
+    Update README.md
+
+[33mcommit 35f69d6e32fa0ebd58f0d9fea7a25cb73714ab2d[m
+Author: nabiha0806 <nabiha3284@gmail.com>
+Date:   Fri Dec 5 08:41:32 2025 +0000
+
+    Update README.md
+
+[33mcommit c8583f9d486e11197552d09f2621cdeb12a490e4[m
+Merge: 5e2225e 9c4bdb9
+Author: 240367644 <2403677444@aston.ac.uk>
+Date:   Fri Dec 5 08:27:47 2025 +0000
+
+    Merge branch 'main' of https://github.com/240367644/Team-Projecti]
+
+[33mcommit 5e2225e40a1e493252e610315a641f2f67016470[m
+Author: 240367644 <2403677444@aston.ac.uk>
+Date:   Fri Dec 5 08:27:04 2025 +0000
+
+    Fixed the unedited href's
+
+[33mcommit 9c4bdb932d5e0f2ba7daa5344dfd33625d22b2c7[m
+Merge: 1bfdc5a 7d1553f
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Fri Dec 5 08:23:02 2025 +0000
+
+    Merge branch 'main' of https://github.com/240367644/Team-Project
+
+[33mcommit 7d1553f5d48b7443502bcd5b2d79bcbe9099f333[m
+Author: 240367644 <2403677444@aston.ac.uk>
+Date:   Fri Dec 5 08:06:25 2025 +0000
+
+    Changed all files to .php to maintain login sessions
+
+[33mcommit 1bfdc5ad8bf5594b997cca0814d47dc991b0464d[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Fri Dec 5 08:05:18 2025 +0000
+
+    Update CSS for login, register
+
+[33mcommit 8cc32bb95a472cae00cb967eb7364073a56016b4[m
+Author: 240367644 <kylelieucolab@gmail.com>
+Date:   Fri Dec 5 07:30:21 2025 +0000
+
+    Delete the loginregister folder, redundant
+
+[33mcommit 9942a5a16464aeac845ad9da2cb9266978dfdde9[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Fri Dec 5 06:26:27 2025 +0000
+
+    Updated header
+    
+    Added basket icon
+
+[33mcommit b555a8f063e8571d22290b26abc2048996cbef58[m
+Merge: bbed6a8 0709ba7
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Fri Dec 5 06:14:19 2025 +0000
+
+    Updated CSS and JS, added pop up
+    
+    Updated CSS for login and register, made pop up for products
+
+[33mcommit bbed6a8387438ef2c04e7ba0601ab4af1ea5be14[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Fri Dec 5 04:33:00 2025 +0000
+
+    Add css for login, register, basket icon
+
+[33mcommit 0709ba73a6269f291c88bd6154637a197c5b9ac6[m
+Merge: 48d70e9 2b0c77c
+Author: MingHayWu <minghaywu@gmail.com>
+Date:   Thu Dec 4 20:09:25 2025 +0000
+
+    Merge branch 'main' of https://github.com/240367644/Team-Project
+
+[33mcommit 48d70e97c1ecb46e20436f17465221879555ded7[m
+Author: MingHayWu <minghaywu@gmail.com>
+Date:   Thu Dec 4 20:09:21 2025 +0000
+
+    This file is no longer needed
+
+[33mcommit 9aba933ebc7b343bac65fecab46af79eeb57c97e[m
+Author: MingHayWu <minghaywu@gmail.com>
+Date:   Thu Dec 4 20:06:49 2025 +0000
+
+    Made the check out page look nicer and have more details related to purchasing the item
+
+[33mcommit 2b0c77cdfe0dc9a39a0926e05f248b0239ceaa70[m
+Merge: feb973c 5573382
+Author: Rahima Osman <rahimaosman3174@gmail.com>
+Date:   Thu Dec 4 19:30:53 2025 +0000
+
+    Added css for contact page
+
+[33mcommit 55733828d1ece9767fb5deb6b7df5d353fd449d7[m
+Author: Sohail113 <230090088@aston.ac.uk>
+Date:   Thu Dec 4 19:30:30 2025 +0000
+
+    Update basket.html
+
+[33mcommit feb973c086342957c44eab6fce975ca1e4eea270[m
+Author: Rahima Osman <rahimaosman3174@gmail.com>
+Date:   Thu Dec 4 19:25:17 2025 +0000
+
+    Added the css for the contact page
+
+[33mcommit 0d069cc58dfd8d25296640b8c9601e7aed399a0f[m
+Author: Sohail113 <230090088@aston.ac.uk>
+Date:   Thu Dec 4 19:24:49 2025 +0000
+
+    Update basket.php
+
+[33mcommit d19c5a1af4d83c423f8b05e9a851297b0378f582[m
+Author: Sohail113 <230090088@aston.ac.uk>
+Date:   Thu Dec 4 19:20:11 2025 +0000
+
+    Update basket.html
+
+[33mcommit f863104f9c9708cee6feb569fc1d51b6874e7705[m
+Author: Sohail113 <230090088@aston.ac.uk>
+Date:   Thu Dec 4 19:11:00 2025 +0000
+
+    Update basket.html
+
+[33mcommit bbbbc965963275077aa07d321245765689d4d91d[m
+Author: Sohail113 <230090088@aston.ac.uk>
+Date:   Thu Dec 4 19:07:36 2025 +0000
+
+    Create basket.php
+    
+    Added code for basket php
+
+[33mcommit 7511f44ae1956803ad41a694ab687828c83b038f[m
+Merge: ea07fe4 4a8cd9b
+Author: MingHayWu <minghaywu@gmail.com>
+Date:   Thu Dec 4 17:34:42 2025 +0000
+
+    Merge branch 'main' of https://github.com/240367644/Team-Project
+
+[33mcommit ea07fe4c36816a070531d9a19988b8370697cf2f[m
+Author: MingHayWu <minghaywu@gmail.com>
+Date:   Thu Dec 4 17:34:37 2025 +0000
+
+    Changed to a php file to save session id's
+
+[33mcommit 4a8cd9b48a74052cdca83ba1547fb9ebee375b59[m
+Merge: c48502a 9a4ef3e
+Author: 240367644 <2403677444@aston.ac.uk>
+Date:   Thu Dec 4 17:32:18 2025 +0000
+
+    adjusted database_setup.php and login.html to save login session and cookies
+
+[33mcommit c48502a174395c8b84ecc4bb8ba8302d72a34aec[m
+Author: 240367644 <2403677444@aston.ac.uk>
+Date:   Thu Dec 4 17:20:04 2025 +0000
+
+    Adjusted login.html and database_setup.php to hold login sessions and cookies
+
+[33mcommit 6185c70f61965f79ad371847170de8634c4848cb[m
+Author: 240367644 <2403677444@aston.ac.uk>
+Date:   Thu Dec 4 17:16:52 2025 +0000
+
+    Updated database_setup.php and login.html to save session data and cookies
+
+[33mcommit 9a4ef3e0f817a8feb366ccfd525d31ab49851e94[m
+Author: MingHayWu <minghaywu@gmail.com>
+Date:   Thu Dec 4 17:03:55 2025 +0000
+
+    Just getting this ready for later
+
+[33mcommit 99ecb3e8837c96afe8d69c29ba089feacc7a3ff8[m
+Author: MingHayWu <minghaywu@gmail.com>
+Date:   Thu Dec 4 16:56:09 2025 +0000
+
+    Simplifying the template for later
+
+[33mcommit a7e6c80321fb0510b70860537d8791ef14d95794[m
+Author: muhammadfaid0 <240170996@aston.ac.uk>
+Date:   Thu Dec 4 16:46:14 2025 +0000
+
+    connected to database
+    
+    my own php file
+
+[33mcommit e46ae229c9e4b4642026b4653a9e5586587db22b[m
+Author: MingHayWu <minghaywu@gmail.com>
+Date:   Thu Dec 4 16:30:58 2025 +0000
+
+    Changed to have it as a better template to work off for now
+
+[33mcommit c50181070cc81a441dc23499364f69950afff743[m
+Author: muhammadfaid0 <240170996@aston.ac.uk>
+Date:   Thu Dec 4 16:23:41 2025 +0000
+
+    Update database_setup.php
+
+[33mcommit 5ebb5d90591859206ac2441b376ad95abff06a6c[m
+Author: MingHayWu <minghaywu@gmail.com>
+Date:   Thu Dec 4 16:17:55 2025 +0000
+
+    Roughly added orders page for now, edited it so that the current page is correct and not always on the index/home page
+
+[33mcommit 9d92c51d06bd76c4a6c3a57e67f7bb74ab3b03bc[m
+Author: muhammadfaid0 <240170996@aston.ac.uk>
+Date:   Thu Dec 4 15:55:49 2025 +0000
+
+    change
+    
+    changed product.js
+
+[33mcommit 488e2b501693236215653a1f8f0261a9ed9f6015[m
+Author: muhammadfaid0 <240170996@aston.ac.uk>
+Date:   Thu Dec 4 14:30:57 2025 +0000
+
+    Create launch.json
+
+[33mcommit f5e486937f9c6d33f45e4eb6a0cd37c0f36f08a0[m
+Author: Kyle Lieu <240367644@aston.ac.uk>
+Date:   Thu Dec 4 11:05:02 2025 +0000
+
+    Cleaned up files, added php to link login/register/contact to login database
+
+[33mcommit 84fdfa996983d3a0acf3edcc968fe3b0f0be6c3e[m
+Author: 240367644 <2403677444@aston.ac.uk>
+Date:   Thu Dec 4 10:50:54 2025 +0000
+
+    Cleaned up files, added frontend js to login and register, created links to login database for contact, login and register pages
+
+[33mcommit d72cdd6e1a833f622b8e4af50d6989855877f617[m
+Author: Rahima Osman <rahimaosman3174@gmail.com>
+Date:   Wed Dec 3 19:36:34 2025 +0000
+
+    Added contact.html
+
+[33mcommit c79c0213f6676ed78841531c76c3bcf4d5d172bb[m
+Author: Ateeq Ali <Ateeqali83eq@gmail.com>
+Date:   Tue Dec 2 22:03:44 2025 +0000
+
+    added login and register pages
+
+[33mcommit fb7f0ad600adf782880e7b7688513fd02d35ec2f[m
+Author: lamin bayo <240377012@aston.ac.uk>
+Date:   Tue Dec 2 17:36:15 2025 +0000
+
+    added basket/checkout
+
+[33mcommit 768faf47f57ef3e4b54e16c54ff1419cc5f2163a[m
+Merge: febe3cc 2d55a4b
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Tue Dec 2 17:24:24 2025 +0000
+
+    Merge branch 'main' of https://github.com/240367644/Team-Project
+
+[33mcommit febe3cce22f53d5369dbdd0affeffc6c8152cec4[m
+Author: Nabiha <nabiha3284@gmail.com>
+Date:   Tue Dec 2 17:13:44 2025 +0000
+
+    Base files
+    
+    Added html, css and images for homepage, about us and product page, and js for product page.
+
+[33mcommit 2d55a4b9cbb26d41336cb36aaa69e5493e0e0957[m
+Author: 240367644 <kylelieucolab@gmail.com>
+Date:   Tue Dec 2 16:25:40 2025 +0000
+
+    Initial commit
+
+[33mcommit 1ebd217e685623eae4ac9317bc8e15e87ff086d6[m
+Author: 240367644 <2403677444@aston.ac.uk>
+Date:   Mon Dec 1 21:03:40 2025 +0000
+
+    Revert "Initial commit"
+    
+    This reverts commit cad556bc506caf38ffb8c6c27df7b008d35b81d2.
+
+[33mcommit 5023c6b0a25eddc1be29bd24a7a788aaf196fcd8[m
+Author: 240367644 <2403677444@aston.ac.uk>
+Date:   Mon Dec 1 20:40:28 2025 +0000
+
+    Added front-end files with login/register functions and contact page verification
+
+[33mcommit cad556bc506caf38ffb8c6c27df7b008d35b81d2[m
+Author: 240367644 <kylelieucolab@gmail.com>
+Date:   Tue Sep 30 17:34:23 2025 +0100
+
+    Initial commit
