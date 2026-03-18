@@ -1,3 +1,28 @@
+<?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
+$db_host = "localhost";
+$db_name = "cs2team49_product";
+$db_user = "cs2team49";
+$db_pass = "TxxB1oKh6zkcPBjuycWZvO8oz";
+
+try {
+    $db = new PDO(
+        "mysql:host=$db_host;dbname=$db_name;charset=utf8",
+        $db_user,
+        $db_pass
+    );
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +31,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         <title>Accom4U</title>
         <link rel="icon" type="image/png" href="images/A4U_logo.png">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="../css/style.css?v=10">
     </head>
 
     <body>
@@ -48,7 +73,7 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
-                <li><a href="products.html">Products</a></li>
+                <li><a href="products.php">Products</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -63,37 +88,60 @@
 
         <main class="product-main">
 
+    <div class="filter-sidebar">
+        <h3>Categories</h3>
+        <button class="button-val" data-category="all">All</button>
+        <button class="button-val" data-category="bedroom">Bedroom</button>
+        <button class="button-val" data-category="kitchen">Kitchen</button>
+        <button class="button-val" data-category="bathroom">Bathroom</button>
+        <button class="button-val" data-category="desk-study">Desk & Study</button>
+        <button class="button-val" data-category="decor-lighting">Decor & Lighting</button>
+    </div>
 
-            <div class="product-container">
-                <div class="search">
-                    <input type="search" id="search-input" placeholder="Search...">
-                    <button id="search-button">Search</button>
-                </div>
-                <div class="filter-buttons">
-                    <button class="button-val" data-category="all">All</button>
-                    <button class="button-val" data-category="bedroom">Bedroom</button>
-                    <button class="button-val" data-category="kitchen">Kitchen</button>
-                    <button class="button-val" data-category="bathroom">Bathroom</button>
-                    <button class="button-val" data-category="desk-study">Desk & Study</button>
-                    <button class="button-val" data-category="decor-lighting">Decor & Lighting</button>
-                </div>
-                <div id="products-display"></div>
+    <div class="products-section">
 
-                <div id="popupBg" class="popup-bg">
-                    <div class="popup-box">
-                        <span class="close-btn" onclick="closePopup()">×</span>
+        <div class="product-container">
+            <div class="search">
+                <input type="search" id="search-input" placeholder="Search...">
+                <button id="search-button">Search</button>
+            </div>
 
-                        <img id="popupImg">
+            <div id="products-display">
+                <?php
+                $stmt = $db->prepare("SELECT * FROM products");
+                $stmt->execute();
+                $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                        <h2 id="popupName"></h2>
-                        <p id="popupDesc"></p>
-                        <p><strong>Price: £<span id="popupPrice"></span></strong></p>
+                foreach ($products as $p) {
+                    echo '
+                    <a href="productDetails.php?id='.$p["id"].'" 
+                       class="card '.$p["category"].'"
+                       data-id="'.$p["id"].'"
+                       data-name="'.$p["name"].'"
+                       data-price="'.$p["price"].'"
+                       data-description="'.$p["description"].'"
+                       data-image="'.$p["image"].'">
 
-                        <button id="addToCart" class="addToCart">Add to Basket</button>
-                    </div>
-                </div>
+                        <span class="wishlist-heart">♡</span>
 
-        </main>
+                        <div class="image-container">
+                            <img src="'.$p["image"].'">
+                        </div>
+
+                        <div class="container">
+                            <h5 class="product-name">'.strtoupper($p["name"]).'</h5>
+                            <h6>£'.$p["price"].'</h6>
+                        </div>
+
+                    </a>';
+                }
+                ?>
+            </div>
+        </div>
+
+    </div>
+
+</main>
 
         <footer class="footer">
         <div class="footer-container">
