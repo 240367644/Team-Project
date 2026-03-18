@@ -190,6 +190,27 @@ if (!$product) {
                 console.error('Error checking session:', err);
             }
         });
+        document.querySelector('.addToCart').addEventListener('click', async () => {
+            const productId = <?php echo $product['id']; ?>;
+            const quantity = document.querySelector('.qty-box').value;
+
+            const formData = new FormData();
+            formData.append('product_id', productId);
+
+            try {
+                const res = await fetch('basket.php?path=addItem', {
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'include'
+                });
+
+                const data = await res.json();
+                alert(data.message);
+            } catch (err) {
+                console.error(err);
+                alert('Error adding to basket');
+            }
+        });
     </script>
 
     <script src="js/sidemenu.js"></script>
