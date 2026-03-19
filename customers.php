@@ -209,9 +209,8 @@ try {
     <script src="js/sidemenu.js"></script>
     
 <script>
-/* -------------------------
-   DELETE CUSTOMER
--------------------------*/
+
+//delete customer
 async function deleteCustomer(id) {
     if (!confirm("Are you sure you want to delete this customer?")) return;
 
@@ -232,9 +231,7 @@ async function deleteCustomer(id) {
 }
 
 
-/* -------------------------
-   EDIT CUSTOMER (simple prompt version)
--------------------------*/
+//edit customer
 async function editCustomer(id) {
 
     const name = prompt("Enter new name:");
