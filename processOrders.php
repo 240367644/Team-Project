@@ -1,3 +1,44 @@
+<?php
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
+$db_host = "localhost";
+$db_name = "cs2team49_orders";
+$db_user = "cs2team49";
+$db_pass = "TxxB1oKh6zkcPBjuycWZvO8oz";
+
+try {
+    $db = new PDO(
+        "mysql:host=$db_host;dbname=$db_name;charset=utf8",
+        $db_user,
+        $db_pass
+    );
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+
+$stmt = $db->prepare("
+    SELECT o.order_id, o.user_id, o.status, o.created_at,
+           u.username,
+           SUM(p.price * oi.quantity) AS total_price
+    FROM Orders o
+    JOIN cs2team49_login_system.users u 
+        ON o.user_id = u.user_id
+    JOIN order_items oi 
+        ON o.order_id = oi.order_id
+    JOIN cs2team49_product.products p 
+        ON oi.product_id = p.id
+    GROUP BY o.order_id
+");
+$stmt->execute();
+$orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,10 +87,9 @@
 
         <nav class="navibar">
             <ul>
-                <li><a href="reviews.html">Reviews</a></li>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
-                <li><a href="products.html">Products</a></li>
+                <li><a href="products.php">Products</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -69,92 +109,63 @@
             <a href="inventory.html">Inventory Management</a>
             <a href="reports.html">Reports</a>
         </div>
-
+        
         <br><br>
-        <h2 class="page-title">Customer Management</h2>
-
-        <div class="customer-controls">
-            <input type="text" placeholder="Search customers..." class="search-bar">
-            <button class="add-btn">+ Add Customer</button>
+        <h2 class="page-title">Order Processing</h2>
+        
+        <div class="order-controls">
+            
+            <input type="text" id="searchInput" placeholder="Search orders..." class="search-orders">
+            <select id="statusFilter" class="order-filter">
+                <option>All Orders</option>
+                <option>Pending</option>
+                <option>Processing</option>
+                <option>Shipped</option>
+                <option>Cancelled</option>
+            </select>
         </div>
-
-        <div class="table-container">
-
-        <table class="customer-table">
-            <thead>
-                <tr>
-                    <th>Customer ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Orders</th>
-                    <th>Role</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>Kayla Johnson</td>
-                    <td>kayla53@email.com</td>
-                    <td>+44 7123 456789</td>
-                    <td>4</td>
-                    <td>
-                        <select class="role-select">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button class="view-btn">View</button>
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>002</td>
-                    <td>Maia Lee</td>
-                    <td>maia87@email.com</td>
-                    <td>+44 7345 987654</td>
-                    <td>2</td>
-                    <td>
-                        <select class="role-select">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button class="view-btn">View</button>
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>003</td>
-                    <td>Gavin Davis</td>
-                    <td>gavin77@email.com</td>
-                    <td>+44 7011 223344</td>
-                    <td>7</td>
-                    <td>
-                        <select class="role-select">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button class="view-btn">View</button>
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
+        
+        <div class="orders-container">
+            
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($orders as $o) {
+                        echo '
+                        <tr>
+                            <td>#'.$o["order_id"].'</td>
+                            <td>'.$o["username"].'</td>
+                            <td>'.$o["created_at"].'</td>
+                            <td class="'.strtolower($o["status"]).'">'.$o["status"].'</td>
+                            <td>£'.$o["total_price"].'</td>
+                            <td>
+                                '.($o["status"] == "Pending" ? '
+                                    <button class="approve" onclick="updateOrder('.$o["order_id"].', \'Processing\')">Approve</button>
+                                    <button class="cancel" onclick="updateOrder('.$o["order_id"].', \'Cancelled\')">Cancel</button>
+                                ' : ($o["status"] == "Processing" ? '
+                                    <button class="ship" onclick="updateOrder('.$o["order_id"].', \'Shipped\')">Ship</button>
+                                ' : '
+                                    <button class="view">View</button>
+                                ')).'
+                            </td>
+                        </tr>';
+                    }
+                    ?>
+                </tbody>
+            </table>
+        
         </div>
-
+    
     </main>
 
     <footer class="footer">
@@ -214,6 +225,6 @@
     </script>
 
     <script src="js/sidemenu.js"></script>
-
+    <script src="js/orders.js"></script>
 </body>
 </html>

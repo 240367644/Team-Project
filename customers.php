@@ -1,3 +1,29 @@
+<?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+$db_host = "localhost";
+$db_name = "cs2team49_login_system";
+$db_user = "cs2team49";
+$db_pass = "TxxB1oKh6zkcPBjuycWZvO8oz";
+
+try {
+    $db = new PDO(
+        "mysql:host=$db_host;dbname=$db_name;charset=utf8",
+        $db_user,
+        $db_pass
+    );
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Fetch customers
+    $stmt = $db->query("SELECT * FROM users");
+    $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+    die("Database error: " . $e->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,9 +72,10 @@
 
         <nav class="navibar">
             <ul>
+                <li><a href="reviews.html">Reviews</a></li>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
-                <li><a href="products.html">Products</a></li>
+                <li><a href="products.php">Products</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -68,75 +95,57 @@
             <a href="inventory.html">Inventory Management</a>
             <a href="reports.html">Reports</a>
         </div>
-        
+
         <br><br>
-        <h2 class="page-title">Order Processing</h2>
-        
-        <div class="order-controls">
-            
-            <input type="text" placeholder="Search orders..." class="search-orders">
-            <select class="order-filter">
-                <option>All Orders</option>
-                <option>Pending</option>
-                <option>Processing</option>
-                <option>Shipped</option>
-                <option>Cancelled</option>
-            </select>
+        <h2 class="page-title">Customer Management</h2>
+
+        <div class="customer-controls">
+            <input type="text" placeholder="Search customers..." class="search-bar">
+            <button class="add-btn">+ Add Customer</button>
         </div>
-        
-        <div class="orders-container">
-            
-            <table class="orders-table">
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Customer</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Total</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
 
-                <tbody>
-                    <tr>
-                        <td>#333</td>
-                        <td>Kayla Johnson</td>
-                        <td>12 Jan 2026</td>
-                        <td class="pending">Pending</td>
-                        <td>£50.99</td>
-                        <td>
-                            <button class="approve">Approve</button>
-                            <button class="cancel">Cancel</button>
-                        </td>
-                    </tr>
+        <div class="table-container">
 
-                    <tr>
-                        <td>#444</td>
-                        <td>Maia Lee</td>
-                        <td>14 Feb 2026</td>
-                        <td class="processing">Processing</td>
-                        <td>£22.79</td>
-                        <td>
-                            <button class="ship">Ship</button>
-                        </td>
-                    </tr>
+        <table class="customer-table">
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Orders</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
 
-                    <tr>
-                        <td>#555</td>
-                        <td>Gavin Davis</td>
-                        <td>5 March 2026</td>
-                        <td class="shipped">Shipped</td>
-                        <td>£84.32</td>
-                        <td>
-                            <button class="view">View</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        
+            <tbody>
+<?php foreach ($customers as $customer): ?>
+    <tr>
+        <td><?php echo $customer['user_id']; ?></td>
+        <td><?php echo $customer['username']; ?></td>
+        <td><?php echo $customer['email']; ?></td>
+        <td><?php echo $customer['created_at']; ?></td>
+
+        <td>
+
+        </td>
+		<td>
+
+		</td>
+
+		<td>
+		    <button class="view-btn">View</button>
+		    <button class="edit-btn" onclick="editCustomer(<?php echo $customer['user_id']; ?>)">Edit</button>
+		    <button class="delete-btn" onclick="deleteCustomer(<?php echo $customer['user_id']; ?>)">Delete</button>	
+		</td>
+    </tr>
+<?php endforeach; ?>
+</tbody>
+        </table>
+
         </div>
-    
+
     </main>
 
     <footer class="footer">
@@ -193,9 +202,65 @@
                 console.error('Error checking session:', err);
             }
         });
+
+	
     </script>
 
     <script src="js/sidemenu.js"></script>
+    
+<script>
+
+//delete customer
+async function deleteCustomer(id) {
+    if (!confirm("Are you sure you want to delete this customer?")) return;
+
+    const formData = new FormData();
+    formData.append("user_id", id);
+
+    const res = await fetch('customerActions.php?action=delete', {
+        method: 'POST',
+        body: formData
+    });
+
+    const data = await res.json();
+    alert(data.message);
+
+    if (data.status === "success") {
+        location.reload(); // refresh table
+    }
+}
+
+
+//edit customer
+async function editCustomer(id) {
+
+    const name = prompt("Enter new name:");
+    const email = prompt("Enter new email:");
+
+
+    if (!name || !email) {
+        alert("Name and email required");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("username", name);
+    formData.append("email", email);
+	formData.append("user_id", id);
+
+    const res = await fetch('customerActions.php?action=update', {
+        method: 'POST',
+        body: formData
+    });
+
+    const data = await res.json();
+    alert(data.message);
+
+    if (data.status === "success") {
+        location.reload();
+    }
+}
+</script>
 
 </body>
 </html>
