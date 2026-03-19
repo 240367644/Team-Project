@@ -104,7 +104,7 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <main class="admin-main">
 
         <div class="admin-top-menu">
-            <a href="processOrders.html">Process Orders</a>
+            <a href="processOrders.php">Process Orders</a>
             <a href="customers.html">Customer Management</a>
             <a href="inventory.html">Inventory Management</a>
             <a href="reports.html">Reports</a>
