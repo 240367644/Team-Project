@@ -1,3 +1,44 @@
+<?php
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
+$db_host = "localhost";
+$db_name = "cs2team49_orders";
+$db_user = "cs2team49";
+$db_pass = "TxxB1oKh6zkcPBjuycWZvO8oz";
+
+try {
+    $db = new PDO(
+        "mysql:host=$db_host;dbname=$db_name;charset=utf8",
+        $db_user,
+        $db_pass
+    );
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+
+$stmt = $db->prepare("
+    SELECT o.order_id, o.user_id, o.status, o.created_at,
+           u.username,
+           SUM(p.price * oi.quantity) AS total_price
+    FROM Orders o
+    JOIN cs2team49_login_system.users u 
+        ON o.user_id = u.user_id
+    JOIN order_items oi 
+        ON o.order_id = oi.order_id
+    JOIN cs2team49_product.products p 
+        ON oi.product_id = p.id
+    GROUP BY o.order_id
+");
+$stmt->execute();
+$orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,8 +115,8 @@
         
         <div class="order-controls">
             
-            <input type="text" placeholder="Search orders..." class="search-orders">
-            <select class="order-filter">
+            <input type="text" id="searchInput" placeholder="Search orders..." class="search-orders">
+            <select id="statusFilter" class="order-filter">
                 <option>All Orders</option>
                 <option>Pending</option>
                 <option>Processing</option>
@@ -97,41 +138,29 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-
                 <tbody>
-                    <tr>
-                        <td>#333</td>
-                        <td>Kayla Johnson</td>
-                        <td>12 Jan 2026</td>
-                        <td class="pending">Pending</td>
-                        <td>£50.99</td>
-                        <td>
-                            <button class="approve">Approve</button>
-                            <button class="cancel">Cancel</button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>#444</td>
-                        <td>Maia Lee</td>
-                        <td>14 Feb 2026</td>
-                        <td class="processing">Processing</td>
-                        <td>£22.79</td>
-                        <td>
-                            <button class="ship">Ship</button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>#555</td>
-                        <td>Gavin Davis</td>
-                        <td>5 March 2026</td>
-                        <td class="shipped">Shipped</td>
-                        <td>£84.32</td>
-                        <td>
-                            <button class="view">View</button>
-                        </td>
-                    </tr>
+                    <?php
+                    foreach ($orders as $o) {
+                        echo '
+                        <tr>
+                            <td>#'.$o["order_id"].'</td>
+                            <td>'.$o["username"].'</td>
+                            <td>'.$o["created_at"].'</td>
+                            <td class="'.strtolower($o["status"]).'">'.$o["status"].'</td>
+                            <td>£'.$o["total_price"].'</td>
+                            <td>
+                                '.($o["status"] == "Pending" ? '
+                                    <button class="approve" onclick="updateOrder('.$o["order_id"].', \'Processing\')">Approve</button>
+                                    <button class="cancel" onclick="updateOrder('.$o["order_id"].', \'Cancelled\')">Cancel</button>
+                                ' : ($o["status"] == "Processing" ? '
+                                    <button class="ship" onclick="updateOrder('.$o["order_id"].', \'Shipped\')">Ship</button>
+                                ' : '
+                                    <button class="view">View</button>
+                                ')).'
+                            </td>
+                        </tr>';
+                    }
+                    ?>
                 </tbody>
             </table>
         
@@ -196,6 +225,6 @@
     </script>
 
     <script src="js/sidemenu.js"></script>
-
+    <script src="js/orders.js"></script>
 </body>
 </html>
