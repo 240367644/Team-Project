@@ -48,7 +48,7 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
-                <li><a href="products.html">Products</a></li>
+                <li><a href="products.php">Products</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -71,7 +71,7 @@
             <img src="images/homepage.jpg" class="main-img" alt="image">
         </div>
 
-        <br><br><br><br><br>
+        <br><br><br><br><br><br><br>
 
         <div class="categories-header">
             <p class="text3">Discover by Category</p>
@@ -81,76 +81,105 @@
 
         <br><br>
 
-        <!-- <section class="categories">
-
-            <div class="category-container">
-                <div class="cards">
-                    <a href="products.html?category=bedroom" class="category-card">
-                        <img src="images/bedroom.jpg" alt="Bedroom">
-                    </a>
-                    <div class="desc">
-                        <h2>Bedroom</h2>
-                        <p>Essentials to make your room cozy such as bedding, pillows and storage.</p>
-                    </div>
-                </div>
-                <div class="cards">
-                    <a href="products.html?category=kitchen" class="category-card">
-                        <img src="images/kitchen.jpg" alt="Kitchen">
-                    </a>
-                    <div class="desc">
-                        <h2>Kitchen</h2>
-                        <p>Make cooking easy using our kitchen essentials from utensils to pots and pans.</p>
-                    </div>
-                </div>
-                <div class="cards">
-                    <a href="products.html?category=bathroom" class="category-card">
-                        <img src="images/bathroom.jpg" alt="Bathroom">
-                    </a>
-                    <div class="desc">
-                        <h2>Bathroom</h2>
-                        <p>Keep your bathroom fresh using our air freshners, detergent and other bathroom essentials.</p>
-                    </div>
-                </div>
-            </div>
-
-            <br><br>
-
-            <div class="category-container">
-                <div class="cards">
-                    <a href="products.html?category=desk-study" class="category-card">
-                        <img src="images/desk.jpg" alt="Desk">
-                    </a>
-                    <div class="desc">
-                        <h2>Desk & Study</h2>
-                        <p>Stay motivated and organised with our study accessories such as stationary and lamps.</p>
-                    </div>
-                </div>
-                <div class="cards">
-                    <a href="products.html?category=decor-lighting" class="category-card">
-                        <img src="images/decor.jpg" alt="Decor">
-                    </a>
-                    <div class="desc">
-                        <h2>Decor & Lighting</h2>
-                        <p>Upgrade your living space with aesthetic decorations and lighting that fit your style.</p>
-                    </div>
-                </div>
-            </div>
-
-        </section> -->
-
         <section class="categories">
 
-            <div class="scroll">
-                <div class="card"><img src="images/bedroom.jpg"></div>
-                <div class="card"><img src="images/kitchen.jpg"></div>
-                <div class="card"><img src="images/bathroom.jpg"></div>
-                <div class="card"><img src="images/desk.jpg"></div>
-                <div class="card"><img src="images/decor.jpg"></div>
+            <div class="scroll-wrapper">
+                <button class="scroll-btn left" onclick="scrollCategories(-1)">🡠</button>
+
+                <div class="scroll" id="categoryScroll">
+
+                    <div class="cards">
+                        <a href="products.php?category=bedroom" class="category-card">
+                            <img src="images/bedroom.jpg">
+                            <div class="desc">
+                                <h3>Bedroom</h3>
+                                <p>Essentials to make your room cozy such as bedding, pillows and storage.</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="cards">
+                        <a href="products.php?category=kitchen" class="category-card">
+                            <img src="images/kitchen.jpg">
+                            <div class="desc">
+                                <h3>Kitchen</h3>
+                                <p>Make cooking easy using our kitchen essentials from utensils to pots and pans.</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="cards">
+                        <a href="products.php?category=bathroom" class="category-card">
+                            <img src="images/bathroom.jpg">
+                            <div class="desc">
+                                <h3>Bathroom</h3>
+                                <p>Keep your bathroom fresh using our air freshners, detergent and other bathroom essentials.</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="cards">
+                        <a href="products.php?category=desk-study" class="category-card">
+                            <img src="images/desk.jpg">
+                            <div class="desc">
+                                <h3>Desk & Study</h3>
+                                <p>Stay motivated and organised with our study accessories such as stationary and lamps.</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="cards">
+                        <a href="products.php?category=decor-lighting" class="category-card">
+                            <img src="images/decor.jpg">
+                            <div class="desc">
+                                <h3>Decor & Lighting</h3>
+                                <p>Upgrade your living space with aesthetic decorations and lighting that fit your style.</p>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+
+                <button class="scroll-btn right" onclick="scrollCategories(1)">🡢</button>
             </div>
 
         </section>
 
-        <br><br><br><br><br><br><br><br>
+        <br><br><br><br><br>
+
+        <div class="reviews-section">
+            <h2>Customer Reviews</h2>
+
+            <div class="reviews-wrapper">
+                <button class="scroll-btn left" onclick="scrollReviews(-1)">🡠</button>
+
+                <div class="reviews-container" id="reviewsContainer">
+
+                    <div class="review-card">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p class="review-text">"Really good quality products, fast delivery too!"</p>
+                        <h4 class="review-name">- Sarah T</h4>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="stars">⭐⭐⭐⭐</div>
+                        <p class="review-text">"Everything I needed for my accommodation in one place."</p>
+                        <h4 class="review-name">- John L</h4>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p class="review-text">"Affordable and looks great in my room."</p>
+                        <h4 class="review-name">- Aisha S</h4>
+                    </div>
+
+                </div>
+
+                <button class="scroll-btn right" onclick="scrollReviews(1)">🡢</button>
+            </div>
+        </div>
+
+        <br><br><br><br><br><br>
 
     </main>
 
@@ -212,6 +241,7 @@
     </script>
 
     <script src="js/sidemenu.js"></script>
+    <script src="js/reviews.js"></script>
 
 </body>
 </html>

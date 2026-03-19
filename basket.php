@@ -43,7 +43,7 @@ if ($path === "addItem") {
     }
 
     // Get product info from database
-    $stmt = $db->prepare("SELECT id, product_name, product_price FROM products WHERE id = ?");
+    $stmt = $db->prepare("SELECT id, name, price FROM products WHERE id = ?");
     $stmt->execute([$product_id]);
     $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -58,8 +58,8 @@ if ($path === "addItem") {
     } else {
         $_SESSION['basket'][$product_id] = [
             "id"=> $product['id'],
-            "name" => $product['product_name'],
-            "price" => $product['product_price'],
+            "name" => $product['name'],
+            "price" => $product['price'],
             "quantity" => 1
         ];
     }

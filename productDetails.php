@@ -1,3 +1,43 @@
+<?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
+$db_host = "localhost";
+$db_name = "cs2team49_product";
+$db_user = "cs2team49";
+$db_pass = "TxxB1oKh6zkcPBjuycWZvO8oz";
+
+try {
+    $db = new PDO(
+        "mysql:host=$db_host;dbname=$db_name;charset=utf8",
+        $db_user,
+        $db_pass
+    );
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+
+if (!isset($_GET['id'])) {
+    die("No product ID");
+}
+
+$id = $_GET['id'];
+
+$stmt = $db->prepare("SELECT * FROM products WHERE id = ?");
+$stmt->execute([$id]);
+$product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$product) {
+    die("Product not found");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +46,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         <title>Accom4U</title>
         <link rel="icon" type="image/png" href="images/A4U_logo.png">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="../css/style.css?v=10">
     </head>
 
     <body class="about-body">
@@ -60,92 +100,35 @@
             <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
         </header>
 
+        <br><br><br>
+
         <main>
 
-            <section class="about-image">
-                <img src="images/aboutroom.jpg" alt="Living Room">
-            </section>
+            <div class="product-view">
 
-            <section class="about">
-                <h2>About Us</h2>
-                <br>
-                <p>
-                    Our aim is to support university students who are moving into an accommodation
-                    for the first time (or returning) by providing high-quality, affordable essentials.
-                </p>
-
-                <p>
-                    We understand that moving can be overwhelming, trying to design your own space
-                    while also keeping it comfortable, so we're here to lighten the load! With fast
-                    delivery and reliable customer support, we will make your move in stress-free.
-                </p>
-            </section>
-
-            <section class="team">
-                <h3>Meet Our Development Team</h3>
-
-                <div class="teams">
-
-                    <div class="member">
-                        <div class="circle">AA</div>
-                        <h4>Ateeq Ali</h4>
-                        <p>Frontend Developer</p>
-                    </div>
-
-                    <div class="member">
-                        <div class="circle">LB</div>
-                        <h4>Lamin Bayo</h4>
-                        <p>Frontend Developer</p>
-                    </div>
-
-                    <div class="member">
-                        <div class="circle">MF</div>
-                        <h4>Muhammad Faid</h4>
-                        <p>Backend Developer</p>
-                    </div>
-
-                    <div class="member">
-                        <div class="circle">NI</div>
-                        <h4>Nabiha Islam</h4>
-                        <p>UI Designer</p>
-                    </div>
-
-                    <div class="member">
-                        <div class="circle">KL</div>
-                        <h4>Kyle Lieu</h4>
-                        <p>Backend Developer</p>
-                    </div>
-
-                    <div class="member">
-                        <div class="circle">RO</div>
-                        <h4>Rahima Osman</h4>
-                        <p>UI Designer</p>
-                    </div>
-
-                    <div class="member">
-                        <div class="circle">SS</div>
-                        <h4>Sohail Shinwari</h4>
-                        <p>Backend Developer</p>
-                    </div>
-
-                    <div class="member">
-                        <div class="circle">MH</div>
-                        <h4>Ming Hay Wu</h4>
-                        <p>Backend Developer</p>
-                    </div>
-
+                <div class="product-left">
+                    <img src="<?php echo $product['image']; ?>" alt="Desk Chair">
                 </div>
-            </section>
 
-            <br><br>
+                <div class="product-right">
+                    <p class="product-breadcrumb">Home / Products / <?php echo $product['name']; ?></p>
+                    <h1 class="product-title"><?php echo $product['name']; ?></h1>
+                    <p class="product-price">£<?php echo $product['price']; ?></p>
 
-            <section class="goal">
-                <h3>Our Goal</h3>
-                <br>
-                <p>To make moving into your student accommodation an easy,<br> quick and affordable process.</p>
-            </section>
+                    <div class="product-actions">
+                        <input type="number" value="1" min="1" class="qty-box">
+                        <button class="addToCart">Add to Basket</button>
+                        <button class="wishlist-btn">♡</button>
+                    </div>
 
-
+                    <div class="product-details">
+                        <h3>Product Details</h3>
+                        <p>
+                        <?php echo $product['description']; ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
 
         </main>
 
@@ -205,6 +188,27 @@
                 }
             } catch (err) {
                 console.error('Error checking session:', err);
+            }
+        });
+        document.querySelector('.addToCart').addEventListener('click', async () => {
+            const productId = <?php echo $product['id']; ?>;
+            const quantity = document.querySelector('.qty-box').value;
+
+            const formData = new FormData();
+            formData.append('product_id', productId);
+
+            try {
+                const res = await fetch('basket.php?path=addItem', {
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'include'
+                });
+
+                const data = await res.json();
+                alert(data.message);
+            } catch (err) {
+                console.error(err);
+                alert('Error adding to basket');
             }
         });
     </script>
