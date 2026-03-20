@@ -2151,7 +2151,7 @@ ul.breadcrumb li+li:before {
     border-radius:6px;
     cursor:pointer;
 }
-/* PRODUCT GRID (make wishlist same as products) */
+/* PRODUCT GRID  */
 .wishlist-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
