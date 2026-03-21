@@ -1442,6 +1442,11 @@ body{
     font-weight: bold;
 }
 
+.cancelled {
+    color: #f44336;
+    font-weight: bold;
+}
+
 .orders-table button {
     border: none;
     padding: 6px 12px;
