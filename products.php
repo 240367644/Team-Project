@@ -88,118 +88,115 @@ try {
 
         <main class="product-main">
 
-    <div class="filter-sidebar">
-        <h3>Categories</h3>
-        <button class="button-val" data-category="all">All</button>
-        <button class="button-val" data-category="bedroom">Bedroom</button>
-        <button class="button-val" data-category="kitchen">Kitchen</button>
-        <button class="button-val" data-category="bathroom">Bathroom</button>
-        <button class="button-val" data-category="desk-study">Desk & Study</button>
-        <button class="button-val" data-category="decor-lighting">Decor & Lighting</button>
-    </div>
-
-    <div class="products-section">
-
-        <div class="product-container">
-            <div class="search">
-                <input type="search" id="search-input" placeholder="Search...">
-                <button id="search-button">Search</button>
+            <div class="filter-sidebar">
+                <h3>Categories</h3>
+                <button class="button-val" data-category="all">All</button>
+                <button class="button-val" data-category="bedroom">Bedroom</button>
+                <button class="button-val" data-category="kitchen">Kitchen</button>
+                <button class="button-val" data-category="bathroom">Bathroom</button>
+                <button class="button-val" data-category="desk-study">Desk & Study</button>
+                <button class="button-val" data-category="decor-lighting">Decor & Lighting</button>
+                <h3>Price</h3>
+                <input type="number" id="min-price" placeholder="Min (£)">
+                <input type="number" id="max-price" placeholder="Max (£)">
+                <button id="price-filter-btn" class="button-val">Apply</button>
             </div>
 
-            <div id="products-display">
-                <?php
-                $stmt = $db->prepare("SELECT * FROM products");
-                $stmt->execute();
-                $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            <div class="products-section">
+                <div class="product-container">
+                    <div class="search">
+                        <input type="search" id="search-input" placeholder="Search...">
+                        <button id="search-button">Search</button>
+                    </div>
 
-                foreach ($products as $p) {
-                    echo '
-                    <a href="productDetails.php?id='.$p["id"].'" 
-                       class="card '.$p["category"].'"
-                       data-id="'.$p["id"].'"
-                       data-name="'.$p["name"].'"
-                       data-price="'.$p["price"].'"
-                       data-description="'.$p["description"].'"
-                       data-image="'.$p["image"].'">
+                    <div id="products-display">
+                        <?php
+                        $stmt = $db->prepare("SELECT * FROM products");
+                        $stmt->execute();
+                        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($products as $p) {
+                            echo '
+                            <a href="productDetails.php?id='.$p["id"].'" 
+                            class="card '.$p["category"].'"
+                            data-id="'.$p["id"].'"
+                            data-name="'.$p["name"].'"
+                            data-price="'.$p["price"].'"
+                            data-description="'.$p["description"].'"
+                            data-image="'.$p["image"].'">
+                                <span class="wishlist-heart">♡</span>
+                                <div class="image-container">
+                                    <img src="'.$p["image"].'">
+                                </div>
+                                <div class="container">
+                                    <h5 class="product-name">'.strtoupper($p["name"]).'</h5>
+                                    <h6>£'.$p["price"].'</h6>
+                                </div>
+                            </a>';
+                        }
+                        ?>
+                    </div>
+                </div>
 
-                        <span class="wishlist-heart">♡</span>
-
-                        <div class="image-container">
-                            <img src="'.$p["image"].'">
-                        </div>
-
-                        <div class="container">
-                            <h5 class="product-name">'.strtoupper($p["name"]).'</h5>
-                            <h6>£'.$p["price"].'</h6>
-                        </div>
-
-                    </a>';
-                }
-                ?>
             </div>
-        </div>
 
-    </div>
-
-</main>
+        </main>
 
         <footer class="footer">
-        <div class="footer-container">
+            <div class="footer-container">
 
-        <div class="footer-column">
-            <h3>Accom4U</h3>
-        </div>
+                <div class="footer-column">
+                    <h3>Accom4U</h3>
+                </div>
 
-            <div class="footer-column">
-                <h4>Quick Links</h4>
-                <a href="aboutus.html">About Us</a>
-                <a href="products.html">Products</a>
-                <a href="#">FAQ</a>
-                <a href="#">Shipping Info</a>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <a href="aboutus.html">About Us</a>
+                    <a href="products.html">Products</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Shipping Info</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Customer Service</h4>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="#">Returns</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <p>123 Commerce Street, Birmingham</p>
+                    <p>+44 123 123 12312</p>
+                    <p>accom4u@gmail.com</p>
+                </div>
+
             </div>
 
-            <div class="footer-column">
-                <h4>Customer Service</h4>
-                <a href="contact.html">Contact Us</a>
-                <a href="#">Returns</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms & Conditions</a>
+            <hr>
+
+            <div class="footer-bottom">
+                Copyright © 2025 - 2026 Accom4U. All Rights Reserved.
             </div>
-
-            <div class="footer-column">
-                <h4>Contact Us</h4>
-                <p>123 Commerce Street, Birmingham</p>
-                <p>+44 123 123 12312</p>
-                <p>accom4u@gmail.com</p>
-            </div>
-
-        </div>
-
-        <hr>
-
-        <div class="footer-bottom">
-            Copyright © 2025 - 2026 Accom4U. All Rights Reserved.
-        </div>
-    </footer>
+        </footer>
 
         <script src="js/products.js"></script>
         <script>
-        
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const res = await fetch('session.php', { credentials: 'include' });
-                const data = await res.json();
+            document.addEventListener('DOMContentLoaded', async () => {
+                try {
+                    const res = await fetch('session.php', { credentials: 'include' });
+                    const data = await res.json();
 
-                const loginLink = document.getElementById('loginLink');
-                if (data.loggedIn) {
-                    loginLink.href = 'logout.php';
-                    loginLink.innerHTML = '<b>Logout</b>';
+                    const loginLink = document.getElementById('loginLink');
+                    if (data.loggedIn) {
+                        loginLink.href = 'logout.php';
+                        loginLink.innerHTML = '<b>Logout</b>';
+                    }
+                } catch (err) {
+                    console.error('Error checking session:', err);
                 }
-            } catch (err) {
-                console.error('Error checking session:', err);
-            }
-        });
-    </script>
+            });
+        </script>
 
     <script src="js/sidemenu.js"></script>
     </body>

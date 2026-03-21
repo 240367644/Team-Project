@@ -1,3 +1,29 @@
+<?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+$db_host = "localhost";
+$db_name = "cs2team49_login_system";
+$db_user = "cs2team49";
+$db_pass = "TxxB1oKh6zkcPBjuycWZvO8oz";
+
+try {
+    $db = new PDO(
+        "mysql:host=$db_host;dbname=$db_name;charset=utf8",
+        $db_user,
+        $db_pass
+    );
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Fetch customers
+    $stmt = $db->query("SELECT * FROM users");
+    $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+    die("Database error: " . $e->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,63 +120,28 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>Kayla Johnson</td>
-                    <td>kayla53@email.com</td>
-                    <td>+44 7123 456789</td>
-                    <td>4</td>
-                    <td>
-                        <select class="role-select">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button class="view-btn">View</button>
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    </td>
-                </tr>
+<?php foreach ($customers as $customer): ?>
+    <tr>
+        <td><?php echo $customer['user_id']; ?></td>
+        <td><?php echo $customer['username']; ?></td>
+        <td><?php echo $customer['email']; ?></td>
+        <td><?php echo $customer['created_at']; ?></td>
 
-                <tr>
-                    <td>002</td>
-                    <td>Maia Lee</td>
-                    <td>maia87@email.com</td>
-                    <td>+44 7345 987654</td>
-                    <td>2</td>
-                    <td>
-                        <select class="role-select">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button class="view-btn">View</button>
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    </td>
-                </tr>
+        <td>
 
-                <tr>
-                    <td>003</td>
-                    <td>Gavin Davis</td>
-                    <td>gavin77@email.com</td>
-                    <td>+44 7011 223344</td>
-                    <td>7</td>
-                    <td>
-                        <select class="role-select">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button class="view-btn">View</button>
-                        <button class="edit-btn">Edit</button>
-                        <button class="delete-btn">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
+        </td>
+		<td>
+
+		</td>
+
+		<td>
+		    <button class="view-btn">View</button>
+		    <button class="edit-btn" onclick="editCustomer(<?php echo $customer['user_id']; ?>)">Edit</button>
+		    <button class="delete-btn" onclick="deleteCustomer(<?php echo $customer['user_id']; ?>)">Delete</button>	
+		</td>
+    </tr>
+<?php endforeach; ?>
+</tbody>
         </table>
 
         </div>
@@ -211,9 +202,65 @@
                 console.error('Error checking session:', err);
             }
         });
+
+	
     </script>
 
     <script src="js/sidemenu.js"></script>
+    
+<script>
+
+//delete customer
+async function deleteCustomer(id) {
+    if (!confirm("Are you sure you want to delete this customer?")) return;
+
+    const formData = new FormData();
+    formData.append("user_id", id);
+
+    const res = await fetch('customerActions.php?action=delete', {
+        method: 'POST',
+        body: formData
+    });
+
+    const data = await res.json();
+    alert(data.message);
+
+    if (data.status === "success") {
+        location.reload(); // refresh table
+    }
+}
+
+
+//edit customer
+async function editCustomer(id) {
+
+    const name = prompt("Enter new name:");
+    const email = prompt("Enter new email:");
+
+
+    if (!name || !email) {
+        alert("Name and email required");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("username", name);
+    formData.append("email", email);
+	formData.append("user_id", id);
+
+    const res = await fetch('customerActions.php?action=update', {
+        method: 'POST',
+        body: formData
+    });
+
+    const data = await res.json();
+    alert(data.message);
+
+    if (data.status === "success") {
+        location.reload();
+    }
+}
+</script>
 
 </body>
 </html>

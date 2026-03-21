@@ -1,3 +1,44 @@
+<?php
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
+$db_host = "localhost";
+$db_name = "cs2team49_orders";
+$db_user = "cs2team49";
+$db_pass = "TxxB1oKh6zkcPBjuycWZvO8oz";
+
+try {
+    $db = new PDO(
+        "mysql:host=$db_host;dbname=$db_name;charset=utf8",
+        $db_user,
+        $db_pass
+    );
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+
+$stmt = $db->prepare("
+    SELECT o.order_id, o.user_id, o.status, o.created_at,
+           u.username,
+           SUM(p.price * oi.quantity) AS total_price
+    FROM Orders o
+    JOIN cs2team49_login_system.users u 
+        ON o.user_id = u.user_id
+    JOIN order_items oi 
+        ON o.order_id = oi.order_id
+    JOIN cs2team49_product.products p 
+        ON oi.product_id = p.id
+    GROUP BY o.order_id
+");
+$stmt->execute();
+$orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,77 +109,25 @@
             <a href="inventory.html">Inventory Management</a>
             <a href="reports.html">Reports</a>
         </div>
-
+        
         <br><br>
-
-        <h2 class="page-title">Reports & Monitoring</h2>
-
-        <div class="report-cards">
-
-            <div class="report-card">
-                <h3>Total Products</h3>
-                <p class="report-number">128</p>
-            </div>
-
-            <div class="report-card">
-                <h3>Low Stock Items</h3>
-                <p class="report-number warning">7</p>
-            </div>
-
-            <div class="report-card">
-                <h3>Orders Today</h3>
-                <p class="report-number">24</p>
-            </div>
-
-            <div class="report-card">
-                <h3>Orders This Week</h3>
-                <p class="report-number">156</p>
-            </div>
-
+        <h2 class="page-title">Order Processing</h2>
+        
+        <div class="order-controls">
+            
+            <input type="text" id="searchInput" placeholder="Search orders..." class="search-orders">
+            <select id="statusFilter" class="order-filter">
+                <option>All Orders</option>
+                <option>Pending</option>
+                <option>Processing</option>
+                <option>Shipped</option>
+                <option>Cancelled</option>
+            </select>
         </div>
-
-        <h3 class="section-title">Stock Level Report</h3>
-
-        <div class="table-container">
-
-            <table class="report-table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Stock Level</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>Desk Lamp</td>
-                        <td>53</td>
-                        <td class="in-stock">In Stock</td>
-                    </tr>
-
-                    <tr>
-                        <td>Office Chair</td>
-                        <td>8</td>
-                        <td class="low-stock">Low Stock</td>
-                    </tr>
-
-                    <tr>
-                        <td>Notebook Set</td>
-                        <td>0</td>
-                        <td class="out-stock">Out of Stock</td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
-
-
-        <h3 class="section-title">Recent Orders</h3>
-
-        <div class="table-container">
-
-            <table class="report-table">
+        
+        <div class="orders-container">
+            
+            <table class="orders-table">
                 <thead>
                     <tr>
                         <th>Order ID</th>
@@ -146,37 +135,37 @@
                         <th>Date</th>
                         <th>Status</th>
                         <th>Total</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
-
                 <tbody>
-                    <tr>
-                        <td>#1024</td>
-                        <td>Sarah Johnson</td>
-                        <td>12 Mar 2026</td>
-                        <td>Shipped</td>
-                        <td>£64.99</td>
-                    </tr>
-
-                    <tr>
-                        <td>#1023</td>
-                        <td>Michael Lee</td>
-                        <td>11 Mar 2026</td>
-                        <td>Processing</td>
-                        <td>£38.50</td>
-                    </tr>
-
-                    <tr>
-                        <td>#1022</td>
-                        <td>Emma Davis</td>
-                        <td>10 Mar 2026</td>
-                        <td>Pending</td>
-                        <td>£92.10</td>
-                    </tr>
+                    <?php
+                    foreach ($orders as $o) {
+                        echo '
+                        <tr>
+                            <td>#'.$o["order_id"].'</td>
+                            <td>'.$o["username"].'</td>
+                            <td>'.$o["created_at"].'</td>
+                            <td class="'.strtolower($o["status"]).'">'.$o["status"].'</td>
+                            <td>£'.$o["total_price"].'</td>
+                            <td>
+                                '.($o["status"] == "Pending" ? '
+                                    <button class="approve" onclick="updateOrder('.$o["order_id"].', \'Processing\')">Approve</button>
+                                    <button class="cancel" onclick="updateOrder('.$o["order_id"].', \'Cancelled\')">Cancel</button>
+                                ' : ($o["status"] == "Processing" ? '
+                                    <button class="ship" onclick="updateOrder('.$o["order_id"].', \'Shipped\')">Ship</button>
+                                ' : '
+                                    <button class="view">View</button>
+                                ')).'
+                            </td>
+                        </tr>';
+                    }
+                    ?>
                 </tbody>
             </table>
+        
         </div>
-
+    
     </main>
 
     <footer class="footer">
@@ -236,6 +225,6 @@
     </script>
 
     <script src="js/sidemenu.js"></script>
-
+    <script src="js/orders.js"></script>
 </body>
 </html>

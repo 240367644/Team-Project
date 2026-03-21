@@ -1,3 +1,77 @@
+<?php
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
+$db_host = "localhost";
+$db_name = "cs2team49_orders";
+$db_user = "cs2team49";
+$db_pass = "TxxB1oKh6zkcPBjuycWZvO8oz";
+
+try {
+    $db = new PDO(
+        "mysql:host=$db_host;dbname=$db_name;charset=utf8",
+        $db_user,
+        $db_pass
+    );
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+
+$stmt = $db->query("
+    SELECT COUNT(*) AS total 
+    FROM cs2team49_product.products
+");
+$totalProducts = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+
+$stmt = $db->query("
+    SELECT COUNT(*) AS total 
+    FROM Orders 
+    WHERE DATE(created_at) = CURDATE()
+");
+$ordersToday = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+
+$stmt = $db->query("
+    SELECT COUNT(*) AS total 
+    FROM Orders 
+    WHERE YEARWEEK(created_at, 1) = YEARWEEK(CURDATE(), 1)
+");
+$ordersWeek = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+
+$stmt = $db->query("
+    SELECT COUNT(*) as total 
+    FROM cs2team49_product.products 
+    WHERE stock < 10 AND stock > 0
+");
+$lowStock = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+$stmt = $db->query("
+    SELECT name, stock 
+    FROM cs2team49_product.products
+");
+$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$stmt = $db->prepare("
+    SELECT o.order_id, o.created_at, o.status,
+           u.username,
+           SUM(p.price * oi.quantity) AS total_price
+    FROM Orders o
+    JOIN cs2team49_login_system.users u 
+        ON o.user_id = u.user_id
+    JOIN order_items oi 
+        ON o.order_id = oi.order_id
+    JOIN cs2team49_product.products p 
+        ON oi.product_id = p.id
+    GROUP BY o.order_id
+    ORDER BY o.created_at DESC
+    LIMIT 5
+");
+$stmt->execute();
+$recentOrders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,25 +142,82 @@
             <a href="inventory.html">Inventory Management</a>
             <a href="reports.html">Reports</a>
         </div>
-        
+
         <br><br>
-        <h2 class="page-title">Order Processing</h2>
-        
-        <div class="order-controls">
-            
-            <input type="text" placeholder="Search orders..." class="search-orders">
-            <select class="order-filter">
-                <option>All Orders</option>
-                <option>Pending</option>
-                <option>Processing</option>
-                <option>Shipped</option>
-                <option>Cancelled</option>
-            </select>
+
+        <h2 class="page-title">Reports & Monitoring</h2>
+
+        <div class="report-cards">
+
+            <div class="report-card">
+                <h3>Total Products</h3>
+                <p class="report-number"><?= $totalProducts ?></p>
+            </div>
+
+            <div class="report-card">
+                <h3>Low Stock Items</h3>
+                <p class="report-number warning"><?= $lowStock ?></p>
+            </div>
+
+            <div class="report-card">
+                <h3>Orders Today</h3>
+                <p class="report-number"><?= $ordersToday ?></p>
+
+            </div>
+
+            <div class="report-card">
+                <h3>Orders This Week</h3>
+                <p class="report-number"><?= $ordersWeek ?></p>
+            </div>
+
         </div>
-        
-        <div class="orders-container">
-            
-            <table class="orders-table">
+
+        <h3 class="section-title">Stock Level Report</h3>
+
+        <div class="table-container">
+
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Stock Level</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                <?php foreach ($products as $p): 
+
+                    if ($p['stock'] == 0) {
+                        $status = "Out of Stock";
+                        $class = "out-stock";
+                    } elseif ($p['stock'] < 10) {
+                        $status = "Low Stock";
+                        $class = "low-stock";
+                    } else {
+                        $status = "In Stock";
+                        $class = "in-stock";
+                    }
+                ?>
+
+                <tr>
+                    <td><?= htmlspecialchars($p['name']) ?></td>
+                    <td><?= $p['stock'] ?></td>
+                    <td class="<?= $class ?>"><?= $status ?></td>
+                </tr>
+
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+
+        </div>
+
+
+        <h3 class="section-title">Recent Orders</h3>
+
+        <div class="table-container">
+
+            <table class="report-table">
                 <thead>
                     <tr>
                         <th>Order ID</th>
@@ -94,49 +225,25 @@
                         <th>Date</th>
                         <th>Status</th>
                         <th>Total</th>
-                        <th>Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>#333</td>
-                        <td>Kayla Johnson</td>
-                        <td>12 Jan 2026</td>
-                        <td class="pending">Pending</td>
-                        <td>£50.99</td>
-                        <td>
-                            <button class="approve">Approve</button>
-                            <button class="cancel">Cancel</button>
-                        </td>
-                    </tr>
+                <?php foreach ($recentOrders as $order): ?>
 
-                    <tr>
-                        <td>#444</td>
-                        <td>Maia Lee</td>
-                        <td>14 Feb 2026</td>
-                        <td class="processing">Processing</td>
-                        <td>£22.79</td>
-                        <td>
-                            <button class="ship">Ship</button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>#<?= $order['order_id'] ?></td>
+                    <td><?= htmlspecialchars($order['username']) ?></td>
+                    <td><?= date("d M Y", strtotime($order['created_at'])) ?></td>
+                    <td class="<?= strtolower($order['status']) ?>"><?= $order['status'] ?></td>
+                    <td>£<?= number_format($order['total_price'], 2) ?></td>
+                </tr>
 
-                    <tr>
-                        <td>#555</td>
-                        <td>Gavin Davis</td>
-                        <td>5 March 2026</td>
-                        <td class="shipped">Shipped</td>
-                        <td>£84.32</td>
-                        <td>
-                            <button class="view">View</button>
-                        </td>
-                    </tr>
+                <?php endforeach; ?>
                 </tbody>
             </table>
-        
         </div>
-    
+
     </main>
 
     <footer class="footer">
