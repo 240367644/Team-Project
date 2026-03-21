@@ -1,0 +1,17 @@
+{
+    "name": "rahim/team-project",
+    "autoload": {
+        "psr-4": {
+            "Rahim\\TeamProject\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rahima Osman",
+            "email": "rahimaosman3174@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    }
+}
