@@ -152,7 +152,7 @@ if (!isset($_SESSION['user_id'])) {
                         <p>£<?php echo $item['price']; ?></p>
 
                         <div class="wishlist-buttons">
-                            <button class="add-basket">Add to Basket</button>
+                            <button class="add-basket" data-id="<?php echo $item['id']; ?>">Add to Basket</button>
                             <button class="remove-wishlist" data-id="<?php echo $item['id']; ?>">Remove</button>
                         </div>
                     </div>

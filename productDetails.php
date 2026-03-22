@@ -71,7 +71,7 @@ if (!$product) {
                     <div class="submenu" id="subMenu">
                         <a href="processOrders.html">Process Orders</a>
                         <a href="customers.html">Customer Management</a>
-                        <a href="inventory.html">Inventory Management</a>
+                        <a href="inventory.php">Inventory Management</a>
                         <a href="reports.html">Reports</a>
                     </div>
                 </div>
@@ -190,33 +190,40 @@ if (!$product) {
                 console.error('Error checking session:', err);
             }
         });
-        document.querySelector('.addToCart').addEventListener('click', async () => {
-            const productId = <?php echo $product['id']; ?>;
-            const quantity = document.querySelector('.qty-box').value;
+        document.addEventListener('DOMContentLoaded', () => {
 
-            const formData = new FormData();
-            formData.append('product_id', productId);
+    document.querySelector('.addToCart').addEventListener('click', async () => {
 
-            try {
-                const res = await fetch('basket.php?path=addItem', {
-                    method: 'POST',
-                    body: formData,
-                    credentials: 'include'
-                });
+        const productId = <?php echo $product['id']; ?>;
+        const quantity = document.querySelector('.qty-box').value;
+        const formData = new FormData();
+        formData.append('product_id', productId);
+        formData.append('quantity', quantity);
 
-                const data = await res.json();
-                alert(data.message);
-            } catch (err) {
-                console.error(err);
-                alert('Error adding to basket');
-            }
-        });
+        try {
+            const res = await fetch('basket.php?path=addItem', {
+                method: 'POST',
+                body: formData,
+                credentials: 'include'
+            });
+
+            const data = await res.json();
+            alert(data.message);
+
+        } catch (err) {
+            console.error(err);
+            alert('Error adding to basket');
+        }
+    });
+
+});
 
         document.querySelector('.wishlist-btn').addEventListener('click', async () => {
             const productId = <?php echo $product['id']; ?>;
 
             const formData = new FormData();
             formData.append('product_id', productId);
+			formData.append('quantity', quantity);
 
             const res = await fetch('wishlist.php?path=add', {
                 method: 'POST',

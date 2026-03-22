@@ -51,17 +51,22 @@ if ($path === "addItem") {
         exit;
     }
 
-    if (isset($_SESSION['basket'][$product_id])) {
-        $_SESSION['basket'][$product_id]['quantity'] += 1;
-    } else {
-        $_SESSION['basket'][$product_id] = [
-            "id" => $product['id'],
-            "name" => $product['name'],
-            "price" => (float)$product['price'],
-            "image" => $product['image'],
-            "quantity" => 1
-        ];
-    }
+    $quantity = $_POST['quantity'] ?? 1;
+    $quantity = intval($quantity);
+
+if ($quantity < 1) $quantity = 1;
+
+if (isset($_SESSION['basket'][$product_id])) {
+    $_SESSION['basket'][$product_id]['quantity'] += $quantity;
+} else {
+    $_SESSION['basket'][$product_id] = [
+        "id" => $product['id'],
+        "name" => $product['name'],
+        "price" => (float)$product['price'],
+        "image" => $product['image'],
+        "quantity" => $quantity
+    ];
+}
 
     session_write_close();
     echo json_encode([
