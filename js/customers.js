@@ -89,17 +89,34 @@ async function addCustomer() {
 }
 
 // search
-document.getElementById("searchInput").addEventListener("keyup", function() {
-    const search = this.value.toLowerCase();
+document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById("searchInput");
     const rows = document.querySelectorAll(".customer-table tbody tr");
 
-    rows.forEach(row => {
-        const text = row.innerText.toLowerCase();
+    searchInput.addEventListener("keyup", function() {
+        const search = this.value.toLowerCase();
 
-        if (text.includes(search)) {
-            row.style.display = "";
-        } else {
-            row.style.display = "none";
-        }
+        rows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+
+            if (text.includes(search)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
     });
 });
+
+//view
+function viewCustomer(name, email, phone, address, postcode, role) {
+    alert(
+        "Customer Details:\n\n" +
+        "Name: " + name + "\n" +
+        "Email: " + email + "\n" +
+        "Phone: " + (phone || "N/A") + "\n" +
+        "Address: " + (address || "N/A") + "\n" +
+        "Postcode: " + (postcode || "N/A") + "\n" +
+        "Role: " + role
+    );
+}

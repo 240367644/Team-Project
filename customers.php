@@ -132,7 +132,14 @@ try {
                         </td>
 
                         <td>
-                            <button class="view-btn">View</button>
+                            <button class="view-btn" onclick='viewCustomer(
+                                <?= json_encode($customer["username"]); ?>,
+                                <?= json_encode($customer["email"]); ?>,
+                                <?= json_encode($customer["phone"]); ?>,
+                                <?= json_encode($customer["address"]); ?>,
+                                <?= json_encode($customer["postcode"]); ?>,
+                                <?= json_encode($customer["role"]); ?>
+                                )'>View</button>
                             <button class="edit-btn" onclick="editCustomer(<?php echo $customer['user_id']; ?>)">Edit</button>
                             <button class="delete-btn" onclick="deleteCustomer(<?php echo $customer['user_id']; ?>)">Delete</button>	
                         </td>
