@@ -1,70 +1,101 @@
-let reviewFormBtn = document.getElementById("submit-review");
-let reviewsDisplay = document.getElementById("reviews-display");
+document.addEventListener("DOMContentLoaded", () => {
 
-let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
-
-displayReviews();
-
-reviewFormBtn.addEventListener("click", () => {
-
-    let name = document.getElementById("review-name").value;
-    let rating = document.getElementById("review-rating").value;
-    let text = document.getElementById("review-text").value;
-
-    if(name === "" || text === ""){
-        alert("Please fill in all fields");
-        return;
-    }
-
-    let newReview = {
-        name: name,
-        rating: rating,
-        text: text
-    };
-
-    reviews.push(newReview);
-
-    localStorage.setItem("reviews", JSON.stringify(reviews));
+    let reviewFormBtn = document.getElementById("submit-review");
+    let reviewsDisplay = document.getElementById("reviews-display");
 
     displayReviews();
 
-    document.getElementById("review-name").value = "";
-    document.getElementById("review-text").value = "";
+    reviewFormBtn.addEventListener("click", async () => {
 
-});
+        let rating = document.getElementById("review-rating").value;
+        let text = document.getElementById("review-text").value;
 
+        if (text === "") {
+            alert("Please fill in all fields");
+            return;
+        }
 
-function displayReviews(){
+        let res = await fetch("reviews.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                action: "add",
+                rating: rating,
+                text: text
+            })
+        });
 
-    reviewsDisplay.innerHTML = "";
+        let result = await res.text();
+        console.log(result);
 
-    reviews.forEach(review => {
+        if (result === "not_logged_in") {
+            alert("Please log in first");
+            return;
+        }
 
-        let reviewCard = document.createElement("div");
-        reviewCard.classList.add("review-card");
+        displayReviews();
 
-        reviewCard.innerHTML = `
-        <h3>${review.name}</h3>
-        <p class="review-stars">${"⭐".repeat(review.rating)}</p>
-        <p>${review.text}</p>
-        `;
-
-        reviewsDisplay.appendChild(reviewCard);
-
+        document.getElementById("review-text").value = "";
     });
 
-}
 
-// on homepage
+    async function displayReviews() {
 
-function scrollReviews(direction) {
-    const container = document.getElementById("reviewsContainer");
-    const scrollAmount = 300;
-    container.scrollLeft += direction * scrollAmount;
-}
+        const res = await fetch("reviews.php?reviews=true");
+        const reviews = await res.json();
 
-function scrollCategories(direction) {
-    const container = document.getElementById("categoryScroll");
-    const scrollAmount = 400;
-    container.scrollLeft += direction * scrollAmount;
-}
+        reviewsDisplay.innerHTML = "";
+
+        reviews.forEach(review => {
+
+            let reviewCard = document.createElement("div");
+            reviewCard.classList.add("review-card");
+
+            reviewCard.innerHTML = `
+                <h3>${review.username}</h3>
+                <p class="review-stars">${"⭐".repeat(review.rating)}</p>
+                <p>${review.text}</p>
+                ${review.isOwner ? `<button onclick="deleteReview(${review.id})">Delete</button>` : ""}
+            `;
+
+            reviewsDisplay.appendChild(reviewCard);
+
+        });
+
+    }
+
+
+    window.deleteReview = async function(id) {
+
+        await fetch("reviews.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                action: "delete",
+                id: id
+            })
+        });
+
+        displayReviews();
+    };
+
+
+    // on homepage
+
+    window.scrollReviews = function(direction) {
+        const container = document.getElementById("reviewsContainer");
+        const scrollAmount = 300;
+        container.scrollLeft += direction * scrollAmount;
+    };
+
+    window.scrollCategories = function(direction) {
+        const container = document.getElementById("categoryScroll");
+        const scrollAmount = 400;
+        container.scrollLeft += direction * scrollAmount;
+    };
+
+});
