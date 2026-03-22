@@ -100,8 +100,8 @@ try {
         <h2 class="page-title">Customer Management</h2>
 
         <div class="customer-controls">
-            <input type="text" placeholder="Search customers..." class="search-bar">
-            <button class="add-btn">+ Add Customer</button>
+            <input type="text" id="searchInput" placeholder="Search customers..." class="search-bar">
+            <button class="add-btn" onclick="addCustomer()">+ Add Customer</button>
         </div>
 
         <div class="table-container">
@@ -112,36 +112,33 @@ try {
                     <th>Customer ID</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Phone</th>
-                    <th>Orders</th>
                     <th>Role</th>
                     <th>Actions</th>
                 </tr>
             </thead>
 
             <tbody>
-<?php foreach ($customers as $customer): ?>
-    <tr>
-        <td><?php echo $customer['user_id']; ?></td>
-        <td><?php echo $customer['username']; ?></td>
-        <td><?php echo $customer['email']; ?></td>
-        <td><?php echo $customer['created_at']; ?></td>
+                <?php foreach ($customers as $customer): ?>
+                    <tr>
+                        <td><?php echo $customer['user_id']; ?></td>
+                        <td><?php echo $customer['username']; ?></td>
+                        <td><?php echo $customer['email']; ?></td>
 
-        <td>
+                        <td>
+                            <select onchange="updateRole(<?php echo $customer['user_id']; ?>, this.value)">
+                                <option value="user" <?= $customer['role'] === 'user' ? 'selected' : '' ?>>User</option>
+                                <option value="admin" <?= $customer['role'] === 'admin' ? 'selected' : '' ?>>Admin</option>
+                            </select>
+                        </td>
 
-        </td>
-		<td>
-
-		</td>
-
-		<td>
-		    <button class="view-btn">View</button>
-		    <button class="edit-btn" onclick="editCustomer(<?php echo $customer['user_id']; ?>)">Edit</button>
-		    <button class="delete-btn" onclick="deleteCustomer(<?php echo $customer['user_id']; ?>)">Delete</button>	
-		</td>
-    </tr>
-<?php endforeach; ?>
-</tbody>
+                        <td>
+                            <button class="view-btn">View</button>
+                            <button class="edit-btn" onclick="editCustomer(<?php echo $customer['user_id']; ?>)">Edit</button>
+                            <button class="delete-btn" onclick="deleteCustomer(<?php echo $customer['user_id']; ?>)">Delete</button>	
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
         </table>
 
         </div>
@@ -186,7 +183,7 @@ try {
             Copyright © 2025 - 2026 Accom4U. All Rights Reserved.
         </div>
     </footer>
-    <script>
+<script>
         document.addEventListener('DOMContentLoaded', async () => {
             try {
                 const res = await fetch('session.php');
@@ -207,60 +204,7 @@ try {
     </script>
 
     <script src="js/sidemenu.js"></script>
-    
-<script>
-
-//delete customer
-async function deleteCustomer(id) {
-    if (!confirm("Are you sure you want to delete this customer?")) return;
-
-    const formData = new FormData();
-    formData.append("user_id", id);
-
-    const res = await fetch('customerActions.php?action=delete', {
-        method: 'POST',
-        body: formData
-    });
-
-    const data = await res.json();
-    alert(data.message);
-
-    if (data.status === "success") {
-        location.reload(); // refresh table
-    }
-}
-
-
-//edit customer
-async function editCustomer(id) {
-
-    const name = prompt("Enter new name:");
-    const email = prompt("Enter new email:");
-
-
-    if (!name || !email) {
-        alert("Name and email required");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append("username", name);
-    formData.append("email", email);
-	formData.append("user_id", id);
-
-    const res = await fetch('customerActions.php?action=update', {
-        method: 'POST',
-        body: formData
-    });
-
-    const data = await res.json();
-    alert(data.message);
-
-    if (data.status === "success") {
-        location.reload();
-    }
-}
-</script>
+    <script src="js/customers.js"></script>
 
 </body>
 </html>
