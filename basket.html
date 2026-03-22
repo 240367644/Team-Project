@@ -128,11 +128,8 @@
     </footer>
 
 <script>
-let basket = []; // will be loaded from backend
+let basket = []; 
 
-/* -------------------------
-   Load basket from PHP backend
----------------------------*/
 function loadBasket() {
     fetch('basket.php?path=getBasket', {
         credentials: 'include'
@@ -149,9 +146,6 @@ function loadBasket() {
         .catch(err => console.log("Fetch error:", err));
 }
 
-/* -------------------------
-   Display Basket Contents
----------------------------*/
 function displayBasket(summary = null) {
     const container = document.querySelector(".basket-items");
     container.innerHTML = "";
@@ -190,9 +184,6 @@ function displayBasket(summary = null) {
     }
 }
 
-/* -------------------------
-   Change Quantity
----------------------------*/
 function changeQty(index, amount) {
     const item = basket[index];
     const newQty = Number(item.quantity) + amount;
@@ -213,9 +204,6 @@ function changeQty(index, amount) {
     });
 }
 
-/* -------------------------
-   Remove Item
----------------------------*/
 function removeItem(index) {
     const item = basket[index];
     fetch('basket.php?path=removeItem', {
@@ -229,9 +217,6 @@ function removeItem(index) {
     });
 }
 
-/* -------------------------
-   Initial load
----------------------------*/
 document.addEventListener('DOMContentLoaded', () => {
     loadBasket();
 
