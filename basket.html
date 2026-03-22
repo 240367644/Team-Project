@@ -31,7 +31,7 @@
                 <div class="submenu" id="subMenu">
                     <a href="processOrders.html">Process Orders</a>
                     <a href="customers.html">Customer Management</a>
-                    <a href="inventory.html">Inventory Management</a>
+                    <a href="inventory.php">Inventory Management</a>
                     <a href="reports.html">Reports</a>
                 </div>
                 </div>
@@ -134,11 +134,13 @@ let basket = []; // will be loaded from backend
    Load basket from PHP backend
 ---------------------------*/
 function loadBasket() {
-    fetch('basket.php?path=getBasket')
+    fetch('basket.php?path=getBasket', {
+        credentials: 'include'
+    })
         .then(res => res.json())
         .then(data => {
             if (data.status === "success") {
-                basket = Object.values(data.basket); // convert cart object to array
+                basket = data.basket;
                 displayBasket(data.summary);
             } else {
                 console.log("Error loading basket:", data.message);
@@ -157,7 +159,7 @@ function displayBasket(summary = null) {
     let subtotal = 0;
 
     basket.forEach((item, index) => {
-        subtotal += item.price * item.quantity;
+        subtotal += Number(item.price) * Number(item.quantity);
 
         container.innerHTML += `
             <div class="basket-item">
@@ -165,7 +167,7 @@ function displayBasket(summary = null) {
 
                 <div class="item-details">
                     <h3>${item.name}</h3>
-                    <p>£${item.price.toFixed(2)}</p>
+                    <p>£${Number(item.price).toFixed(2)}</p>
 
                     <div class="quantity-control">
                         <button onclick="changeQty(${index}, -1)">-</button>
@@ -180,8 +182,8 @@ function displayBasket(summary = null) {
     });
 
     if (summary) {
-        document.getElementById("subtotal").textContent = "£" + summary.subtotal.toFixed(2);
-        document.getElementById("total").textContent = "£" + summary.total.toFixed(2);
+        document.getElementById("subtotal").textContent = "£" + Number(summary.subtotal).toFixed(2);
+        document.getElementById("total").textContent = "£" + Number(summary.total).toFixed(2);
     } else {
         document.getElementById("subtotal").textContent = "£" + subtotal.toFixed(2);
         document.getElementById("total").textContent = "£" + subtotal.toFixed(2);
@@ -193,7 +195,7 @@ function displayBasket(summary = null) {
 ---------------------------*/
 function changeQty(index, amount) {
     const item = basket[index];
-    const newQty = item.quantity + amount;
+    const newQty = Number(item.quantity) + amount;
 
     if (newQty <= 0) {
         removeItem(index);
