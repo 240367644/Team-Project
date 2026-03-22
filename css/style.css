@@ -2210,7 +2210,7 @@ ul.breadcrumb li+li:before {
     }
  
     
-}  /* <-- media query ends here */
+}
 
 
 /* Wishlist Star */
@@ -2307,13 +2307,25 @@ ul.breadcrumb li+li:before {
 /* BUTTON STYLE */
 .product-card button {
     margin-top: 10px;
-    background: #2a8bc7;
+    background: linear-gradient(to left, #66c4ff, #52ace4);
     color: white;
     border: none;
     padding: 8px 15px;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
+
+.product-card button:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.05);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.product-card button:active {
+    transform: translateY(-1px);
+}
+
 /* PAGE SPACING */
 .wishlist-page {
     padding: 20px 40px;

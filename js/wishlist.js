@@ -40,3 +40,63 @@ function removeFromWishlist(id) {
 
     location.reload();
 }
+
+document.addEventListener('DOMContentLoaded', async () => {
+
+    const container = document.querySelector('.wishlist-container');
+    const emptyMsg = document.getElementById('empty-message');
+
+    container.innerHTML = '';
+
+    try {
+        const res = await fetch('wishlist.php?path=get', {
+            credentials: 'include'
+        });
+
+        const items = await res.json();
+
+        if (items.length === 0) {
+            emptyMsg.style.display = 'block';
+            return;
+        }
+
+        items.forEach(item => {
+            const div = document.createElement('div');
+            div.classList.add('product-card');
+
+            div.innerHTML = `
+                <span class="wishlist-star">★</span>
+                <img src="${item.image}" alt="${item.name}">
+                <h3>${item.name}</h3>
+                <p>£${item.price}</p>
+                <button>Add to Basket</button>
+            `;
+
+            container.appendChild(div);
+        });
+
+    } catch (err) {
+        console.error(err);
+    }
+});
+
+document.querySelectorAll('.remove-wishlist').forEach(button => {
+    button.addEventListener('click', async () => {
+
+        const productId = button.getAttribute('data-id');
+
+        const formData = new FormData();
+        formData.append('product_id', productId);
+
+        const res = await fetch('wishlist.php?path=remove', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        });
+
+        const data = await res.json();
+        alert(data.message);
+
+        location.reload();
+    });
+});

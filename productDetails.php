@@ -211,6 +211,24 @@ if (!$product) {
                 alert('Error adding to basket');
             }
         });
+
+        document.querySelector('.wishlist-btn').addEventListener('click', async () => {
+            const productId = <?php echo $product['id']; ?>;
+
+            const formData = new FormData();
+            formData.append('product_id', productId);
+
+            const res = await fetch('wishlist.php?path=add', {
+                method: 'POST',
+                body: formData,
+                credentials: 'include'
+            });
+
+            const data = await res.json();
+            alert(data.message);
+
+            window.location.href = "wishlist.php";
+        });
     </script>
 
     <script src="js/sidemenu.js"></script>
