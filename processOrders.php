@@ -155,7 +155,9 @@ $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 ' : ($o["status"] == "Processing" ? '
                                     <button class="ship" onclick="updateOrder('.$o["order_id"].', \'Shipped\')">Ship</button>
                                 ' : '
-                                    <button class="view">View</button>
+                                    <a href="viewOrder.php?id='.$o["order_id"].'">
+                                        <button class="view">View</button>
+                                    </a>
                                 ')).'
                             </td>
                         </tr>';
