@@ -23,10 +23,8 @@ try {
     );
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // get logged in user id
     $user_id = $_SESSION['user_id'];
 
-    // fetch orders for this user
     $stmt = $db->prepare("
         SELECT order_id, status, created_at
         FROM Orders
