@@ -7,7 +7,6 @@ error_reporting(E_ALL);
 header("Content-Type: application/json");
 session_start();
 
-// Connect to the products database
 $db_host = "localhost";
 $db_name = "cs2team49_product";
 $db_user = "cs2team49";
@@ -28,7 +27,6 @@ try {
     exit;
 }
 
-// Initialize basket in session if not already
 if (!isset($_SESSION['basket'])) {
     $_SESSION['basket'] = [];
 }
@@ -36,7 +34,7 @@ if (!isset($_SESSION['basket'])) {
 $path = $_GET['path'] ?? '';
 
 if ($path === "addItem") {
-    $product_id = $_POST['product_id'] ?? null;
+    $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : null;
     if (!$product_id) {
         echo json_encode(["status" => "error", "message" => "No product ID provided"]);
         exit;
