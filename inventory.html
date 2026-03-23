@@ -84,27 +84,33 @@
         </div>
 
         <div class="product-controls">
-            <input type="text" placeholder="Search products..." class="search-bar">
-            <button class="add-product">+ Add Product</button>
+            <input type="text" id="searchBar" placeholder="Search products..." class="search-bar">
+            <select id="statusFilter" class="filter-select">
+                <option value="all">All Status</option>
+                <option value="in-stock">In Stock</option>
+                <option value="low-stock">Low Stock</option>
+                <option value="out-stock">Out of Stock</option>
+            </select>
+            <button class="add-product" id="addProductBtn">+ Add Product</button>
         </div>
 
         <div class="table-container">
 
-            <table class="product-table">
+            <table class="product-table" id="productTable">
                 <thead>
                     <tr>
                         <th>Product ID</th>
                         <th>Product</th>
                         <th>Category</th>
                         <th>Price</th>
-                        <th>Stock</th>
+                        <th>Units Available</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
 
-                <tbody>
-                    <tr>
+                <tbody id="productTableBody">
+                    <tr data-id="P001" data-name="Desk Lamp" data-category="Lighting" data-price="24.99" data-stock="53" data-description="A modern LED desk lamp with adjustable brightness and USB charging port." data-image="">
                         <td>P001</td>
                         <td>Desk Lamp</td>
                         <td>Lighting</td>
@@ -114,13 +120,13 @@
                         <td>
                             <button class="view-btn">View</button>
                             <button class="edit-btn">Edit</button>
-                            <button class="stock-btn">Update Stock</button>
                             <button class="restock-btn">Restock</button>
+                            <button class="remove-stock-btn">Remove Stock</button>
                             <button class="delete-btn">Delete</button>
                         </td>
                     </tr>
 
-                    <tr>
+                    <tr data-id="P002" data-name="Office Chair" data-category="Furniture" data-price="89.99" data-stock="9" data-description="Ergonomic office chair with lumbar support and adjustable height." data-image="">
                         <td>P002</td>
                         <td>Office Chair</td>
                         <td>Furniture</td>
@@ -130,13 +136,13 @@
                         <td>
                             <button class="view-btn">View</button>
                             <button class="edit-btn">Edit</button>
-                            <button class="stock-btn">Update Stock</button>
                             <button class="restock-btn">Restock</button>
+                            <button class="remove-stock-btn">Remove Stock</button>
                             <button class="delete-btn">Delete</button>
                         </td>
                     </tr>
 
-                    <tr>
+                    <tr data-id="P003" data-name="Notebook Set" data-category="Stationery" data-price="12.50" data-stock="0" data-description="Set of 3 A5 lined notebooks, perfect for note-taking and journaling." data-image="">
                         <td>P003</td>
                         <td>Notebook Set</td>
                         <td>Stationery</td>
@@ -146,8 +152,8 @@
                         <td>
                             <button class="view-btn">View</button>
                             <button class="edit-btn">Edit</button>
-                            <button class="stock-btn">Update Stock</button>
                             <button class="restock-btn">Restock</button>
+                            <button class="remove-stock-btn">Remove Stock</button>
                             <button class="delete-btn">Delete</button>
                         </td>
                     </tr>
@@ -155,27 +161,94 @@
             </table>
         </div>
 
-        <div class="product-view-modal">
-            
-            <h3>Product Details</h3>
-            <p><strong>Product ID:</strong> P001</p>
-            <p><strong>Name:</strong> Desk Lamp</p>
-            <p><strong>Category:</strong> Lighting</p>
-            <p><strong>Price:</strong> £24.99</p>
-            <p><strong>Stock Level:</strong> 53</p>
-            <p><strong>Status:</strong> In Stock</p>
+        <!-- Modal Overlay -->
+        <div class="modal-overlay" id="modalOverlay"></div>
 
-            <button class="close-view">Close</button>
+        <!-- View Product Modal -->
+        <div class="product-view-modal" id="viewModal">
+            <h3>Product Details</h3>
+            <div class="view-product-image-wrap" id="viewImageWrap" style="display:none;">
+                <img id="viewProductImage" src="" alt="Product Image" class="view-product-image">
+            </div>
+            <p><strong>Product ID:</strong> <span id="viewId"></span></p>
+            <p><strong>Name:</strong> <span id="viewName"></span></p>
+            <p><strong>Category:</strong> <span id="viewCategory"></span></p>
+            <p><strong>Price:</strong> £<span id="viewPrice"></span></p>
+            <p><strong>Units Available:</strong> <span id="viewStock"></span></p>
+            <p><strong>Status:</strong> <span id="viewStatus"></span></p>
+            <p><strong>Description:</strong> <span id="viewDescription"></span></p>
+            <button class="close-view" id="closeViewBtn">Close</button>
         </div>
 
-        <div class="restock-modal">
-            <h3>Restock Product</h3>
-            <label>Product ID</label>
-            <input type="text" placeholder="Enter product ID">
-            <label>Quantity Received</label>
-            <input type="number" placeholder="Enter quantity">
-            <button class="confirm-restock">Confirm Restock</button>
-            <button class="cancel-restock">Cancel</button>
+        <!-- Restock Modal -->
+        <div class="restock-modal" id="restockModal">
+            <h3>Add Incoming Stock</h3>
+            <p id="restockProductName" style="font-weight:bold; margin-bottom:10px;"></p>
+            <label>Quantity to Add</label>
+            <input type="number" id="restockQty" min="1" placeholder="Enter quantity">
+            <button class="confirm-restock" id="confirmRestockBtn">Confirm Restock</button>
+            <button class="cancel-restock" id="cancelRestockBtn">Cancel</button>
+        </div>
+
+        <!-- Remove Stock Modal -->
+        <div class="restock-modal" id="removeStockModal">
+            <h3>Process Stock Removal</h3>
+            <p id="removeStockProductName" style="font-weight:bold; margin-bottom:10px;"></p>
+            <label>Current Stock: <span id="removeStockCurrent"></span> units</label>
+            <label>Quantity to Remove</label>
+            <input type="number" id="removeStockQty" min="1" placeholder="Enter quantity">
+            <button class="confirm-restock" id="confirmRemoveStockBtn">Confirm Removal</button>
+            <button class="cancel-restock" id="cancelRemoveStockBtn">Cancel</button>
+        </div>
+
+        <!-- Edit Product Modal -->
+        <div class="edit-product-modal" id="editModal">
+            <h3>Edit Product</h3>
+            <input type="hidden" id="editRowRef">
+            <label>Product Name</label>
+            <input type="text" id="editName" placeholder="Product name">
+            <label>Category</label>
+            <input type="text" id="editCategory" placeholder="Category">
+            <label>Price (£)</label>
+            <input type="number" id="editPrice" step="0.01" min="0" placeholder="0.00">
+            <label>Stock Level</label>
+            <input type="number" id="editStock" min="0" placeholder="0">
+            <label>Description</label>
+            <textarea id="editDescription" rows="3" placeholder="Product description"></textarea>
+            <label>Product Image</label>
+            <input type="file" id="editImage" accept="image/*">
+            <div class="edit-current-image" id="editCurrentImageWrap" style="display:none;">
+                <img id="editCurrentImage" src="" alt="Current Image" class="edit-product-thumb">
+                <span class="edit-current-image-label">Current image</span>
+            </div>
+            <div class="modal-btn-row">
+                <button class="confirm-restock" id="saveEditBtn">Save Changes</button>
+                <button class="cancel-restock" id="cancelEditBtn">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Add Product Modal -->
+        <div class="edit-product-modal" id="addModal">
+            <h3>Add New Product</h3>
+            <label>Product Name</label>
+            <input type="text" id="addName" placeholder="Product name">
+            <label>Category</label>
+            <input type="text" id="addCategory" placeholder="Category">
+            <label>Price (£)</label>
+            <input type="number" id="addPrice" step="0.01" min="0" placeholder="0.00">
+            <label>Stock Level</label>
+            <input type="number" id="addStock" min="0" placeholder="0">
+            <label>Description</label>
+            <textarea id="addDescription" rows="3" placeholder="Product description"></textarea>
+            <label>Product Image</label>
+            <input type="file" id="addImage" accept="image/*">
+            <div class="add-image-preview-wrap" id="addImagePreviewWrap" style="display:none;">
+                <img id="addImagePreview" src="" alt="Preview" class="edit-product-thumb">
+            </div>
+            <div class="modal-btn-row">
+                <button class="confirm-restock" id="confirmAddBtn">Add Product</button>
+                <button class="cancel-restock" id="cancelAddBtn">Cancel</button>
+            </div>
         </div>
 
     </main>
