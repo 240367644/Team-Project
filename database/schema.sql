@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 23, 2026 at 03:15 AM
+-- Generation Time: Mar 23, 2026 at 09:58 AM
 -- Server version: 8.0.45-0ubuntu0.22.04.1
 -- PHP Version: 8.3.30
 
@@ -88,7 +88,8 @@ CREATE TABLE `reviews` (
   `rating` int NOT NULL,
   `text` text COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `product_id` int DEFAULT NULL
+  `product_id` int DEFAULT NULL,
+  `reviewer_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '''Anonymous'''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- --------------------------------------------------------
