@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     displayReviews();
 
+    // fill out reviews
     reviewFormBtn.addEventListener("click", async () => {
 
         let rating = document.getElementById("review-rating").value;
@@ -40,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("review-text").value = "";
     });
 
-
+// display reviews
     async function displayReviews() {
 
         const res = await fetch("reviews.php?reviews=true");

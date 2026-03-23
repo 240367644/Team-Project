@@ -4,6 +4,7 @@ const initialCategory = urlParams.get("category");
 let buttons = document.querySelectorAll(".button-val");
 let cards = document.querySelectorAll(".card");
 
+// filters
 function filterProducts() {
     const min = parseFloat(document.getElementById("min-price").value) || 0;
     const max = parseFloat(document.getElementById("max-price").value) || 100;
@@ -68,7 +69,7 @@ document.addEventListener("click", e => {
 document.getElementById("min-price").addEventListener("input", filterProducts);
 document.getElementById("max-price").addEventListener("input", filterProducts);
 
-/* wishlist heart */
+// wishlist heart
 
 document.addEventListener("click", function(e) {
     if (e.target.classList.contains("wishlist-heart")) {

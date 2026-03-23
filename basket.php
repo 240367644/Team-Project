@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 header("Content-Type: application/json");
 session_start();
 
+// connect to database
 $db_host = "localhost";
 $db_name = "cs2team49_product";
 $db_user = "cs2team49";
@@ -33,6 +34,7 @@ if (!isset($_SESSION['basket'])) {
 
 $path = $_GET['path'] ?? '';
 
+// add
 if ($path === "addItem") {
     $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : null;
     if (!$product_id) {
@@ -75,6 +77,7 @@ if (isset($_SESSION['basket'][$product_id])) {
     exit;
 }
 
+// delete
 if ($path === "removeItem") {
     $product_id = $_POST['product_id'] ?? null;
     if ($product_id && isset($_SESSION['basket'][$product_id])) {
@@ -87,6 +90,7 @@ if ($path === "removeItem") {
     exit;
 }
 
+// quantity
 if ($path === "updateQuantity") {
     $product_id = $_POST['product_id'] ?? null;
     $quantity = $_POST['quantity'] ?? null;
@@ -133,6 +137,7 @@ if ($path === "getBasket") {
     exit;
 }
 
+//checkout
 if ($path === "checkout") {
 
     if (!isset($_SESSION['basket']) || empty($_SESSION['basket'])) {

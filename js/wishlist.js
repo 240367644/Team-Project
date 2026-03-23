@@ -6,6 +6,7 @@ if (wishlist.length === 0) {
     wishlistContainer.innerHTML = "<p>Your wishlist is empty.</p>";
 }
 
+// wishlist display
 wishlist.forEach(product => {
 
     let item = document.createElement("div");
@@ -30,6 +31,7 @@ wishlist.forEach(product => {
 
 });
 
+// remove
 function removeFromWishlist(id) {
 
     let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];

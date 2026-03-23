@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 
 session_start();
 
+// connect to database
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
     exit();
@@ -61,9 +62,9 @@ try {
         </div>
 
         <div class="side-menu" id="sideMenu">
-    <a href="profile.html">Profile</a>
-            <a href="viewOrders.html">My Orders</a>
-            <a href="wishlist.html">Wishlist</a>
+            <a href="profile.html">Profile</a>
+            <a href="myOrders.php">My Orders</a>
+            <a href="wishlist.php">Wishlist</a>
             <a href="settings.html">Settings</a>
             <br>
             <div class="admin-menu">
@@ -75,10 +76,10 @@ try {
                     <a href="inventory.php">Inventory Management</a>
                     <a href="reports.php">Reports</a>
                 </div>
-                </div>
-    <br>
-    <a href="logout.html">Logout</a>
-</div>
+            </div>
+            <br>
+            <a href="logout.html">Logout</a>
+        </div>
 
         <div class="logo-header">
             <img src="images/A4U_logo.png" class="logo" alt="logo">
@@ -90,7 +91,7 @@ try {
                 <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.php">Contact</a></li>
             </ul>
         </nav>
 
@@ -130,11 +131,8 @@ try {
                             </td>
                         </tr>
                         <?php endforeach; ?>
-
                     </table>
-
                 </div>
-
         </main>
 
         <footer class="footer">

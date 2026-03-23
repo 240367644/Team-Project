@@ -4,6 +4,8 @@ session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+
+// connect to database
 $db = new PDO(
     "mysql:host=localhost;dbname=cs2team49_product;charset=utf8",
     "cs2team49",
@@ -11,6 +13,7 @@ $db = new PDO(
 );
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+// add, no duplicates
 if (isset($_GET['path']) && $_GET['path'] === 'add') {
 
     if (!isset($_SESSION['user_id'])) {
@@ -34,6 +37,7 @@ if (isset($_GET['path']) && $_GET['path'] === 'add') {
     exit;
 }
 
+// remove
 if (isset($_GET['path']) && $_GET['path'] === 'remove') {
 
     if (!isset($_SESSION['user_id'])) {
@@ -92,7 +96,7 @@ if (!isset($_SESSION['user_id'])) {
 
         <div class="side-menu" id="sideMenu">
             <a href="profile.html">Profile</a>
-            <a href="viewOrders.html">My Orders</a>
+            <a href="myOrders.php">My Orders</a>
             <a href="wishlist.php">Wishlist</a>
             <a href="settings.html">Settings</a>
             <br>
@@ -100,11 +104,10 @@ if (!isset($_SESSION['user_id'])) {
                 <a href="#" onclick="toggleAdmin()">Admin Panel ▾</a>
 
                 <div class="submenu" id="subMenu">
-                    <a href="processOrders.html">Process Orders</a>
-                    <a href="customers.html">Customer Management</a>
-                    <a href="inventory.html">Inventory Management</a>
-                    <a href="stock.html">Stock Control</a>
-                    <a href="reports.html">Reports</a>
+                    <a href="processOrders.php">Process Orders</a>
+                    <a href="customers.php">Customer Management</a>
+                    <a href="inventory.php">Inventory Management</a>
+                    <a href="reports.php">Reports</a>
                 </div>
             </div>
             <br>
@@ -121,7 +124,7 @@ if (!isset($_SESSION['user_id'])) {
                 <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.php">Contact</a></li>
             </ul>
         </nav>
 
@@ -203,6 +206,7 @@ if (!isset($_SESSION['user_id'])) {
     </footer>
 
     <script>
+        // login session
         document.addEventListener('DOMContentLoaded', async () => {
             try {
                 const res = await fetch('session.php');

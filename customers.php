@@ -2,6 +2,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+// connect to database
 $db_host = "localhost";
 $db_name = "cs2team49_login_system";
 $db_user = "cs2team49";
@@ -15,7 +16,6 @@ try {
     );
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Fetch customers
     $stmt = $db->query("SELECT * FROM users");
     $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -46,24 +46,24 @@ try {
         </div>
 
         <div class="side-menu" id="sideMenu">
-    <a href="profile.html">Profile</a>
-            <a href="viewOrders.html">My Orders</a>
-            <a href="wishlist.html">Wishlist</a>
+            <a href="profile.html">Profile</a>
+            <a href="myOrders.php">My Orders</a>
+            <a href="wishlist.php">Wishlist</a>
             <a href="settings.html">Settings</a>
             <br>
             <div class="admin-menu">
                 <a href="#" onclick="toggleAdmin()">Admin Panel ▾</a>
 
                 <div class="submenu" id="subMenu">
-                    <a href="processOrders.html">Process Orders</a>
-                    <a href="customers.html">Customer Management</a>
-                    <a href="inventory.html">Inventory Management</a>
-                    <a href="reports.html">Reports</a>
+                    <a href="processOrders.php">Process Orders</a>
+                    <a href="customers.php">Customer Management</a>
+                    <a href="inventory.php">Inventory Management</a>
+                    <a href="reports.php">Reports</a>
                 </div>
-                </div>
-    <br>
-    <a href="logout.html">Logout</a>
-</div>
+            </div>
+            <br>
+            <a href="logout.html">Logout</a>
+        </div>
 
         <div class="logo-header">
             <img src="images/A4U_logo.png" class="logo" alt="logo">
@@ -76,7 +76,7 @@ try {
                 <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.php">Contact</a></li>
             </ul>
         </nav>
 
@@ -90,10 +90,10 @@ try {
     <main class="admin-main">
 
         <div class="admin-top-menu">
-            <a href="processOrders.html">Process Orders</a>
-            <a href="customers.html">Customer Management</a>
-            <a href="inventory.html">Inventory Management</a>
-            <a href="reports.html">Reports</a>
+            <a href="processOrders.php">Process Orders</a>
+            <a href="customers.php">Customer Management</a>
+            <a href="inventory.php">Inventory Management</a>
+            <a href="reports.php">Reports</a>
         </div>
 
         <br><br>
@@ -105,7 +105,6 @@ try {
         </div>
 
         <div class="table-container">
-
         <table class="customer-table">
             <thead>
                 <tr>
@@ -123,14 +122,12 @@ try {
                         <td><?php echo $customer['user_id']; ?></td>
                         <td><?php echo $customer['username']; ?></td>
                         <td><?php echo $customer['email']; ?></td>
-
                         <td>
                             <select onchange="updateRole(<?php echo $customer['user_id']; ?>, this.value)">
                                 <option value="user" <?= $customer['role'] === 'user' ? 'selected' : '' ?>>User</option>
                                 <option value="admin" <?= $customer['role'] === 'admin' ? 'selected' : '' ?>>Admin</option>
                             </select>
                         </td>
-
                         <td>
                             <a href="viewCustomer.php?id=<?= $customer['user_id']; ?>">
                                 <button class="view-btn">View</button>
@@ -142,7 +139,6 @@ try {
                 <?php endforeach; ?>
             </tbody>
         </table>
-
         </div>
 
     </main>
@@ -185,7 +181,9 @@ try {
             Copyright © 2025 - 2026 Accom4U. All Rights Reserved.
         </div>
     </footer>
-<script>
+ 
+    <script>
+        // login session
         document.addEventListener('DOMContentLoaded', async () => {
             try {
                 const res = await fetch('session.php');
@@ -201,8 +199,6 @@ try {
                 console.error('Error checking session:', err);
             }
         });
-
-	
     </script>
 
     <script src="js/sidemenu.js"></script>

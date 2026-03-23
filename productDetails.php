@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 
 session_start();
 
+// connect to database
 $db_host = "localhost";
 $db_name = "cs2team49_product";
 $db_user = "cs2team49";
@@ -61,18 +62,18 @@ if (!$product) {
 
             <div class="side-menu" id="sideMenu">
                 <a href="profile.html">Profile</a>
-                <a href="viewOrders.html">My Orders</a>
-                <a href="wishlist.html">Wishlist</a>
+                <a href="myOrders.php">My Orders</a>
+                <a href="wishlist.php">Wishlist</a>
                 <a href="settings.html">Settings</a>
                 <br>
                 <div class="admin-menu">
                     <a href="#" onclick="toggleAdmin()">Admin Panel ▾</a>
 
                     <div class="submenu" id="subMenu">
-                        <a href="processOrders.html">Process Orders</a>
-                        <a href="customers.html">Customer Management</a>
+                        <a href="processOrders.php">Process Orders</a>
+                        <a href="customers.php">Customer Management</a>
                         <a href="inventory.php">Inventory Management</a>
-                        <a href="reports.html">Reports</a>
+                        <a href="reports.php">Reports</a>
                     </div>
                 </div>
                 <br>
@@ -89,7 +90,7 @@ if (!$product) {
                     <li><a href="index.html">Home</a></li>
                     <li><a href="aboutus.html">About Us</a></li>
                     <li><a href="products.php">Products</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="contact.php">Contact</a></li>
                 </ul>
             </nav>
 
@@ -175,49 +176,51 @@ if (!$product) {
 
 
          <script>
-        // Dynamic login/logout link based on session
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const res = await fetch('session.php', { credentials: 'include' });
-                const data = await res.json();
+         // Dynamic login/logout link based on session
+            document.addEventListener('DOMContentLoaded', async () => {
+                try {
+                    const res = await fetch('session.php', { credentials: 'include' });
+                    const data = await res.json();
 
-                const loginLink = document.getElementById('loginLink');
-                if (data.loggedIn) {
-                    loginLink.href = 'logout.php';
-                    loginLink.innerHTML = '<b>Logout</b>';
+                    const loginLink = document.getElementById('loginLink');
+                    if (data.loggedIn) {
+                        loginLink.href = 'logout.php';
+                        loginLink.innerHTML = '<b>Logout</b>';
+                    }
+                } catch (err) {
+                    console.error('Error checking session:', err);
                 }
-            } catch (err) {
-                console.error('Error checking session:', err);
-            }
-        });
-        document.addEventListener('DOMContentLoaded', () => {
+            });
+            document.addEventListener('DOMContentLoaded', () => {
 
-    document.querySelector('.addToCart').addEventListener('click', async () => {
+            // add to cart button
+            document.querySelector('.addToCart').addEventListener('click', async () => {
 
-        const productId = <?php echo $product['id']; ?>;
-        const quantity = document.querySelector('.qty-box').value;
-        const formData = new FormData();
-        formData.append('product_id', productId);
-        formData.append('quantity', quantity);
+                const productId = <?php echo $product['id']; ?>;
+                const quantity = document.querySelector('.qty-box').value;
+                const formData = new FormData();
+                formData.append('product_id', productId);
+                formData.append('quantity', quantity);
 
-        try {
-            const res = await fetch('basket.php?path=addItem', {
-                method: 'POST',
-                body: formData,
-                credentials: 'include'
+                try {
+                    const res = await fetch('basket.php?path=addItem', {
+                        method: 'POST',
+                        body: formData,
+                        credentials: 'include'
+                    });
+
+                    const data = await res.json();
+                    alert(data.message);
+
+                } catch (err) {
+                    console.error(err);
+                    alert('Error adding to basket');
+                }
             });
 
-            const data = await res.json();
-            alert(data.message);
+        });
 
-        } catch (err) {
-            console.error(err);
-            alert('Error adding to basket');
-        }
-    });
-
-});
-
+        // wishlist button
         document.querySelector('.wishlist-btn').addEventListener('click', async () => {
             const productId = <?php echo $product['id']; ?>;
 

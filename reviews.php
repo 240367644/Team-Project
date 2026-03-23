@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 
 session_start();
 
+// connect to database
 $db_host = "localhost";
 $db_name = "cs2team49_login_system";
 $db_user = "cs2team49";
@@ -210,6 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['reviews'])) {
     </footer>
 
     <script>
+        // login session
         document.addEventListener('DOMContentLoaded', async () => {
             try {
                 const res = await fetch('session.php');

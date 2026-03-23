@@ -12,6 +12,31 @@
 <body>
 
     <header class="header">
+
+        <div class="menu-icon" onclick="toggleMenu()">
+            ☰
+        </div>
+
+        <div class="side-menu" id="sideMenu">
+            <a href="profile.html">Profile</a>
+            <a href="myOrders.php">My Orders</a>
+            <a href="wishlist.php">Wishlist</a>
+            <a href="settings.html">Settings</a>
+            <br>
+            <div class="admin-menu">
+                <a href="#" onclick="toggleAdmin()">Admin Panel ▾</a>
+
+                <div class="submenu" id="subMenu">
+                    <a href="processOrders.php">Process Orders</a>
+                    <a href="customers.php">Customer Management</a>
+                    <a href="inventory.php">Inventory Management</a>
+                    <a href="reports.php">Reports</a>
+                </div>
+                </div>
+    <br>
+    <a href="logout.html">Logout</a>
+</div>
+
         <div class="logo-header">
             <img src="images/A4U_logo.png" class="logo" alt="logo">
             <h1 class="title">Accom4U</h1>
@@ -22,17 +47,15 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.php">Contact</a></li>
             </ul>
         </nav>
-
-        <!-- Dynamic login/logout link -->
-        <a id="loginlink" class="login" href="login.html"><b>Log In</b></a>
 
         <a class="basket-icon" href="basket.html">
             <img src="images/basket.png" class="basket-icon" alt="Basket">
         </a>
-
+        <!-- Login/Logout link -->
+        <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
     </header>
 
     <main class="checkout-page">

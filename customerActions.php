@@ -21,7 +21,7 @@ try {
 
 $action = $_GET['action'] ?? '';
 
-// DELETE CUSTOMER
+// delete
 if ($action === "delete") {
     $id = $_POST['user_id'] ?? null;
 
@@ -37,7 +37,7 @@ if ($action === "delete") {
     exit;
 }
 
-// UPDATE CUSTOMER
+// update
 if ($action === "update") {
     $id = $_POST['user_id'] ?? null;
     $name = $_POST['username'] ?? '';
@@ -88,7 +88,7 @@ if ($action === "role") {
     exit;
 }
 
-// ADD CUSTOMER
+//add
 if ($action === "add") {
     $name = $_POST['username'] ?? '';
     $email = $_POST['email'] ?? '';
@@ -111,5 +111,5 @@ if ($action === "add") {
     exit;
 }
 
-// DEFAULT
+// default
 echo json_encode(["status"=>"error","message"=>"Invalid action"]);
