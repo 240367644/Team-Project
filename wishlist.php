@@ -1,26 +1,74 @@
 <?php
+session_start();
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+
 // connect to database
-$db_host = "localhost";
-$db_name = "cs2team49_login_system";
-$db_user = "cs2team49";
-$db_pass = "TxxB1oKh6zkcPBjuycWZvO8oz";
+$db = new PDO(
+    "mysql:host=localhost;dbname=cs2team49_product;charset=utf8",
+    "cs2team49",
+    "TxxB1oKh6zkcPBjuycWZvO8oz"
+);
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-try {
-    $db = new PDO(
-        "mysql:host=$db_host;dbname=$db_name;charset=utf8",
-        $db_user,
-        $db_pass
-    );
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// add, no duplicates
+if (isset($_GET['path']) && $_GET['path'] === 'add') {
 
-    $stmt = $db->query("SELECT * FROM users");
-    $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (!isset($_SESSION['user_id'])) {
+        echo json_encode(["message" => "Please login"]);
+        exit;
+    }
 
-} catch (PDOException $e) {
-    die("Database error: " . $e->getMessage());
+    $user_id = $_SESSION['user_id'];
+    $product_id = $_POST['product_id'];
+    $check = $db->prepare("SELECT * FROM wishlist WHERE user_id=? AND product_id=?");
+    $check->execute([$user_id, $product_id]);
+
+    if ($check->rowCount() == 0) {
+        $stmt = $db->prepare("INSERT INTO wishlist (user_id, product_id) VALUES (?, ?)");
+        $stmt->execute([$user_id, $product_id]);
+        echo json_encode(["message" => "Added to wishlist"]);
+    } else {
+        echo json_encode(["message" => "Already in wishlist"]);
+    }
+
+    exit;
+}
+
+// remove
+if (isset($_GET['path']) && $_GET['path'] === 'remove') {
+
+    if (!isset($_SESSION['user_id'])) {
+        echo json_encode(["message" => "Not logged in"]);
+        exit;
+    }
+
+    $user_id = $_SESSION['user_id'];
+    $product_id = $_POST['product_id'];
+
+    $stmt = $db->prepare("DELETE FROM wishlist WHERE user_id=? AND product_id=?");
+    $stmt->execute([$user_id, $product_id]);
+
+    echo json_encode(["message" => "Removed from wishlist"]);
+    exit;
+}
+
+if (!isset($_SESSION['user_id'])) {
+    $items = [];
+} else {
+    $user_id = $_SESSION['user_id'];
+
+    $stmt = $db->prepare("
+        SELECT p.* 
+        FROM wishlist w
+        JOIN products p ON w.product_id = p.id
+        WHERE w.user_id = ?
+    ");
+    $stmt->execute([$user_id]);
+
+    $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
 
@@ -30,9 +78,10 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Accom4U</title>
+    <title>Wishlist | Accom4U</title>
+
     <link rel="icon" type="image/png" href="images/A4U_logo.png">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css?v=2">
 </head>
 
 <body>
@@ -62,7 +111,7 @@ try {
                 </div>
             </div>
             <br>
-            <a href="logout.html">Logout</a>
+            <a href="logout.php">Logout</a>
         </div>
 
         <div class="logo-header">
@@ -72,7 +121,6 @@ try {
 
         <nav class="navibar">
             <ul>
-                <li><a href="reviews.html">Reviews</a></li>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
                 <li><a href="products.php">Products</a></li>
@@ -83,64 +131,39 @@ try {
         <a class="basket-icon" href="basket.html">
             <img src="images/basket.png" class="basket-icon" alt="Basket">
         </a>
-        <!-- Login/Logout link -->
+
         <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
     </header>
 
-    <main class="admin-main">
+    <main>
+        <section class="wishlist-page">
 
-        <div class="admin-top-menu">
-            <a href="processOrders.php">Process Orders</a>
-            <a href="customers.php">Customer Management</a>
-            <a href="inventory.php">Inventory Management</a>
-            <a href="reports.php">Reports</a>
-        </div>
+            <h2>My Wishlist</h2>
 
-        <br><br>
-        <h2 class="page-title">Customer Management</h2>
+            <?php if (count($items) === 0): ?>
+                <p>Your wishlist is empty.</p>
+            <?php endif; ?>
 
-        <div class="customer-controls">
-            <input type="text" id="searchInput" placeholder="Search customers..." class="search-bar">
-            <button class="add-btn" onclick="addCustomer()">+ Add Customer</button>
-        </div>
+            <div class="wishlist-container">
 
-        <div class="table-container">
-        <table class="customer-table">
-            <thead>
-                <tr>
-                    <th>Customer ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+                <?php foreach ($items as $item): ?>
+                    <div class="product-card">
+                        <span class="wishlist-star">★</span>
+                        <img src="<?php echo $item['image']; ?>" alt="<?php echo $item['name']; ?>">
 
-            <tbody>
-                <?php foreach ($customers as $customer): ?>
-                    <tr>
-                        <td><?php echo $customer['user_id']; ?></td>
-                        <td><?php echo $customer['username']; ?></td>
-                        <td><?php echo $customer['email']; ?></td>
-                        <td>
-                            <select onchange="updateRole(<?php echo $customer['user_id']; ?>, this.value)">
-                                <option value="user" <?= $customer['role'] === 'user' ? 'selected' : '' ?>>User</option>
-                                <option value="admin" <?= $customer['role'] === 'admin' ? 'selected' : '' ?>>Admin</option>
-                            </select>
-                        </td>
-                        <td>
-                            <a href="viewCustomer.php?id=<?= $customer['user_id']; ?>">
-                                <button class="view-btn">View</button>
-                            </a>
-                            <button class="edit-btn" onclick="editCustomer(<?php echo $customer['user_id']; ?>)">Edit</button>
-                            <button class="delete-btn" onclick="deleteCustomer(<?php echo $customer['user_id']; ?>)">Delete</button>	
-                        </td>
-                    </tr>
+                        <h3><?php echo $item['name']; ?></h3>
+                        <p>£<?php echo $item['price']; ?></p>
+
+                        <div class="wishlist-buttons">
+                            <button class="add-basket" data-id="<?php echo $item['id']; ?>">Add to Basket</button>
+                            <button class="remove-wishlist" data-id="<?php echo $item['id']; ?>">Remove</button>
+                        </div>
+                    </div>
                 <?php endforeach; ?>
-            </tbody>
-        </table>
-        </div>
 
+            </div>
+
+        </section>
     </main>
 
     <footer class="footer">
@@ -181,7 +204,7 @@ try {
             Copyright © 2025 - 2026 Accom4U. All Rights Reserved.
         </div>
     </footer>
- 
+
     <script>
         // login session
         document.addEventListener('DOMContentLoaded', async () => {
@@ -202,7 +225,6 @@ try {
     </script>
 
     <script src="js/sidemenu.js"></script>
-    <script src="js/customers.js"></script>
 
 </body>
 </html>

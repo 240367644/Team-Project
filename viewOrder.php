@@ -1,12 +1,47 @@
+<?php
+session_start();
+
+// connect to database
+$db = new PDO("mysql:host=localhost;dbname=cs2team49_orders;charset=utf8", "cs2team49", "TxxB1oKh6zkcPBjuycWZvO8oz");
+
+$order_id = $_GET['id'];
+
+$stmt = $db->prepare("
+    SELECT o.order_id, o.status, o.created_at,
+           u.username, u.email, u.phone, u.address, u.postcode
+    FROM Orders o
+    JOIN cs2team49_login_system.users u 
+        ON o.user_id = u.user_id
+    WHERE o.order_id = ?
+");
+$stmt->execute([$order_id]);
+$order = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$stmt = $db->prepare("
+    SELECT p.name, p.price, oi.quantity
+    FROM order_items oi
+    JOIN cs2team49_product.products p 
+        ON oi.product_id = p.id
+    WHERE oi.order_id = ?
+");
+$stmt->execute([$order_id]);
+$items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$total = 0;
+foreach ($items as $item) {
+    $total += $item['price'] * $item['quantity'];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Accom4U</title>
         <link rel="icon" type="image/png" href="images/A4U_logo.png">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="/css/style.css?v=2">
     </head>
 
     <body>
@@ -35,9 +70,9 @@
                     <a href="reports.php">Reports</a>
                 </div>
             </div>
-            <br>
-            <a href="logout.html">Logout</a>
-        </div>
+        <br>
+        <a href="logout.html">Logout</a>
+    </div>
 
         <div class="logo-header">
             <img src="images/A4U_logo.png" class="logo" alt="logo">
@@ -60,27 +95,58 @@
         <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
     </header>
 
-    <main>
-        <div class="login-form">
-            <form id="loginForm" onsubmit="event.preventDefault(); login();">
-                <h1>Forgot Passsword</h1>
-                <br>
-                Enter your email address and we will send you a link to reset your password.
-                <br><br>
-                <div class="login-details">
-                    Email:
-                    <input type="text" id="loginUsernameOrEmail" name="usernameOrEmail" placeholder="Reset Password" required>
+        <main class="admin-main">
+            <a href="processOrders.php" class="back-btn">← Back</a>
+
+            <div class="order-view-container">
+
+                <h2>Order #<?= $order['order_id'] ?></h2>
+
+                <div class="order-info">
+                    <p><b>Name:</b> <?= $order['username'] ?></p>
+                    <p><b>Email:</b> <?= $order['email'] ?></p>
+                    <p><b>Phone:</b> <?= $order['phone'] ?></p>
+                    <p><b>Address:</b> <?= $order['address'] ?> (<?= $order['postcode'] ?>)</p>
+                    <p><b>Date:</b> <?= $order['created_at'] ?></p>
+                    <p>
+                        <b>Status:</b> 
+                        <span class="order-status <?= strtolower($order['status']) ?>">
+                            <?= $order['status'] ?>
+                        </span>
+                    </p>
                 </div>
 
-                <div class="login-details">
-                    <input class="log-button" type="submit" value="Request Reset Link">
-                    <br><br>
-                </div>
-            </form>
-        </div>
-    </main>
+                <h3>Items</h3>
 
-    <footer class="footer">
+                <table class="order-items-table">
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+
+                    <?php foreach ($items as $item): 
+                        $itemTotal = $item['price'] * $item['quantity'];
+                    ?>
+                    <tr>
+                        <td><?= $item['name'] ?></td>
+                        <td>£<?= $item['price'] ?></td>
+                        <td><?= $item['quantity'] ?></td>
+                        <td>£<?= $itemTotal ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </table>
+
+                <div class="order-total">
+                    Total: £<?= $total ?>
+                </div>
+
+            </div>
+
+        </main>
+
+        <footer class="footer">
         <div class="footer-container">
 
         <div class="footer-column">
@@ -119,33 +185,7 @@
         </div>
     </footer>
 
-    <script>
-        async function login() {
-            const usernameOrEmail = document.getElementById("loginUsernameOrEmail").value.trim();
-            const password = document.getElementById("loginPassword").value;
-
-            try {
-                const res = await fetch("database_setup.php?path=login", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ usernameOrEmail, password }),
-                    credentials: "include"
-                });
-
-                const data = await res.json();
-                alert(data.message);
-
-                if (data.status === "success") {
-                    window.location.href = "index.html";
-                }
-
-            } catch (err) {
-                alert("Error connecting to server.");
-                console.error(err);
-            }
-        }
-    </script>
-
     <script src="js/sidemenu.js"></script>
-</body>
+    
+    </body>
 </html>

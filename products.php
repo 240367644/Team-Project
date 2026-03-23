@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 
 session_start();
 
+// connect to database
 $db_host = "localhost";
 $db_name = "cs2team49_product";
 $db_user = "cs2team49";
@@ -45,24 +46,24 @@ try {
         </div>
 
         <div class="side-menu" id="sideMenu">
-    <a href="profile.html">Profile</a>
-            <a href="viewOrders.html">My Orders</a>
-            <a href="wishlist.html">Wishlist</a>
+            <a href="profile.html">Profile</a>
+            <a href="myOrders.php">My Orders</a>
+            <a href="wishlist.php">Wishlist</a>
             <a href="settings.html">Settings</a>
             <br>
             <div class="admin-menu">
                 <a href="#" onclick="toggleAdmin()">Admin Panel ▾</a>
 
                 <div class="submenu" id="subMenu">
-                    <a href="processOrders.html">Process Orders</a>
-                    <a href="customers.html">Customer Management</a>
-                    <a href="inventory.html">Inventory Management</a>
-                    <a href="reports.html">Reports</a>
+                    <a href="processOrders.php">Process Orders</a>
+                    <a href="customers.php">Customer Management</a>
+                    <a href="inventory.php">Inventory Management</a>
+                    <a href="reports.php">Reports</a>
                 </div>
-                </div>
-    <br>
-    <a href="logout.html">Logout</a>
-</div>
+            </div>
+        <br>
+        <a href="logout.html">Logout</a>
+    </div>
 
         <div class="logo-header">
             <img src="images/A4U_logo.png" class="logo" alt="logo">
@@ -74,7 +75,7 @@ try {
                 <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.php">Contact</a></li>
             </ul>
         </nav>
 
@@ -182,6 +183,7 @@ try {
 
         <script src="js/products.js"></script>
         <script>
+            //login session
             document.addEventListener('DOMContentLoaded', async () => {
                 try {
                     const res = await fetch('session.php', { credentials: 'include' });

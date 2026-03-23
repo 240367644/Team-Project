@@ -1,12 +1,54 @@
+<?php
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
+// connect to database
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.html");
+    exit();
+}
+
+$db_host = "localhost";
+$db_name = "cs2team49_orders";
+$db_user = "cs2team49";
+$db_pass = "TxxB1oKh6zkcPBjuycWZvO8oz";
+
+try {
+    $db = new PDO(
+        "mysql:host=$db_host;dbname=$db_name;charset=utf8",
+        $db_user,
+        $db_pass
+    );
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $user_id = $_SESSION['user_id'];
+
+    $stmt = $db->prepare("
+        SELECT order_id, status, created_at
+        FROM Orders
+        WHERE user_id = ?
+        ORDER BY created_at DESC
+    ");
+    $stmt->execute([$user_id]);
+    $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+    die("Database error: " . $e->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Accom4U</title>
         <link rel="icon" type="image/png" href="images/A4U_logo.png">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="/css/style.css?v=2">
     </head>
 
     <body>
@@ -60,27 +102,40 @@
         <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
     </header>
 
-    <main>
-        <div class="login-form">
-            <form id="loginForm" onsubmit="event.preventDefault(); login();">
-                <h1>Forgot Passsword</h1>
-                <br>
-                Enter your email address and we will send you a link to reset your password.
-                <br><br>
-                <div class="login-details">
-                    Email:
-                    <input type="text" id="loginUsernameOrEmail" name="usernameOrEmail" placeholder="Reset Password" required>
-                </div>
+        <main class="admin-main">
+            <h2 class="page-title">My Orders</h2>
 
-                <div class="login-details">
-                    <input class="log-button" type="submit" value="Request Reset Link">
-                    <br><br>
-                </div>
-            </form>
-        </div>
-    </main>
+                <div class="orders-container">
 
-    <footer class="footer">
+                    <table class="orders-table">
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+
+                        <?php foreach ($orders as $order): ?>
+                        <tr>
+                            <td>#<?= $order['order_id'] ?></td>
+                            <td>
+                                <span class="<?= strtolower($order['status']) ?>">
+                                    <?= $order['status'] ?>
+                                </span>
+                            </td>
+                            <td><?= $order['created_at'] ?></td>
+                            <td>
+                                <a href="viewOrder.php?id=<?= $order['order_id'] ?>">
+                                    <button class="view">View</button>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+        </main>
+
+        <footer class="footer">
         <div class="footer-container">
 
         <div class="footer-column">
@@ -119,33 +174,7 @@
         </div>
     </footer>
 
-    <script>
-        async function login() {
-            const usernameOrEmail = document.getElementById("loginUsernameOrEmail").value.trim();
-            const password = document.getElementById("loginPassword").value;
-
-            try {
-                const res = await fetch("database_setup.php?path=login", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ usernameOrEmail, password }),
-                    credentials: "include"
-                });
-
-                const data = await res.json();
-                alert(data.message);
-
-                if (data.status === "success") {
-                    window.location.href = "index.html";
-                }
-
-            } catch (err) {
-                alert("Error connecting to server.");
-                console.error(err);
-            }
-        }
-    </script>
-
     <script src="js/sidemenu.js"></script>
-</body>
+    
+    </body>
 </html>

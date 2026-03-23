@@ -20,6 +20,7 @@ function updateOrder(orderId, newStatus) {
     .catch(err => console.error(err));
 }
 
+// search and filter
 document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("searchInput");
     const statusFilter = document.getElementById("statusFilter");

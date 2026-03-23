@@ -20,24 +20,24 @@
         </div>
 
         <div class="side-menu" id="sideMenu">
-    <a href="profile.html">Profile</a>
-            <a href="viewOrders.html">My Orders</a>
-            <a href="wishlist.html">Wishlist</a>
+            <a href="profile.html">Profile</a>
+            <a href="myOrders.php">My Orders</a>
+            <a href="wishlist.php">Wishlist</a>
             <a href="settings.html">Settings</a>
             <br>
             <div class="admin-menu">
                 <a href="#" onclick="toggleAdmin()">Admin Panel ▾</a>
 
                 <div class="submenu" id="subMenu">
-                    <a href="processOrders.html">Process Orders</a>
-                    <a href="customers.html">Customer Management</a>
-                    <a href="inventory.html">Inventory Management</a>
-                    <a href="reports.html">Reports</a>
+                    <a href="processOrders.php">Process Orders</a>
+                    <a href="customers.php">Customer Management</a>
+                    <a href="inventory.php">Inventory Management</a>
+                    <a href="reports.php">Reports</a>
                 </div>
-                </div>
-    <br>
-    <a href="logout.html">Logout</a>
-</div>
+            </div>
+            <br>
+            <a href="logout.html">Logout</a>
+        </div>
 
         <div class="logo-header">
             <img src="images/A4U_logo.png" class="logo" alt="logo">
@@ -49,7 +49,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.php">Contact</a></li>
             </ul>
         </nav>
 
@@ -60,40 +60,40 @@
         <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
     </header>
 
-<main class="basket-container">
-    <h1>Your Basket</h1>
+    <main class="basket-container">
+        <h1>Your Basket</h1>
 
-    <div class="basket-items"></div>
+        <div class="basket-items"></div>
 
-    <div class="basket-summary">
-        <h3>Order Summary</h3>
+        <div class="basket-summary">
+            <h3>Order Summary</h3>
 
-        <div class="summary-line">
-            <span>Subtotal</span>
-            <span id="subtotal">£0.00</span>
+            <div class="summary-line">
+                <span>Subtotal</span>
+                <span id="subtotal">£0.00</span>
+            </div>
+
+            <div class="summary-line">
+                <span>Delivery</span>
+                <span>£0.00</span>
+            </div>
+
+            <div class="summary-total">
+                <span>Total</span>
+                <span id="total">£0.00</span>
+            </div>
+
+            <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
         </div>
 
-        <div class="summary-line">
-            <span>Delivery</span>
-            <span>£0.00</span>
-        </div>
+    </main>
 
-        <div class="summary-total">
-            <span>Total</span>
-            <span id="total">£0.00</span>
-        </div>
-
-        <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
-    </div>
-
-</main>
-
-<footer class="footer">
+    <footer class="footer">
         <div class="footer-container">
 
-        <div class="footer-column">
-            <h3>Accom4U</h3>
-        </div>
+            <div class="footer-column">
+                <h3>Accom4U</h3>
+            </div>
 
             <div class="footer-column">
                 <h4>Quick Links</h4>
@@ -127,127 +127,118 @@
         </div>
     </footer>
 
-<script>
-let basket = []; // will be loaded from backend
+    <script>
+            let basket = []; 
 
-/* -------------------------
-   Load basket from PHP backend
----------------------------*/
-function loadBasket() {
-    fetch('basket.php?path=getBasket')
-        .then(res => res.json())
-        .then(data => {
-            if (data.status === "success") {
-                basket = Object.values(data.basket); // convert cart object to array
-                displayBasket(data.summary);
-            } else {
-                console.log("Error loading basket:", data.message);
+            function loadBasket() {
+                fetch('basket.php?path=getBasket', {
+                    credentials: 'include'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.status === "success") {
+                            basket = data.basket;
+                            displayBasket(data.summary);
+                        } else {
+                            console.log("Error loading basket:", data.message);
+                        }
+                    })
+                    .catch(err => console.log("Fetch error:", err));
             }
-        })
-        .catch(err => console.log("Fetch error:", err));
-}
 
-/* -------------------------
-   Display Basket Contents
----------------------------*/
-function displayBasket(summary = null) {
-    const container = document.querySelector(".basket-items");
-    container.innerHTML = "";
+            // display
+            function displayBasket(summary = null) {
+                const container = document.querySelector(".basket-items");
+                container.innerHTML = "";
 
-    let subtotal = 0;
+                let subtotal = 0;
 
-    basket.forEach((item, index) => {
-        subtotal += item.price * item.quantity;
+                basket.forEach((item, index) => {
+                    subtotal += Number(item.price) * Number(item.quantity);
 
-        container.innerHTML += `
-            <div class="basket-item">
-                <img src="${item.image || 'images/sample-product.jpg'}" alt="product">
+                    container.innerHTML += `
+                        <div class="basket-item">
+                            <img src="${item.image || 'images/sample-product.jpg'}" alt="product">
 
-                <div class="item-details">
-                    <h3>${item.name}</h3>
-                    <p>£${item.price.toFixed(2)}</p>
+                            <div class="item-details">
+                                <h3>${item.name}</h3>
+                                <p>£${Number(item.price).toFixed(2)}</p>
 
-                    <div class="quantity-control">
-                        <button onclick="changeQty(${index}, -1)">-</button>
-                        <span>${item.quantity}</span>
-                        <button onclick="changeQty(${index}, 1)">+</button>
-                    </div>
+                                <div class="quantity-control">
+                                    <button onclick="changeQty(${index}, -1)">-</button>
+                                    <span>${item.quantity}</span>
+                                    <button onclick="changeQty(${index}, 1)">+</button>
+                                </div>
 
-                    <button class="remove-item" onclick="removeItem(${index})">Remove</button>
-                </div>
-            </div>
-        `;
-    });
+                                <button class="remove-item" onclick="removeItem(${index})">Remove</button>
+                            </div>
+                        </div>
+                    `;
+                });
 
-    if (summary) {
-        document.getElementById("subtotal").textContent = "£" + summary.subtotal.toFixed(2);
-        document.getElementById("total").textContent = "£" + summary.total.toFixed(2);
-    } else {
-        document.getElementById("subtotal").textContent = "£" + subtotal.toFixed(2);
-        document.getElementById("total").textContent = "£" + subtotal.toFixed(2);
-    }
-}
-
-/* -------------------------
-   Change Quantity
----------------------------*/
-function changeQty(index, amount) {
-    const item = basket[index];
-    const newQty = item.quantity + amount;
-
-    if (newQty <= 0) {
-        removeItem(index);
-        return;
-    }
-
-    fetch('basket.php?path=updateQuantity', {
-        method: 'POST',
-        headers: {'Content-Type':'application/x-www-form-urlencoded'},
-        body: `product_id=${item.id}&quantity=${newQty}`
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.status === "success") loadBasket();
-    });
-}
-
-/* -------------------------
-   Remove Item
----------------------------*/
-function removeItem(index) {
-    const item = basket[index];
-    fetch('basket.php?path=removeItem', {
-        method: 'POST',
-        headers: {'Content-Type':'application/x-www-form-urlencoded'},
-        body: `product_id=${item.id}`
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.status === "success") loadBasket();
-    });
-}
-
-/* -------------------------
-   Initial load
----------------------------*/
-document.addEventListener('DOMContentLoaded', () => {
-    loadBasket();
-
-    // Dynamic login/logout link based on session
-    fetch('session.php', { credentials: 'include' })
-        .then(res => res.json())
-        .then(data => {
-            const loginLink = document.getElementById('loginLink');
-            if (data.loggedIn) {
-                loginLink.href = 'logout.php';
-                loginLink.innerHTML = '<b>Logout</b>';
+                // total
+                if (summary) {
+                    document.getElementById("subtotal").textContent = "£" + Number(summary.subtotal).toFixed(2);
+                    document.getElementById("total").textContent = "£" + Number(summary.total).toFixed(2);
+                } else {
+                    document.getElementById("subtotal").textContent = "£" + subtotal.toFixed(2);
+                    document.getElementById("total").textContent = "£" + subtotal.toFixed(2);
+                }
             }
-        })
-        .catch(err => console.error('Error checking session:', err));
-});
-</script>
 
-<script src="js/sidemenu.js"></script>
+            //quantity
+            function changeQty(index, amount) {
+                const item = basket[index];
+                const newQty = Number(item.quantity) + amount;
 
-</body>
+                if (newQty <= 0) {
+                    removeItem(index);
+                    return;
+                }
+
+                fetch('basket.php?path=updateQuantity', {
+                    method: 'POST',
+                    headers: {'Content-Type':'application/x-www-form-urlencoded'},
+                    body: `product_id=${item.id}&quantity=${newQty}`
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "success") loadBasket();
+                });
+            }
+
+            // remove
+            function removeItem(index) {
+                const item = basket[index];
+                fetch('basket.php?path=removeItem', {
+                    method: 'POST',
+                    headers: {'Content-Type':'application/x-www-form-urlencoded'},
+                    body: `product_id=${item.id}`
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "success") loadBasket();
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                loadBasket();
+
+                // Dynamic login/logout link based on session
+                fetch('session.php', { credentials: 'include' })
+                    .then(res => res.json())
+                    .then(data => {
+                        const loginLink = document.getElementById('loginLink');
+                        if (data.loggedIn) {
+                            loginLink.href = 'logout.php';
+                            loginLink.innerHTML = '<b>Logout</b>';
+                        }
+                    })
+                    .catch(err => console.error('Error checking session:', err));
+            });
+        </script>
+
+        <script src="js/sidemenu.js"></script>
+
+    </body>
 </html>

@@ -1,12 +1,60 @@
+<?php
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+
+// connect to database
+$db_host = "localhost";
+$db_name = "cs2team49_orders";
+$db_user = "cs2team49";
+$db_pass = "TxxB1oKh6zkcPBjuycWZvO8oz";
+
+try {
+    $db = new PDO(
+        "mysql:host=$db_host;dbname=$db_name;charset=utf8",
+        $db_user,
+        $db_pass
+    );
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Database connection failed: " . $e->getMessage());
+}
+
+$user_id = $_GET['id'];
+
+$stmt = $db->prepare("
+    SELECT * 
+    FROM cs2team49_login_system.users
+    WHERE user_id = ?
+");
+$stmt->execute([$user_id]);
+$customer = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$stmt = $db->prepare("
+    SELECT o.order_id, o.status, o.created_at,
+           SUM(p.price * oi.quantity) AS total
+    FROM Orders o
+    JOIN order_items oi ON o.order_id = oi.order_id
+    JOIN cs2team49_product.products p ON oi.product_id = p.id
+    WHERE o.user_id = ?
+    GROUP BY o.order_id
+");
+$stmt->execute([$user_id]);
+$orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Accom4U</title>
         <link rel="icon" type="image/png" href="images/A4U_logo.png">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="/css/style.css?v=2">
     </head>
 
     <body>
@@ -60,27 +108,48 @@
         <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
     </header>
 
-    <main>
-        <div class="login-form">
-            <form id="loginForm" onsubmit="event.preventDefault(); login();">
-                <h1>Forgot Passsword</h1>
-                <br>
-                Enter your email address and we will send you a link to reset your password.
-                <br><br>
-                <div class="login-details">
-                    Email:
-                    <input type="text" id="loginUsernameOrEmail" name="usernameOrEmail" placeholder="Reset Password" required>
+        <main class="admin-main">
+            <a href="customers.php" class="back-btn">← Back</a>
+                <div class="order-view-container">
+
+                    <h2>Customer #<?= $customer['user_id'] ?></h2>
+
+                    <div class="order-info">
+                        <p><b>Name:</b> <?= $customer['username'] ?></p>
+                        <p><b>Email:</b> <?= $customer['email'] ?></p>
+                        <p><b>Phone:</b> <?= $customer['phone'] ?></p>
+                        <p><b>Address:</b> <?= $customer['address'] ?> (<?= $customer['postcode'] ?>)</p>
+                        <p><b>Role:</b> <?= $customer['role'] ?></p>
+                    </div>
+
+                    <h3>Orders</h3>
+
+                    <table class="order-items-table">
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                        </tr>
+
+                        <?php foreach ($orders as $o): ?>
+                        <tr>
+                            <td>#<?= $o['order_id'] ?></td>
+                            <td><?= $o['created_at'] ?></td>
+                            <td class="<?= strtolower($o['status']) ?>">
+                                <?= $o['status'] ?>
+                            </td>
+                            <td>£<?= $o['total'] ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+
+                    </table>
+
                 </div>
 
-                <div class="login-details">
-                    <input class="log-button" type="submit" value="Request Reset Link">
-                    <br><br>
-                </div>
-            </form>
-        </div>
-    </main>
+        </main>
 
-    <footer class="footer">
+        <footer class="footer">
         <div class="footer-container">
 
         <div class="footer-column">
@@ -119,33 +188,7 @@
         </div>
     </footer>
 
-    <script>
-        async function login() {
-            const usernameOrEmail = document.getElementById("loginUsernameOrEmail").value.trim();
-            const password = document.getElementById("loginPassword").value;
-
-            try {
-                const res = await fetch("database_setup.php?path=login", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ usernameOrEmail, password }),
-                    credentials: "include"
-                });
-
-                const data = await res.json();
-                alert(data.message);
-
-                if (data.status === "success") {
-                    window.location.href = "index.html";
-                }
-
-            } catch (err) {
-                alert("Error connecting to server.");
-                console.error(err);
-            }
-        }
-    </script>
-
     <script src="js/sidemenu.js"></script>
-</body>
+    
+    </body>
 </html>

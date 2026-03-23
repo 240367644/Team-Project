@@ -20,24 +20,24 @@
         </div>
 
         <div class="side-menu" id="sideMenu">
-    <a href="profile.html">Profile</a>
-            <a href="viewOrders.html">My Orders</a>
-            <a href="wishlist.html">Wishlist</a>
+            <a href="profile.html">Profile</a>
+            <a href="myOrders.php">My Orders</a>
+            <a href="wishlist.php">Wishlist</a>
             <a href="settings.html">Settings</a>
             <br>
             <div class="admin-menu">
                 <a href="#" onclick="toggleAdmin()">Admin Panel ▾</a>
 
                 <div class="submenu" id="subMenu">
-                    <a href="processOrders.html">Process Orders</a>
-                    <a href="customers.html">Customer Management</a>
-                    <a href="inventory.html">Inventory Management</a>
-                    <a href="reports.html">Reports</a>
+                    <a href="processOrders.php">Process Orders</a>
+                    <a href="customers.php">Customer Management</a>
+                    <a href="inventory.php">Inventory Management</a>
+                    <a href="reports.php">Reports</a>
                 </div>
-                </div>
-    <br>
-    <a href="logout.html">Logout</a>
-</div>
+            </div>
+            <br>
+            <a href="logout.html">Logout</a>
+        </div>
 
         <div class="logo-header">
             <img src="images/A4U_logo.png" class="logo" alt="logo">
@@ -49,7 +49,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.php">Contact</a></li>
             </ul>
         </nav>
 
@@ -66,9 +66,9 @@
                 <div class="contact-right-title">
                     <h2>Order Summary</h2>
                     <hr>
-                    <b>Cart data goes here</b>
+                    <div id="checkout-items"></div>
                     <hr>
-                    <b>Total: (data from total cart cost here)</b>
+                    <b>Total: £<span id="checkout-total">0.00</span></b>
                 </div>
             </div>
 
@@ -86,7 +86,7 @@
                 <input type="text" name="cardnumber" placeholder="Card Number" class="contact-inputs" required>
                 <input type="text" name="expirydate" placeholder="Expiry Date" class="contact-inputs" required>
                 <input type="text" name="cvv" placeholder="CVV" class="contact-inputs" required>
-                <a class="login" href="orderDone.html">Place Order</a>
+                <button type="submit" class="login">Place Order</button>
             </form>
         </div>
     </main>
@@ -131,22 +131,71 @@
     </footer>
 
     <script>
-        // Dynamic login/logout link based on session
+        // login session
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                const res = await fetch('session.php', { credentials: 'include' });
+                const res = await fetch('session.php');
                 const data = await res.json();
 
-                const loginLink = document.getElementById('loginlink'); // match ID
+                const loginLink = document.getElementById('loginLink');
 
-                if (data.loggedIn) {
+                if(data.loggedIn) {
                     loginLink.href = 'logout.php';
                     loginLink.innerHTML = '<b>Logout</b>';
                 }
-            } catch (err) {
+            } catch(err) {
                 console.error('Error checking session:', err);
             }
         });
+    
+        // checkout linked to basket
+        function loadCheckout() {
+        fetch('basket.php?path=getBasket', {
+            credentials: 'include'
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status !== "success") return;
+
+            const container = document.getElementById("checkout-items");
+            const totalEl = document.getElementById("checkout-total");
+
+            container.innerHTML = "";
+
+            data.basket.forEach(item => {
+                container.innerHTML += `
+                    <div style="margin-bottom:10px;">
+                        ${item.name} x${item.quantity} - £${(item.price * item.quantity).toFixed(2)}
+                    </div>
+                `;
+            });
+
+            totalEl.textContent = Number(data.summary.total).toFixed(2);
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", loadCheckout);
+        
+        document.querySelector(".contact-right").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        fetch('basket.php?path=checkout', {
+            method: 'POST',
+            body: new URLSearchParams(formData),
+            credentials: 'include'
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === "success") {
+                window.location.href = "orderDone.html";
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(err => console.error(err));
+    });
     </script>
 
     <script src="js/sidemenu.js"></script>

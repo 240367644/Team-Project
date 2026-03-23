@@ -1,3 +1,4 @@
+// open
 function toggleMenu() {
     const menu = document.getElementById("sideMenu");
     const overlay = document.getElementById("overlay");
@@ -6,11 +7,13 @@ function toggleMenu() {
     overlay.classList.toggle("show-overlay");
 }
 
+// close
 function closeMenu(){
     document.getElementById("sideMenu").classList.remove("active");
     document.getElementById("overlay").classList.remove("show-overlay");
 }
 
+// admin section
 function toggleAdmin(){
     document.getElementById("subMenu").classList.toggle("show-admin");
 }

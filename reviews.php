@@ -1,6 +1,8 @@
 <?php
-ini_set('display_errors', 1);
 error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+session_start();
 
 // connect to database
 $db_host = "localhost";
@@ -15,12 +17,69 @@ try {
         $db_pass
     );
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    $stmt = $db->query("SELECT * FROM users");
-    $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 } catch (PDOException $e) {
-    die("Database error: " . $e->getMessage());
+    die("Database connection failed: " . $e->getMessage());
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    // add
+    if ($data['action'] === 'add') {
+
+        if (!isset($_SESSION['user_id'])) {
+            echo "not_logged_in";
+            exit();
+        }
+
+        $user_id = $_SESSION['user_id'];
+        $rating = $data['rating'];
+        $text = $data['text'];
+
+        $stmt = $db->prepare("INSERT INTO reviews (user_id, rating, text) VALUES (?, ?, ?)");
+        $stmt->execute([$user_id, $rating, $text]);
+
+        echo "success";
+        exit();
+    }
+
+    // delete
+    if ($data['action'] === 'delete') {
+
+        if (!isset($_SESSION['user_id'])) {
+            exit();
+        }
+
+        $review_id = $data['id'];
+        $user_id = $_SESSION['user_id'];
+
+        $stmt = $db->prepare("DELETE FROM reviews WHERE id=? AND user_id=?");
+        $stmt->execute([$review_id, $user_id]);
+
+        echo "deleted";
+        exit();
+    }
+}
+//get
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['reviews'])) {
+
+    $currentUser = $_SESSION['user_id'] ?? null;
+
+    $sql = "SELECT reviews.*, users.username 
+            FROM reviews 
+            JOIN users ON reviews.user_id = users.user_id
+            ORDER BY created_at DESC";
+
+    $stmt = $db->query($sql);
+    $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($reviews as &$row) {
+        $row['isOwner'] = ($currentUser == $row['user_id']);
+    }
+
+    echo json_encode($reviews);
+    exit();
 }
 ?>
 
@@ -29,17 +88,17 @@ try {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Accom4U</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reviews | Accom4U</title>
+
     <link rel="icon" type="image/png" href="images/A4U_logo.png">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <div class="overlay" id="overlay" onclick="closeMenu()"></div>
-
-    <header class="header">
+<header class="header">
 
         <div class="menu-icon" onclick="toggleMenu()">
             ☰
@@ -56,14 +115,14 @@ try {
 
                 <div class="submenu" id="subMenu">
                     <a href="processOrders.php">Process Orders</a>
-                    <a href="customers.php">Customer Management</a>
-                    <a href="inventory.php">Inventory Management</a>
-                    <a href="reports.php">Reports</a>
+                    <a href="customers.html">Customer Management</a>
+                    <a href="inventory.html">Inventory Management</a>
+                    <a href="reports.html">Reports</a>
                 </div>
-            </div>
-            <br>
-            <a href="logout.html">Logout</a>
         </div>
+        <br>
+        <a href="logout.html">Logout</a>
+    </div>
 
         <div class="logo-header">
             <img src="images/A4U_logo.png" class="logo" alt="logo">
@@ -72,11 +131,11 @@ try {
 
         <nav class="navibar">
             <ul>
-                <li><a href="reviews.html">Reviews</a></li>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="contact.php">Contact</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="reviews.php">Reviews</a></li>
             </ul>
         </nav>
 
@@ -87,63 +146,32 @@ try {
         <a id="loginLink" class="login" href="login.html"><b>Log In</b></a>
     </header>
 
-    <main class="admin-main">
 
-        <div class="admin-top-menu">
-            <a href="processOrders.php">Process Orders</a>
-            <a href="customers.php">Customer Management</a>
-            <a href="inventory.php">Inventory Management</a>
-            <a href="reports.php">Reports</a>
-        </div>
+<main class="reviews-page">
 
-        <br><br>
-        <h2 class="page-title">Customer Management</h2>
+    <h2>Customer Reviews</h2>
 
-        <div class="customer-controls">
-            <input type="text" id="searchInput" placeholder="Search customers..." class="search-bar">
-            <button class="add-btn" onclick="addCustomer()">+ Add Customer</button>
-        </div>
+    <div class="review-form">
 
-        <div class="table-container">
-        <table class="customer-table">
-            <thead>
-                <tr>
-                    <th>Customer ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+        <select id="review-rating">
+            <option value="5">⭐⭐⭐⭐⭐</option>
+            <option value="4">⭐⭐⭐⭐</option>
+            <option value="3">⭐⭐⭐</option>
+            <option value="2">⭐⭐</option>
+            <option value="1">⭐</option>
+        </select>
 
-            <tbody>
-                <?php foreach ($customers as $customer): ?>
-                    <tr>
-                        <td><?php echo $customer['user_id']; ?></td>
-                        <td><?php echo $customer['username']; ?></td>
-                        <td><?php echo $customer['email']; ?></td>
-                        <td>
-                            <select onchange="updateRole(<?php echo $customer['user_id']; ?>, this.value)">
-                                <option value="user" <?= $customer['role'] === 'user' ? 'selected' : '' ?>>User</option>
-                                <option value="admin" <?= $customer['role'] === 'admin' ? 'selected' : '' ?>>Admin</option>
-                            </select>
-                        </td>
-                        <td>
-                            <a href="viewCustomer.php?id=<?= $customer['user_id']; ?>">
-                                <button class="view-btn">View</button>
-                            </a>
-                            <button class="edit-btn" onclick="editCustomer(<?php echo $customer['user_id']; ?>)">Edit</button>
-                            <button class="delete-btn" onclick="deleteCustomer(<?php echo $customer['user_id']; ?>)">Delete</button>	
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        </div>
+        <textarea id="review-text" placeholder="Write your review"></textarea>
 
-    </main>
+        <button type="button" id="submit-review">Submit Review</button>
 
-    <footer class="footer">
+    </div>
+
+    <div id="reviews-display"></div>
+
+</main>
+
+<footer class="footer">
         <div class="footer-container">
 
         <div class="footer-column">
@@ -152,15 +180,15 @@ try {
 
             <div class="footer-column">
                 <h4>Quick Links</h4>
-                <a href="#">About Us</a>
-                <a href="#">Products</a>
+                <a href="aboutus.html">About Us</a>
+                <a href="products.html">Products</a>
                 <a href="#">FAQ</a>
                 <a href="#">Shipping Info</a>
             </div>
 
             <div class="footer-column">
                 <h4>Customer Service</h4>
-                <a href="#">Contact Us</a>
+                <a href="contact.html">Contact Us</a>
                 <a href="#">Returns</a>
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms & Conditions</a>
@@ -181,7 +209,7 @@ try {
             Copyright © 2025 - 2026 Accom4U. All Rights Reserved.
         </div>
     </footer>
- 
+
     <script>
         // login session
         document.addEventListener('DOMContentLoaded', async () => {
@@ -201,8 +229,8 @@ try {
         });
     </script>
 
-    <script src="js/sidemenu.js"></script>
-    <script src="js/customers.js"></script>
+<script src="js/reviews.js"></script>
+<script src="js/sidemenu.js"></script>
 
 </body>
 </html>
