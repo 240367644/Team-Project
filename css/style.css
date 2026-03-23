@@ -2225,3 +2225,52 @@ ul.breadcrumb li+li:before {
 .product-card:hover {
     transform: translateY(-5px);
 }
+
+/* Product Details (Reviews Section) */
+.reviews-divider {
+    margin: 40px 0;
+    border: 1px solid #eee;
+}
+
+.reviews-section {
+    padding: 20px 0;
+}
+
+/*Database reviews(saved reviews for products)*/
+.review-card-db {
+    margin-top: 20px;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    background: transparent;
+    box-shadow: none;
+}
+
+.review-card-db h3 {
+    margin-bottom: 5px;
+    color: #2a8bc7;
+}
+
+.review-card-db .review-date {
+    color: #888;
+    font-size: 13px;
+    display: block;
+}
+
+.review-card-db .review-stars {
+    color: #f5b301;
+    margin: 8px 0;
+}
+
+.review-card-db .review-text {
+    color: #555;
+}
+
+.no-reviews-text {
+    color: #666;
+    margin-top: 15px;
+    font-style: italic;
+}
+.error-msg {
+    color: red;
+}
+

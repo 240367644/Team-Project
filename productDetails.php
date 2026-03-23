@@ -129,6 +129,52 @@ if (!$product) {
                     </div>
                 </div>
             </div>
+            <hr class="reviews-divider">
+            <div class="reviews-section">
+                <h2>Customer Reviews</h2>
+                <div class="review-form">
+                    <input type="text" id="review-name" placeholder="Your name">
+                    <select id="review-rating">
+                        <option value="5">⭐⭐⭐⭐⭐</option>
+                        <option value="4">⭐⭐⭐⭐</option>
+                        <option value="3">⭐⭐⭐</option>
+                        <option value="2">⭐⭐</option>
+                        <option value="1">⭐</option>
+                    </select>
+                    <textarea id="review-text" placeholder="Write your review"></textarea>
+                    <button id="submit-review" data-product-id="<?php echo $product['id']; 
+                    ?>">Submit Review</button>
+                </div>
+                <div id="database-reviews">
+                        <?php
+                        try {
+                            $dbReview = new PDO("mysql:host=localhost;dbname=cs2team49_login_system;charset=utf8", "cs2team49", "TxxB1oKh6zkcPBjuycWZvO8oz");
+                            $reviewStmt = $dbReview->prepare("SELECT * FROM reviews WHERE product_id = ? ORDER BY created_at DESC");
+                            $reviewStmt->execute([$product['id']]);
+                            $product_reviews = $reviewStmt->fetchAll(PDO::FETCH_ASSOC);
+                            if (count($product_reviews) > 0) {
+                                foreach ($product_reviews as $rev) {
+                                    $stars = str_repeat("⭐", $rev['rating']);
+                                    $date = date("F j, Y", strtotime($rev['created_at']));
+                                    $name = !empty($rev['reviewer_name']) ?
+                                    htmlspecialchars($rev['reviewer_name']) : "Anonymous";
+
+                                    echo '<div class="review-card-db">';
+                                    echo '    <h3>' . $name . '</h3>';
+                                    echo '    <span class="review-date">' . $date . '</span>';
+                                    echo '    <p class="review-stars">' . $stars . '</p>';
+                                    echo '    <p class="review-text">' . htmlspecialchars($rev['text']) . '</p>';
+                                    echo '</div>';
+                                }
+                            } else {
+                                echo '<p class="no-reviews-text">No reviews yet. Be the first to review this product!</p>';
+                            }
+                        } catch (PDOException $e) {
+                            echo '<p class="error-msg">Error loading reviews.</p>';
+                        }
+                        ?>   
+                </div>
+            </div>
 
         </main>
 
@@ -214,5 +260,6 @@ if (!$product) {
     </script>
 
     <script src="js/sidemenu.js"></script>
+    <script src="js/reviews.js"></script> 
     </body>
 </html>

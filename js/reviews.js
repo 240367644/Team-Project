@@ -1,70 +1,45 @@
-let reviewFormBtn = document.getElementById("submit-review");
-let reviewsDisplay = document.getElementById("reviews-display");
+document.addEventListener("DOMContentLoaded", () => {
+    let reviewFormBtn = document.getElementById("submit-review");
 
-let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+    if (reviewFormBtn) {
+        reviewFormBtn.addEventListener("click", async () => {
 
-displayReviews();
+            let name = document.getElementById("review-name").value;
+            let rating = document.getElementById("review-rating").value;
+            let text = document.getElementById("review-text").value;
 
-reviewFormBtn.addEventListener("click", () => {
+            // This is where we mathematically grab the PHP ID that we stored in the button!
+            let productId = reviewFormBtn.getAttribute("data-product-id");
 
-    let name = document.getElementById("review-name").value;
-    let rating = document.getElementById("review-rating").value;
-    let text = document.getElementById("review-text").value;
+            if (name === "" || text === "") {
+                alert("Please fill in your name and review text");
+                return;
+            }
 
-    if(name === "" || text === ""){
-        alert("Please fill in all fields");
-        return;
+            let formData = new FormData();
+            formData.append("product_id", productId);
+            formData.append("reviewer_name", name);
+            formData.append("rating", rating);
+            formData.append("text", text);
+
+            try {
+                let response = await fetch("submit_review.php", {
+                    method: "POST",
+                    body: formData
+                });
+
+                let data = await response.json();
+
+                if (data.status === "success") {
+                    alert("Review submitted!");
+                    location.reload();
+                } else {
+                    alert("Error: " + data.message);
+                }
+            } catch (error) {
+                console.error("Error submitting review:", error);
+                alert("Network error occurred.");
+            }
+        });
     }
-
-    let newReview = {
-        name: name,
-        rating: rating,
-        text: text
-    };
-
-    reviews.push(newReview);
-
-    localStorage.setItem("reviews", JSON.stringify(reviews));
-
-    displayReviews();
-
-    document.getElementById("review-name").value = "";
-    document.getElementById("review-text").value = "";
-
 });
-
-
-function displayReviews(){
-
-    reviewsDisplay.innerHTML = "";
-
-    reviews.forEach(review => {
-
-        let reviewCard = document.createElement("div");
-        reviewCard.classList.add("review-card");
-
-        reviewCard.innerHTML = `
-        <h3>${review.name}</h3>
-        <p class="review-stars">${"⭐".repeat(review.rating)}</p>
-        <p>${review.text}</p>
-        `;
-
-        reviewsDisplay.appendChild(reviewCard);
-
-    });
-
-}
-
-// on homepage
-
-function scrollReviews(direction) {
-    const container = document.getElementById("reviewsContainer");
-    const scrollAmount = 300;
-    container.scrollLeft += direction * scrollAmount;
-}
-
-function scrollCategories(direction) {
-    const container = document.getElementById("categoryScroll");
-    const scrollAmount = 400;
-    container.scrollLeft += direction * scrollAmount;
-}
