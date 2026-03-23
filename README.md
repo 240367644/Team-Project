@@ -12,7 +12,7 @@ Accom4U is an e-commerce website designed to provide an easy way for students to
 - Wishlist
 - Reviews
 - Profile
-- Returns
+- My orders
 
 ## Deployed Website
 Link: https://cs2team49.cs2410-web01pvm.aston.ac.uk/index.html
