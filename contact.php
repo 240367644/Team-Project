@@ -1,3 +1,44 @@
+<?php
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $db_host = "localhost";
+    $db_name = "cs2team49_login_system";
+    $db_user = "cs2team49";
+    $db_pass = "TxxB1oKh6zkcPBjuycWZvO8oz";
+
+    try {
+        $db = new PDO(
+            "mysql:host=$db_host;dbname=$db_name;charset=utf8",
+            $db_user,
+            $db_pass
+        );
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+        die("Database error: " . $e->getMessage());
+    }
+
+    $user_id = $_SESSION['user_id'] ?? null;
+
+    $name = $_POST['name'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $message = $_POST['message'] ?? '';
+
+    if (!empty($name) && !empty($email) && !empty($message)) {
+
+        $stmt = $db->prepare("
+            INSERT INTO contact_messages (user_id, name, email, message)
+            VALUES (?, ?, ?, ?)
+        ");
+
+        $stmt->execute([$user_id, $name, $email, $message]);
+
+        echo "<script>alert('Message sent!');</script>";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -66,7 +107,7 @@
                 <img src="images/contact_image.jpg" width="30%" height="30%" alt="">
             </div>
 
-            <form action="" class="contact-right">
+            <form method="POST" class="contact-right">
                 <div class="contact-right-title">
                     <h2>Get in Touch</h2>
                     <hr>
@@ -164,35 +205,6 @@
         }
 
         window.addEventListener("DOMContentLoaded", fetchUserInfo);
-
-        // Validate username and email before form submission
-        document.querySelector('.contact-right').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const username = document.getElementById('contactName').value.trim();
-            const email = document.getElementById('contactEmail').value.trim();
-
-            try {
-                const res = await fetch('database_setup.php?path=validateContactForm', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, email }),
-                    credentials: "include"
-                });
-
-                const data = await res.json();
-
-                if (data.status === 'success') {
-                    alert('Form submitted successfully!');
-                    this.submit(); // Submit the form after validation
-                } else {
-                    alert(data.message);
-                }
-            } catch (err) {
-                console.error(err);
-                alert('Error validating user info.');
-            }
-        });
     </script>
 
     <script src="js/sidemenu.js"></script>
