@@ -84,7 +84,19 @@
         </div>
 
         <div class="product-controls">
-            <input type="text" placeholder="Search products..." class="search-bar">
+            <div class="search-filter-container">
+                <input type="text" placeholder="Search product" class="search-bar" id="searchInput">
+                <select class="filter-dropdown" id="categoryFilter">
+                    <option value="">All categories</option>
+                </select>
+                <select class="filter-dropdown" id="statusFilter">
+                    <option value="">All statuses</option>
+                    <option value="in stock">In Stock</option>
+                    <option value="low stock">Low Stock</option>
+                    <option value="out of stock">Out of Stock</option>
+                </select>
+                <button class="filter-btn" id="filterBtn">Filter</button>
+            </div>
             <button class="add-product">+ Add Product</button>
         </div>
 

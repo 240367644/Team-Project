@@ -1630,11 +1630,57 @@ justify-content:space-between;
 margin-bottom:20px;
 }
 
-.search-bar {
-padding:8px 12px;
-width:250px;
-border:1px solid #ccc;
-border-radius:6px;
+.search-filter-container {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.search-filter-container .search-bar {
+    padding: 10px 16px;
+    width: 220px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    background: #f8f9fa;
+    outline: none;
+    font-size: 14px;
+}
+
+.filter-dropdown {
+    padding: 10px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    background: #f8f9fa;
+    outline: none;
+    cursor: pointer;
+    color: #555;
+    font-size: 14px;
+    appearance: none;
+    padding-right: 36px;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23777' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 14px;
+}
+
+.filter-dropdown:hover, .search-filter-container .search-bar:hover {
+    border-color: #bbb;
+}
+
+.filter-btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 20px;
+    background: #111827;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.filter-btn:hover {
+    background: #333;
 }
 
 .add-product {
