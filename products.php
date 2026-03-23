@@ -56,7 +56,7 @@ try {
                 <div class="submenu" id="subMenu">
                     <a href="processOrders.html">Process Orders</a>
                     <a href="customers.html">Customer Management</a>
-                    <a href="inventory.html">Inventory Management</a>
+                    <a href="inventory.php">Inventory Management</a>
                     <a href="reports.html">Reports</a>
                 </div>
                 </div>

@@ -31,7 +31,7 @@
                 <div class="submenu" id="subMenu">
                     <a href="processOrders.html">Process Orders</a>
                     <a href="customers.html">Customer Management</a>
-                    <a href="inventory.html">Inventory Management</a>
+                    <a href="inventory.php">Inventory Management</a>
                     <a href="reports.html">Reports</a>
                 </div>
                 </div>
@@ -65,7 +65,7 @@
         <div class="admin-top-menu">
             <a href="processOrders.html">Process Orders</a>
             <a href="customers.html">Customer Management</a>
-            <a href="inventory.html">Inventory Management</a>
+            <a href="inventory.php">Inventory Management</a>
             <a href="reports.html">Reports</a>
         </div>
 
@@ -102,55 +102,47 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-
+            
                 <tbody>
-                    <tr>
-                        <td>P001</td>
-                        <td>Desk Lamp</td>
-                        <td>Lighting</td>
-                        <td>£24.99</td>
-                        <td>53</td>
-                        <td class="in-stock">In Stock</td>
-                        <td>
-                            <button class="view-btn">View</button>
-                            <button class="edit-btn">Edit</button>
-                            <button class="stock-btn">Update Stock</button>
-                            <button class="restock-btn">Restock</button>
-                            <button class="delete-btn">Delete</button>
-                        </td>
-                    </tr>
+                    <?php
+                    //this block of php code dynamically gets data from the database and displays it in the table    
+                    $db=new PDO("mysql:host=localhost;dbname=cs2team49_product", "cs2team49", "TxxB1oKh6zkcPBjuycWZvO8oz");
 
-                    <tr>
-                        <td>P002</td>
-                        <td>Office Chair</td>
-                        <td>Furniture</td>
-                        <td>£89.99</td>
-                        <td>9</td>
-                        <td class="low-stock">Low Stock</td>
-                        <td>
-                            <button class="view-btn">View</button>
-                            <button class="edit-btn">Edit</button>
-                            <button class="stock-btn">Update Stock</button>
-                            <button class="restock-btn">Restock</button>
-                            <button class="delete-btn">Delete</button>
-                        </td>
-                    </tr>
+                    $stmt=$db->query("SELECT * FROM products");
+                     
+                    //this while loop goes through products in database
+                    //and checks the stock level and labels them.
+                    while($product=$stmt->fetch(PDO::FETCH_ASSOC)){
+                        $qty=$product['stock'];
 
-                    <tr>
-                        <td>P003</td>
-                        <td>Notebook Set</td>
-                        <td>Stationery</td>
-                        <td>£12.50</td>
-                        <td>0</td>
-                        <td class="out-stock">Out of Stock</td>
-                        <td>
-                            <button class="view-btn">View</button>
-                            <button class="edit-btn">Edit</button>
-                            <button class="stock-btn">Update Stock</button>
-                            <button class="restock-btn">Restock</button>
-                            <button class="delete-btn">Delete</button>
-                        </td>
-                    </tr>
+                        if($qty<=0){
+                            $statusClass="out-stock";
+                            $statusText= "Out of Stock";
+                        } elseif($qty<=10){
+                            $statusClass="low-stock";
+                            $statusText= "Low Stock";
+                        } else{
+                            $statusClass="in-stock";
+                            $statusText= "In Stock";    
+                        }
+                        echo '<tr class="'.$statusClass.'-row">'; //this creates a table row
+                        echo '<td>' . htmlspecialchars($product['id']) . '</td>';//displays product id
+                        echo '<td>' . htmlspecialchars($product['name']) . '</td>';//displays product name
+                        echo '<td>' . htmlspecialchars($product['category']) . '</td>';//displays product category
+                        echo '<td>£' . number_format($product['price'],2) . '</td>';//displays price
+                        echo '<td>' . htmlspecialchars($qty) . '</td>';//displays stock
+                        echo '<td class="' . $statusClass . '">' . $statusText . '</td>';//display stock status
+                        echo '<td>';
+                        echo '<button class="view-btn">View</button>';
+                        echo '<button class="edit-btn">Edit</button>';
+                        echo '<button class="stock-btn">Update Stock</button>';
+                        echo '<button class="restock-btn">Restock</button>';
+                        echo '<button class="delete-btn">Delete</button>';
+                        echo '</td>';
+                        echo '</tr>';
+                    }
+        
+                    ?>
                 </tbody>
             </table>
         </div>
