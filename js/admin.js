@@ -1,17 +1,10 @@
 // INVENTORY
-<<<<<<< Updated upstream
-// view button
-const viewButtons = document.querySelectorAll(".view-btn");
-const productModal = document.querySelector(".product-view-modal");
-const closeView = document.querySelector(".close-view");
-=======
 
 // the view button
 const viewButtons=document.querySelectorAll(".view-btn");
 const productModal=document.querySelector(".product-view-modal");
 const closeView=document.querySelector(".close-view");
 
->>>>>>> Stashed changes
 
 viewButtons.forEach(button => {
     button.onclick = () => {
