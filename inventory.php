@@ -193,16 +193,23 @@
             <button class="cancel-restock">Cancel</button>
         </div>
             
-        <div class="product-edit-modal" id="editModal" style="display:none;">
-            <h3>Edit Product</h3>
+        <div class="product-edit-modal" style="display:none;"><h3>Edit Product</h3>
+            
             <input type="hidden" id="edit-id">
+            
             <label>Product Name</label>
-            <input type="text" id="edit-name">
+            <input type="text" id="edit-name" placeholder="Enter product Name">
             <label>Category</label>
-            <input type="text" id="edit-category">
-            <label>Price (£)</label>
-            <input type="number" step="0.01" id="edit-price">
-            <label>Stock</label><input type="number" id="edit-stock">
+            <input type="text" id="edit-category" placeholder="Enter product Category">
+            <label>Price</label>
+            <input type="number" id="edit-price" placeholder="Enter price">
+            <label>Stock Level</label>
+            <input type="number" id="edit-stock" placeholder="Enter stock level">
+            <label>Description</label>
+            <input type="text" id="edit-description" placeholder="Enter a short description of product">
+            <label>Product Image</label>
+            <input type="file">
+            
             <button id="saveEdit">Save Changes</button>
             <button id="closeEdit">Cancel</button>
         </div>    
